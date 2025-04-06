@@ -1,0 +1,39 @@
+name: Deploy Portfolio to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain 🦀
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-pack 📦
+        run: cargo install wasm-pack
+
+      - name: Install trunk 📦
+        run: cargo install --locked trunk
+
+      - name: Build 🔧
+        # The --public-url needs to be set to the repository name for GitHub Pages
+        # If your repo is <username>.github.io, remove the repository name part.
+        # e.g., if repo is 'my-portfolio', use '/my-portfolio/'
+        # If repo is 'beratcano.github.io', use '/'
+        run: cd my-portfolio && trunk build --release --public-url /
+
+      - name: Deploy 🚀
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./my-portfolio/dist # The output directory from trunk build
+          # By default, this action pushes to the `gh-pages` branch.
+          # You might need to configure GitHub Pages to deploy from this branch.
