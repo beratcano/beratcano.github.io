@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Determine base path for includes (handles subdirectories)
     // Assumes include files are always at the root level in _includes
-    const isSubPage = window.location.pathname.split('/').length > 2 && window.location.pathname.endsWith('/');
+    const pathParts = window.location.pathname.split('/').filter(part => part !== ''); // Split and remove empty parts
+    const isSubPage = pathParts.length > 0; // Any path part means it's not the root index.html
     const basePath = isSubPage ? '../' : './'; 
 
     // Include header and footer
