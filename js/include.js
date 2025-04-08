@@ -23,11 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Determine base path for includes (handles subdirectories)
     // Assumes include files are always at the root level in _includes
-    const pathParts = window.location.pathname.split('/').filter(part => part !== ''); // Split and remove empty parts
-    const isSubPage = pathParts.length > 0; // Any path part means it's not the root index.html
+    const isSubPage = window.location.pathname.split('/').length > 2 && window.location.pathname.endsWith('/');
     const basePath = isSubPage ? '../' : './'; 
 
     // Include header and footer
-    includeHTML('header-placeholder', basePath + '_includes/header.html');
-    includeHTML('footer-placeholder', basePath + '_includes/footer.html');
+    includeHTML('header-placeholder', basePath + 'includes/header.html');
+    includeHTML('footer-placeholder', basePath + 'includes/footer.html');
 }); 
