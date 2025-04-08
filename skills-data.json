@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Photoshop",
+    "category": "Design",
+    "mastery": 5.5, 
+    "context": -6 
+  },
+  {
+    "name": "Python",
+    "category": ["Object Oriented Programming",
+                "Backend", 
+                "Machine Learning"],
+    "mastery": 4,
+    "context": 5 
+  },
+  {
+    "name": "Illustrator",
+    "category": "Design",
+    "mastery": 2.3, 
+    "context": 7 
+  },
+  {
+    "name": "Figma",
+    "category": "Design",
+    "mastery": 1, 
+    "context": 5 
+  },
+  {
+    "name": "C#",
+    "category": ["Backend", "Object Oriented Programming"],
+    "mastery": -4, 
+    "context": -4.6 
+  },
+  {
+    "name": "Django",
+    "category": "Backend",
+    "mastery": -7,
+    "context": -3.5 
+  },
+  {
+    "name": "DevOps Concepts",
+    "category": "DevOps",
+    "mastery": -7, 
+    "context": 6 
+  },
+  {
+    "name": "Cloud Engineering",
+    "category": "DevOps",
+    "mastery": -8, 
+    "context": -4 
+  },
+  {
+    "name": "UI/UX Design",
+    "category": ["Design", "Frontend"],
+    "mastery": -6, 
+    "context": -4 
+  },
+  {
+    "name": "Rust",
+    "category": ["Backend", "Object Oriented Programming"],
+    "mastery": -8, 
+    "context": 9
+  },
+  {
+    "name": "Docker",
+    "category": "DevOps",
+    "mastery": -5,
+    "context": 2 
+  }
+] 

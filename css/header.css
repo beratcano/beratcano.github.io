@@ -1,0 +1,105 @@
+/* Header - Abstract */
+header {
+    background: rgba(255, 255, 255, 0.85); /* More transparent */
+    backdrop-filter: blur(3px); /* Re-add subtle blur */
+    -webkit-backdrop-filter: blur(3px);
+    color: var(--light-text);
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-bottom: 1px dashed var(--border-color); /* Dashed black border */
+    box-shadow: none;
+}
+
+nav {
+    width: fit-content; /* Don't let nav stretch full width */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+/* Style the slashes */
+nav ul li::before,
+nav ul li:last-child::after {
+    content: '//';
+    color: var(--sharp-accent); /* Cyan Slashes */
+    font-family: var(--inter-font);
+    font-weight: 700; /* Bolder Slashes */
+    font-size: 0.9em;
+    padding-right: 0.75em;
+    padding-left: 0.75em;
+    /* Removed positioning */
+}
+
+/* Only add left padding to the last item's slash */
+nav ul li:last-child::after {
+    padding-right: 0; 
+}
+/* Only add right padding to the first item's slash */
+nav ul li:first-child::before {
+     padding-left: 0;
+}
+
+/* Remove the general ::after rule placeholder */
+/* nav ul li::after { ... } */
+
+nav ul li a {
+    color: var(--light-text);
+    text-decoration: none;
+    padding: 0.3rem 0.2em; /* Reduced padding between link and slashes */
+    transition: color 0.2s ease, transform 0.2s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-size: 1rem;
+    display: inline-block;
+    border-bottom: none;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    color: var(--accent-color);
+    border-bottom: none;
+    transform: skewX(-5deg); /* Skew text slightly on hover */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    header {
+        padding: 0.75rem 1rem; /* Reduce horizontal padding */
+    }
+
+    nav ul li::before,
+    nav ul li:last-child::after {
+        font-size: 0.8em; /* Slightly smaller slashes */
+        padding-right: 0.5em; /* Less space */
+        padding-left: 0.5em;
+    }
+    
+    /* Adjust padding overrides for first/last */
+    nav ul li:last-child::after {
+        padding-right: 0; 
+    }
+    nav ul li:first-child::before {
+         padding-left: 0;
+    }
+
+    nav ul li a {
+        font-size: 0.9rem; /* Smaller nav links */
+        padding: 0.3rem 0.1em; /* Reduce padding significantly */
+        letter-spacing: 0.25px; /* Tighten spacing */
+    }
+}

@@ -4,44 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skills - Beratcan Özkan</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 </head>
 <body>
 
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/skills/">Skills</a></li>
-                <li><a href="/portfolio/">Portfolio</a></li>
-                <li><a href="/contact/">Contact</a></li>
-            </ul>
-        </nav>
+    <header id="header-placeholder">
+        <!-- Content will be loaded by JS -->
     </header>
 
     <main>
         <section id="skills">
-            <h2>Skills & Interests</h2>
-            
-            <h3>Design</h3>
-            <ul>
-                <li>Tools: Photoshop</li>
-                <!-- Add more design skills/interests later -->
-            </ul>
+            <h2>Skills Compass</h2>
 
-            <h3>Development</h3>
-            <ul>
-                <li>Languages: Python (Familiar)</li>
-                <li>Frameworks: Django (Experimented with)</li>
-                <li>Learning: DevOps, Cloud Engineering</li>
-                 <!-- Add more dev skills/interests later -->
-            </ul>
+            <div id="skill-filters" class="skill-filters-container"></div>
+
+            <div class="skill-compass-chart-container">
+                <!-- Axes -->
+                <div class="axis x-axis"></div>
+                <div class="axis y-axis"></div>
+                <!-- Axis Labels -->
+                <div class="axis-label x-label-left">Learning</div>
+                <div class="axis-label x-label-right">Proficient</div>
+                <div class="axis-label y-label-top">Personal Projects</div>
+                <div class="axis-label y-label-bottom">Work/School Projects</div>
+
+                <!-- Skill points will be added here by JavaScript -->
+
+            </div> <!-- end skill-compass-chart -->
+
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Beratcan Özkan</p>
+    <footer id="footer-placeholder">
+        <!-- Content will be loaded by JS -->
     </footer>
 
+    <script src="../js/include.js"></script>
+    <script src="../js/skills-chart.js"></script>
 </body>
 </html> 

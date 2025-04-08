@@ -1,0 +1,122 @@
+# YAML Description for the "Skill Compass" Chart
+
+# 1. Metadata
+metadata:
+  chart_name: Skill Compass
+  version: 1.0
+  date_created: 2025-04-07 # As of the current interaction date
+  authors:
+    - User Request
+    - AI Assistant (Gemini)
+  description: |
+    A YAML definition file outlining the structure, axes, interpretation,
+    and conceptual basis for the 'Skill Compass' visualization,
+    designed to map skills based on mastery and experience context.
+  intended_use: |
+    Guidance for AI models (like those using MCP - Metacognitive Prompting),
+    developers, or designers to understand or implement the Skill Compass chart.
+
+# 2. Core Concept
+concept:
+  name: Skill Compass
+  analogy: Political Compass Chart
+  core_idea: |
+    To visually plot individual skills on a two-dimensional grid,
+    where each axis represents a different aspect of the skill's
+    relationship to the individual (mastery and context).
+
+# 3. Purpose
+purpose:
+  primary: |
+    Provide a creative, visual, and informative representation of an
+    individual's skill set for portfolios, resumes, or personal tracking.
+  secondary: |
+    Allow viewers to quickly grasp not only the proficiency level but also
+    the primary environment (e.g., freelance vs. formal employment)
+    where skills have been applied or developed.
+
+# 4. Chart Structure
+structure:
+  type: 2D Cartesian Plane / Scatter Plot
+  layout: Four Quadrants defined by intersecting X and Y axes at origin (0,0).
+  axes:
+    x_axis:
+      id: mastery
+      label: Skill Mastery
+      orientation: Horizontal
+      scale_type: Continuous Spectrum # Conceptually, can be mapped to numerical range e.g., -1 to +1
+      endpoint_left:
+        label: Learning
+        value_description: Represents skills currently being learned, less familiar, or at a beginner/intermediate stage.
+        conceptual_value: Low / Negative (e.g., -1)
+      endpoint_right:
+        label: Proficient
+        value_description: Represents skills well-understood, frequently used, or at an advanced/expert stage.
+        conceptual_value: High / Positive (e.g., +1)
+      origin_meaning: Mid-point proficiency, intermediate level, or basic competence.
+
+    y_axis:
+      id: context
+      label: Experience Context
+      orientation: Vertical
+      scale_type: Continuous Spectrum # Conceptually, can be mapped to numerical range e.g., -1 to +1
+      endpoint_top:
+        label: Freelance
+        value_description: Skills primarily gained, utilized, or developed in freelance projects, personal initiatives, or independent work settings.
+        conceptual_value: High / Positive (e.g., +1)
+      endpoint_bottom:
+        label: Work Experience
+        value_description: Skills primarily gained, utilized, or developed within formal employment structures, team-based corporate environments.
+        conceptual_value: Low / Negative (e.g., -1)
+      origin_meaning: Neutral context, skill applied equally/significantly in both freelance and work settings, or context is mixed/irrelevant.
+
+  quadrants:
+    - id: top_left
+      x_range: Negative (Learning)
+      y_range: Positive (Freelance)
+      description: Skills being learned, primarily in freelance/independent contexts.
+    - id: top_right
+      x_range: Positive (Proficient)
+      y_range: Positive (Freelance)
+      description: Proficient skills, primarily used in freelance/independent contexts.
+    - id: bottom_left
+      x_range: Negative (Learning)
+      y_range: Negative (Work Experience)
+      description: Skills being learned, primarily within formal work experience.
+    - id: bottom_right
+      x_range: Positive (Proficient)
+      y_range: Negative (Work Experience)
+      description: Proficient skills, primarily used within formal work experience.
+
+# 5. Data Representation
+data:
+  points:
+    type: Individual Skills
+    examples: [ 'Python', 'AWS', 'Photoshop', 'Project Management', 'React' ]
+  plotting_method:
+    description: |
+      Each skill is represented as a point (e.g., dot, icon, logo) placed
+      within the chart grid based on a subjective or objective assessment
+      of its position along the Mastery (X) and Context (Y) axes.
+    coordinate_assignment: |
+      Assign conceptual coordinates (e.g., Mastery score from -1 to +1,
+      Context score from -1 to +1) to each skill to determine its plot position.
+
+# 6. Interpretation Guide
+interpretation:
+  general: |
+    The location of a skill provides a quick visual summary of both the
+    individual's confidence/expertise level (horizontal position) and the
+    primary domain of application/experience (vertical position).
+  reading_the_axes:
+    horizontal: Further right = more proficient. Further left = still learning.
+    vertical: Higher = more freelance/independent context. Lower = more formal work experience context.
+  quadrant_meaning: Each quadrant combines the interpretations of its corresponding axis segments.
+  central_placement: Points near the origin indicate intermediate mastery and/or balanced context application.
+
+# 7. Potential Enhancements / Variations (Optional)
+enhancements:
+  - Use technology logos/icons instead of simple points.
+  - Add interactivity (hover effects to show skill details).
+  - Include a third dimension (e.g., size of the point for frequency of use or project impact).
+  - Refine axis labels (e.g., 'Independent Projects' instead of 'Freelance', or specific proficiency levels like 'Beginner', 'Advanced', 'Expert').
