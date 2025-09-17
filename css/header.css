@@ -1,21 +1,18 @@
-/* Header - Abstract */
+/* Header - Abstract Dark */
 header {
-    background: rgba(255, 255, 255, 0.85); /* More transparent */
-    backdrop-filter: blur(3px); /* Re-add subtle blur */
-    -webkit-backdrop-filter: blur(3px);
-    color: var(--light-text);
+    background: transparent;
+    color: var(--text-color);
     padding: 1rem 2rem;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
-    border-bottom: 1px dashed var(--border-color); /* Dashed black border */
-    box-shadow: none;
+    border-bottom: 1px solid var(--border-color);
 }
 
 nav {
-    width: fit-content; /* Don't let nav stretch full width */
+    width: fit-content;
 }
 
 nav ul {
@@ -32,36 +29,29 @@ nav ul li {
     position: relative;
 }
 
-/* Style the slashes */
 nav ul li::before,
 nav ul li:last-child::after {
     content: '//';
-    color: var(--sharp-accent); /* Cyan Slashes */
-    font-family: var(--inter-font);
-    font-weight: 700; /* Bolder Slashes */
+    color: var(--accent-color);
+    font-family: var(--mono-font);
+    font-weight: 400;
     font-size: 0.9em;
     padding-right: 0.75em;
     padding-left: 0.75em;
-    /* Removed positioning */
 }
 
-/* Only add left padding to the last item's slash */
 nav ul li:last-child::after {
-    padding-right: 0; 
+    padding-right: 0;
 }
-/* Only add right padding to the first item's slash */
 nav ul li:first-child::before {
      padding-left: 0;
 }
 
-/* Remove the general ::after rule placeholder */
-/* nav ul li::after { ... } */
-
 nav ul li a {
-    color: var(--light-text);
+    color: var(--text-color);
     text-decoration: none;
-    padding: 0.3rem 0.2em; /* Reduced padding between link and slashes */
-    transition: color 0.2s ease, transform 0.2s ease;
+    padding: 0.3rem 0.2em;
+    transition: color 0.2s ease, background-color 0.2s ease;
     font-weight: 500;
     letter-spacing: 0.5px;
     font-size: 1rem;
@@ -71,35 +61,32 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a:focus {
-    color: var(--accent-color);
-    border-bottom: none;
-    transform: skewX(-5deg); /* Skew text slightly on hover */
+    color: var(--bg-color);
+    background-color: var(--accent-color);
 }
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
     header {
-        padding: 0.75rem 1rem; /* Reduce horizontal padding */
+        padding: 0.75rem 1rem;
     }
 
     nav ul li::before,
     nav ul li:last-child::after {
-        font-size: 0.8em; /* Slightly smaller slashes */
-        padding-right: 0.5em; /* Less space */
+        font-size: 0.8em;
+        padding-right: 0.5em;
         padding-left: 0.5em;
     }
-    
-    /* Adjust padding overrides for first/last */
+
     nav ul li:last-child::after {
-        padding-right: 0; 
+        padding-right: 0;
     }
     nav ul li:first-child::before {
          padding-left: 0;
     }
 
     nav ul li a {
-        font-size: 0.9rem; /* Smaller nav links */
-        padding: 0.3rem 0.1em; /* Reduce padding significantly */
-        letter-spacing: 0.25px; /* Tighten spacing */
+        font-size: 0.9rem;
+        padding: 0.3rem 0.1em;
+        letter-spacing: 0.25px;
     }
 }

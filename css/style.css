@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&family=IBM+Plex+Mono:wght@400;700&family=Playfair+Display:ital,wght@1,400&display=swap');
 
-/* Color Palette Variables - Extraordinary Abstract */
+/* New Abstract Dark Theme */
 :root {
-    --bg-color: #FFFFFF;
-    --text-color: #000000;
-    --header-bg: #FFFFFF;
-    --accent-color: #333333; /* Dark grey */
-    --border-color: #000000; /* Black borders */
+    --bg-color: #0A0A0A;
+    --text-color: #E0E0E0;
+    --header-bg: transparent;
+    --accent-color: #00FFFF; /* Cyan accent */
+    --border-color: #333333;
     --light-text: var(--text-color);
-    --sharp-accent: #00FFFF; /* Cyan */
+    --sharp-accent: var(--accent-color);
     --mono-font: 'IBM Plex Mono', monospace;
     --serif-font: 'Playfair Display', serif;
     --inter-font: 'Inter', sans-serif;
@@ -21,7 +21,7 @@
     padding: 0;
 }
 html, body {
-    height: 100%; /* Needed for some positioning later */
+    height: 100%;
 }
 body {
     font-family: var(--inter-font);
@@ -29,245 +29,117 @@ body {
     line-height: 1.7;
     color: var(--text-color);
     background-color: var(--bg-color);
-    padding-top: 80px; /* Increased padding to match taller header */
+    padding-top: 80px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
 }
 
-/* Use very light weight by default */
+/* Typography */
 p, li {
     font-weight: 100;
     font-size: 1.1rem;
-    max-width: 65ch; /* Limit paragraph width for readability */
+    max-width: 65ch;
 }
 
 strong { font-weight: 700; }
 em { font-family: var(--serif-font); font-style: italic; font-weight: 400; }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--inter-font);
-    font-weight: 900; /* Black weight */
+    font-family: var(--mono-font);
+    font-weight: 700;
     margin-bottom: 1em;
     color: var(--text-color);
     line-height: 1.1;
-    letter-spacing: -0.5px; /* Tighten spacing */
-    position: relative;
-}
-
-h2 {
-    font-size: clamp(2.5rem, 8vw, 5rem); /* Responsive font size */
-    text-shadow: none; /* Remove glitch */
-    transform: rotate(-2deg) translateX(-10px); /* Rotate and offset */
-    margin-bottom: 2rem;
-    display: inline-block; /* Allow rotation */
-}
-h2::after {
-    content: '';
-    display: block;
-    width: 50%;
-    height: 3px;
-    background: var(--border-color);
-    margin-top: 0.5rem;
-    transform: translateX(10px);
-}
-
-h3 {
-    font-family: var(--mono-font);
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-transform: none; /* Remove uppercase */
-    letter-spacing: 0.5px;
-    color: var(--accent-color);
-    margin-bottom: 1.5rem;
-}
-
-/* Main Content Area - Use Grid for potential overlap/asymmetry */
-main {
-    max-width: 1100px; /* Allow more space */
-    margin: 4rem auto 6rem auto; /* Adjust vertical */
-    padding: 0 3rem; /* More horizontal padding */
-    display: grid;
-    grid-template-columns: repeat(12, 1fr); /* 12 column grid */
-    gap: 2rem 1rem; /* Row and column gap */
-    width: 100%;
-    flex-grow: 1; /* Allow main to fill space if body is flex */
-}
-
-/* Section Styling - Span grid columns, border as lines */
-section {
-    background: none;
-    margin-bottom: 0; /* Grid gap handles spacing */
-    padding: 2rem 1rem; /* Adjust padding */
-    border: none;
-    border-top: 2px solid var(--border-color); /* Thicker black line */
-    position: relative;
-    grid-column: 2 / span 10; /* Default span, leaves space on sides */
-}
-
-/* Example of spanning differently */
-/* #about {
-    grid-column: 1 / span 7;
-} */
-
-section::before, section::after {
-    content: none; /* Remove previous pseudo lines */
-}
-
-section:first-of-type {
-    border-top: none;
-    padding-top: 0;
-}
-
-section h2 {
-    color: var(--text-color);
-    margin-bottom: 2rem; /* More space after heading */
-    padding-bottom: 0; /* No padding needed below */
-    border-bottom: none; /* Remove border below heading */
-}
-
-section h3 {
-    color: var(--text-color);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
-}
-
-/* List Styling - Abstracted (Apply only within main content) */
-main ul {
-    list-style: none;
-    margin-left: 1rem; /* Indent list block */
-    margin-bottom: 1.5rem;
-    padding-left: 0;
-}
-
-main ul li {
-    margin-bottom: 1em;
-    padding-left: 0;
-    position: relative;
-    transform: none;
-    transition: none;
-}
-main ul li:hover {
-    transform: none;
-}
-
-/* "Bullet" is just an offset line - ONLY for lists in main */
-main ul li::before {
-    content: '';
-    background: var(--border-color); /* Black line */
-    width: 15px;
-    height: 1px;
-    position: absolute;
-    left: -25px; /* Position left of the text */
-    top: 0.6em; /* Align vertically */
-    font-family: none; /* Override any inherited font */
-    color: initial;
-    display: block;
-    margin-left: 0;
-    font-weight: initial;
-    font-size: initial;
-    text-align: initial;
-    padding-right: 0;
-}
-
-/* Link Styling - High Contrast Hover (Scoped to main) */
-a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 400;
-    transition: color 0.1s ease, background-color 0.15s ease-out;
-    border-bottom: none;
-    padding: 1px 3px;
-    position: relative;
-    z-index: 1;
-    background-color: transparent;
-}
-
-/* Scoped link styles to avoid affecting header/footer */
-main a, section a { 
-   /* (This inherits base 'a' styles) */
-}
-
-/* Specific styling for ONLY main content links */
-main a::after, section a::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -2px;
-    right: -2px;
-    bottom: 0;
-    background-color: var(--sharp-accent);
-    z-index: -1;
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.15s ease-out;
-}
-
-main a:hover::after, section a:hover::after,
-main a:focus::after, section a:focus::after {
-    transform: scaleY(1);
-    transform-origin: top;
-}
-
-/* Specific Contact List - remove bullets and custom style */
-#contact ul {
-    /* Inherits base ul style (no bullets) */
-}
-#contact ul li::before {
-    content: none;
-}
-#contact ul li {
-    padding-left: 0;
-    transform: none; /* No offset for contact list */
-}
-#contact ul li:hover {
-    transform: none;
-}
-
-/* Placeholder Adjustments (Remove if using body flex) */
-/*
-body {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-    margin: 0; 
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 0.5em; 
+    font-size: clamp(3rem, 10vw, 6rem);
+    text-transform: uppercase;
+    letter-spacing: 4px;
 }
 
-p {
-    color: #555;
+h2 {
+    font-size: clamp(2rem, 8vw, 4rem);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
-*/
 
-/* !!! REMOVE HEADER DEBUGGING !!! */
-/* (Previous debug styles removed from here) */
+/* Main Content Area - Abstract Layout */
+main {
+    width: 100%;
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    position: relative;
+}
 
-/* REMOVE OLD SKILLS GRID STYLES */
-/* .skills-grid, .skill-category-title, .skill-item, .skill-item-placeholder, .skill-level-*, .level-* { display: none; } */
+section {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    margin-bottom: 4rem;
+    max-width: 800px;
+}
 
-/* Skill Compass Chart Container - This holds the grid, axes, and points */
+/* Abstract Shapes */
+.shape {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.1;
+    background: var(--accent-color);
+}
+
+.shape-1 {
+    width: 200px;
+    height: 200px;
+    top: 20%;
+    left: 60%;
+    transform: rotate(30deg);
+}
+
+.shape-2 {
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--accent-color);
+    background: transparent;
+    top: 70%;
+    left: 10%;
+    transform: rotate(-45deg);
+}
+
+.shape-3 {
+    width: 50px;
+    height: 50px;
+    top: 40%;
+    left: 30%;
+    border-radius: 50%;
+}
+
+
+/* Link Styling */
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    padding: 2px 4px;
+}
+
+a:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+/* Skill Compass Chart Styles */
 .skill-compass-chart-container {
     width: fill-available;
     max-width: 601px;
-    margin: 3rem auto; /* Keep margin for spacing */
+    margin: 3rem auto;
     aspect-ratio: 1 / 1;
     position: relative;
-    
-    /* Add grid background */
-    --grid-color: rgba(0, 0, 0, 0.2); /* Black at 20% opacity */
-    --grid-size: 50px; /* Adjust grid spacing as needed */
-    background-image: 
+    --grid-color: rgba(255, 255, 255, 0.1);
+    --grid-size: 50px;
+    background-image:
         linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
         linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
     background-size: var(--grid-size) var(--grid-size);
@@ -296,8 +168,8 @@ p {
     position: absolute;
     font-family: var(--mono-font);
     font-size: 0.7rem;
-    color: var(--accent-color);
-    background-color: var(--bg-color); /* Ensure label is above axis line */
+    color: var(--text-color);
+    background-color: var(--bg-color);
     padding: 0 0.3em;
 }
 
@@ -328,45 +200,39 @@ p {
 
 .skill-point {
     position: absolute;
-    /* Map -1 to +1 range to 0% to 100% */
-    /* Y-axis inverted: Top is +1 (100%), Bottom is -1 (0%) */
     top: calc( (1 - var(--context, 0)) / 2 * 100% );
-    /* X-axis: Left is -1 (0%), Right is +1 (100%) */
-    left: calc( (1 + var(--mastery, 0)) / 2 * 100% ); 
-    transform: translate(-50%, -50%); /* Center icon on the point */
-    width: 40px; /* Size of the clickable area */
+    left: calc( (1 + var(--mastery, 0)) / 2 * 100% );
+    transform: translate(-50%, -50%);
+    width: 40px;
     height: 40px;
-    display: flex; /* Keep display flex for icon centering */
+    display: flex;
     align-items: center;
     justify-content: center;
     cursor: default;
-    /* Add transitions for opacity, visibility, and transform */
     transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
     opacity: 1;
     visibility: visible;
 }
 
-/* New class for hidden state */
 .skill-point-hidden {
     opacity: 0;
     visibility: hidden;
-    transform: translate(-50%, -50%) scale(0.5); /* Shrink slightly when hiding */
-    pointer-events: none; /* Prevent interaction when hidden */
+    transform: translate(-50%, -50%) scale(0.5);
+    pointer-events: none;
 }
 
 .skill-point i {
-    font-size: 2rem; /* Adjust icon size */
+    font-size: 2rem;
     color: inherit;
     transition: transform 0.2s ease-out;
 }
 
-/* Hover effect to show title */
 .skill-point::after {
-    content: attr(data-title); /* Get title from data attribute */
+    content: attr(data-title);
     position: absolute;
     bottom: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(-5px) scale(0.8); /* Start small and above */
+    transform: translateX(-50%) translateY(-5px) scale(0.8);
     background-color: var(--text-color);
     color: var(--bg-color);
     font-family: var(--mono-font);
@@ -381,31 +247,30 @@ p {
 }
 
 .skill-point:hover {
-    transform: translate(-50%, -50%) scale(1.1); /* Slightly enlarge point */
-    z-index: 5; /* Bring point above others */
+    transform: translate(-50%, -50%) scale(1.1);
+    z-index: 5;
 }
 
 .skill-point:hover::after {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(-8px) scale(1); /* Grow and move up */
+    transform: translateX(-50%) translateY(-8px) scale(1);
 }
 
-/* ---------- Skill Filter Buttons ---------- */
 .skill-filters-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.5rem; /* Spacing between buttons */
-    margin-bottom: 1.5rem; /* Space below filters, above chart */
-    padding: 0 1rem; /* Padding on the sides */
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
 }
 
 .filter-button {
     padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    color: #333;
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+    color: var(--text-color);
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.2s ease, border-color 0.2s ease;
@@ -413,13 +278,30 @@ p {
 }
 
 .filter-button:hover {
-    background-color: #eee;
-    border-color: #bbb;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
 }
 
 .filter-button.active {
-    background-color: #007bff; /* Example active color */
-    color: white;
-    border-color: #0056b3;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
     font-weight: bold;
+}
+
+/* Keep Skills Grid White */
+.skill-compass-chart-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    --grid-color: rgba(0, 0, 0, 0.2);
+}
+
+#skills .axis-label {
+    color: #FFFFFF;
+    background-color: transparent;
+}
+
+#skills .skill-point::after {
+    background-color: #000000;
+    color: #FFFFFF;
 }
