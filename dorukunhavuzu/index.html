@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doruk'un Şampiyon Havuzu</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #111827;
+            color: white;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+        .canvas-container {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 4px dashed #4b5563;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Doruk'un Şampiyon Havuzu</h1>
+
+    <div class="canvas-container" id="scene"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Matter.js setup ---
+            const { Engine, Render, Runner, Bodies, Composite, Events, Mouse, MouseConstraint } = Matter;
+
+            const sceneElement = document.getElementById('scene');
+            const engine = Engine.create({ enableSleeping: true, positionIterations: 6, velocityIterations: 4 });
+            const world = engine.world;
+
+            const render = Render.create({
+                element: sceneElement,
+                engine: engine,
+                options: {
+                    width: 800,
+                    height: 600,
+                    wireframes: false,
+                    background: '#1f2937',
+                },
+            });
+
+            // --- Walls ---
+            const wallOptions = { isStatic: true, render: { fillStyle: '#6b7280' } };
+            const ground = Bodies.rectangle(400, 610, 820, 60, wallOptions);
+            const leftWall = Bodies.rectangle(-10, 300, 60, 620, wallOptions);
+            const rightWall = Bodies.rectangle(810, 300, 60, 620, wallOptions);
+            const ceiling = Bodies.rectangle(400, -10, 820, 60, wallOptions);
+            Composite.add(world, [ground, leftWall, rightWall, ceiling]);
+
+            // --- Mouse Control ---
+            const mouse = Mouse.create(render.canvas);
+            const mouseConstraint = MouseConstraint.create(engine, {
+                mouse: mouse,
+                constraint: { stiffness: 0.2, render: { visible: false } },
+            });
+            Composite.add(world, mouseConstraint);
+
+            // --- Text Rendering ---
+            Events.on(render, 'afterRender', () => {
+                const context = render.canvas.getContext('2d');
+                context.fillStyle = 'white';
+                context.font = 'bold 14px sans-serif';
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+
+                world.bodies.forEach(body => {
+                    if (body.label && !body.isStatic) {
+                        context.save();
+                        context.translate(body.position.x, body.position.y);
+                        context.rotate(body.angle);
+                        const lines = body.label.split(' ');
+                        const yStart = - (lines.length - 1) * 7;
+                        lines.forEach((line, i) => {
+                            context.fillText(line, 0, yStart + i * 14);
+                        });
+                        context.restore();
+                    }
+                });
+            });
+
+            Render.run(render);
+            const runner = Runner.create({ isFixed: true, delta: 1000 / 60 });
+            Runner.run(runner, engine);
+
+            // --- Application Logic ---
+
+            function getRandomColor() {
+                // Generates a random nice-looking pastel color by randomizing the hue
+                const h = Math.floor(Math.random() * 360);
+                return `hsl(${h}, 70%, 60%)`;
+            }
+
+            // ------------------------------------------------------------------
+            // --- EDIT THIS LIST TO CHANGE THE CHAMPIONS IN THE POOL ---
+            const initialChampions = ["Blitzcrank", "Thresh", "Pyke"];
+            // ------------------------------------------------------------------
+
+            function createBall(name) {
+                if (!name) return;
+
+                const ball = Bodies.circle(
+                    Math.random() * 700 + 50,
+                    Math.random() * 100,
+                    45,
+                    {
+                        restitution: 0.8,
+                        friction: 0.05,
+                        frictionAir: 0.001,
+                        angularVelocity: (Math.random() - 0.5) * 0.2,
+                        label: name,
+                        render: { fillStyle: getRandomColor() },
+                    }
+                );
+                Composite.add(world, ball);
+            }
+
+            // Add all the initial champions when the page loads
+            initialChampions.forEach(createBall);
+        });
+    </script>
+</body>
+</html>
