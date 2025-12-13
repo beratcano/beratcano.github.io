@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,11 +17,13 @@
             background-color: #111827;
             color: white;
         }
+
         h1 {
             font-size: 3rem;
             font-weight: bold;
             margin-bottom: 2rem;
         }
+
         .canvas-container {
             border-radius: 0.5rem;
             overflow: hidden;
@@ -28,6 +31,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <h1>Doruk'un Şampiyon Havuzu</h1>
@@ -35,6 +39,7 @@
     <div class="canvas-container" id="scene"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="../champions.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Matter.js setup ---
@@ -107,12 +112,16 @@
             }
 
             // ------------------------------------------------------------------
-            // --- EDIT THIS LIST TO CHANGE THE CHAMPIONS IN THE POOL ---
-            const initialChampions = ["Blitzcrank", "Thresh"];
+            // --- USES SHARED DATA FROM ../champions.js ---
+            const initialChampions = CHAMPION_POOLS.doruk || [];
             // ------------------------------------------------------------------
 
-            function createBall(name) {
-                if (!name) return;
+            function createBall(champ) {
+                if (!champ) return;
+
+                // Allow simple string array or object array for robustness
+                const name = typeof champ === 'string' ? champ : champ.name;
+                const color = (typeof champ === 'object' && champ.color) ? champ.color : getRandomColor();
 
                 const ball = Bodies.circle(
                     Math.random() * 700 + 50,
@@ -124,7 +133,7 @@
                         frictionAir: 0.001,
                         angularVelocity: (Math.random() - 0.5) * 0.2,
                         label: name,
-                        render: { fillStyle: getRandomColor() },
+                        render: { fillStyle: color },
                     }
                 );
                 Composite.add(world, ball);
@@ -135,4 +144,5 @@
         });
     </script>
 </body>
+
 </html>

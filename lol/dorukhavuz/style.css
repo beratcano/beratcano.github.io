@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    display: block;
+    background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 20%, #006994 20%, #001e30 100%);
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#score {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 20px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+#start-screen {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    border: 4px solid #fff;
+    pointer-events: auto;
+}
+
+h1 {
+    color: #ffd700;
+    text-shadow: 4px 4px 0 #000;
+    margin-bottom: 30px;
+}
+
+button {
+    background: #ffd700;
+    border: 4px solid #fff;
+    padding: 15px 30px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    color: #000;
+    margin-top: 20px;
+    transition: transform 0.1s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+#victory-screen {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 60px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    border: 6px solid #ffd700;
+    pointer-events: auto;
+    display: flex;
+    /* Centering */
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.golden-text {
+    font-size: 40px;
+    color: #FFD700;
+    background: -webkit-linear-gradient(#FFD700, #FDB931);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    line-height: 1.5;
+}

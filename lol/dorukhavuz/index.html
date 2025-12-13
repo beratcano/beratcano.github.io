@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doruk'un Havuzu: In Progress</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        <div id="ui-layer">
+            <div id="start-screen">
+                <h1>FISHING GAME</h1>
+                <p>Click or Press Space to Catch Champions!</p>
+                <button id="start-btn">START</button>
+            </div>
+            <div id="victory-screen" style="display: none;">
+                <h1 id="victory-text" class="golden-text">YOU PICKED...</h1>
+                <button id="restart-btn">PICK AGAIN</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/lol/champions.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
