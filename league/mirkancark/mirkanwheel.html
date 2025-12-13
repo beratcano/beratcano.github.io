@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LoL Mid Picker - Segmented CSS Wheel</title>
+<style>
+  /* Global Styles: Black Background & Setup */
+  body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+  }
+
+  /* Wheel Container */
+  #wheel-container {
+    text-align: center;
+    padding: 50px;
+    position: relative; 
+    z-index: 10;
+    /* Center the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Spin Button */
+  #spin-button {
+    padding: 15px 30px;
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 50px; /* More space below the wheel */
+    font-weight: bold;
+    z-index: 20; /* Keep button on top */
+  }
+  
+  /* Main Wheel Structure */
+  #the-wheel {
+    width: 400px;
+    height: 400px;
+    border: 5px solid gold; 
+    border-radius: 50%;
+    position: relative; /* Establish context for absolute positioning */
+    margin: 0 auto;
+    background-color: #333333; /* Dark background for the wheel */
+    transition: transform 0.1s linear; 
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  }
+
+  /* Segment Style (The element holding the champion name) */
+  .segment {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 200px; /* Half the wheel width (Radius) */
+    height: 200px; /* Half the wheel height (Radius) */
+    transform-origin: 0% 100%; /* Anchor rotation to the center of the wheel */
+    
+    color: #f0f0f0;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    background-color: rgba(51, 51, 51, 0.1); /* Slightly transparent background to show the wheel color */
+  }
+
+  /* Champion Text Container inside the segment */
+  .champion-name {
+    position: absolute;
+    top: 20px; /* Distance from the center */
+    left: -50px; /* Center the name roughly */
+    width: 100px;
+    transform: rotate(90deg); /* Rotate name to be readable outwards */
+  }
+  
+  /* CSS Animation for continuous spin */
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Apply spin animation class to the whole wheel */
+  .spinning {
+      animation: spin 1s linear infinite; 
+  }
+
+  /* Interruption Overlay: Slow Takeover Logic */
+  #interruption-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0); 
+    z-index: 1000;
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    
+    opacity: 0;
+    /* Fade Duration: 5 seconds */
+    transition: opacity 5s linear; 
+
+    pointer-events: none;
+  }
+
+  /* Class to trigger the slow fade-in */
+  #interruption-overlay.active {
+    opacity: 1;
+    pointer-events: auto; 
+  }
+
+  #interruption-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+  }
+</style>
+</head>
+<body onload="drawSegments()">
+
+<div id="wheel-container">
+  <div id="the-wheel">
+    </div>
+  
+  <button id="spin-button" onclick="startSpin()">
+    Mirkan mid'e ne alsin??????
+  </button>
+  
+  <p id="result-display" style="margin-top: 20px; font-size: 18px; display: none;">**RESULT:** </p>
+</div>
+
+<div id="interruption-overlay">
+  <img src="https://babaocagicom.teimg.com/crop/1280x720/babaocagi-com/uploads/2025/06/berkin-elvan-i-olduren-polisin-cezasi-onandi-fatih-dalgali-hapse-girecek-mi.jpg" alt="Result Image">
+</div>
+
+<script>
+  // Configuration Variables
+  const INITIAL_SPIN_TIME = 3000; // 3 seconds before image starts fading in (ms)
+  const FADE_DURATION = 5000;    // 5 seconds for the image to reach full opacity (ms)
+  const NUM_SEGMENTS = 10;
+  const ROTATION_STEP = 360 / NUM_SEGMENTS; // 36 degrees per champion
+  
+  // Wheel Data
+  const championList = [
+    "Taliyah", "Naafiri", "Vladimir", "Mel", "Sylas", 
+    "Orianna", "Yasuo", "Katarina", "Lux", "Viktor"
+  ];
+
+  let isSpinning = false;
+
+  // Function to create and position the segments
+  function drawSegments() {
+    const wheel = document.getElementById('the-wheel');
+    wheel.innerHTML = ''; // Clear the initial text
+
+    championList.forEach((champion, index) => {
+      const segment = document.createElement('div');
+      segment.className = 'segment';
+      
+      // Calculate rotation for this segment
+      const rotationAngle = index * ROTATION_STEP;
+      
+      // Rotate the segment into its pie slice position
+      segment.style.transform = `rotate(${rotationAngle}deg)`;
+      
+      // Apply the champion's name inside the segment
+      segment.innerHTML = `<div class="champion-name">${champion}</div>`;
+      
+      // Optional: Add lines to visually separate segments
+      // This is purely visual and can be adjusted
+      if (index !== 0) {
+        segment.style.borderLeft = '1px solid #666';
+      }
+
+      wheel.appendChild(segment);
+    });
+  }
+
+  function startSpin() {
+    if (isSpinning) return;
+    isSpinning = true;
+    document.getElementById('spin-button').disabled = true;
+
+    const wheel = document.getElementById('the-wheel');
+    
+    // Start continuous spin animation immediately
+    wheel.classList.add('spinning'); 
+    
+    // 1. Wait for 3 seconds, then start the image fade-in
+    setTimeout(startImageFade, INITIAL_SPIN_TIME);
+  }
+
+  function startImageFade() {
+    const overlay = document.getElementById('interruption-overlay');
+    
+    overlay.style.display = 'flex'; 
+
+    // Trigger the opacity transition (the slow fade-in)
+    setTimeout(() => {
+        overlay.classList.add('active');
+    }, 50);
+
+    // 2. Set a second timer to stop the wheel *exactly* when the fade-in finishes
+    setTimeout(stopSpin, FADE_DURATION);
+  }
+
+  function stopSpin() {
+    isSpinning = false;
+    document.getElementById('spin-button').disabled = false;
+    const wheel = document.getElementById('the-wheel');
+    
+    // Stop the visual spin (important: stops the CSS animation)
+    wheel.classList.remove('spinning'); 
+
+    // --- Result Calculation ---
+    // The wheel stops at a random final rotation. 
+    // We simulate a clean stop by picking a random champion index.
+    const resultIndex = Math.floor(Math.random() * championList.length);
+    const resultChampion = championList[resultIndex];
+    
+    // To make it look like it stopped on a segment, we calculate a final rotation
+    // that lands the chosen segment at the top (0 degrees).
+    const targetRotation = 360 - (resultIndex * ROTATION_STEP);
+    
+    // Apply a fixed final rotation (without animation for simplicity)
+    wheel.style.transform = `rotate(${targetRotation}deg)`;
+
+    // Display the final result text below the wheel
+    const resultDisplay = document.getElementById('result-display');
+    resultDisplay.style.display = 'block';
+    resultDisplay.innerHTML = `**RESULT:** ${resultChampion}`;
+
+    document.getElementById('spin-button').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
