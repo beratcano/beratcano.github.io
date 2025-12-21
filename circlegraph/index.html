@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaf Chroma | 2026 Seasonal Index</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;900&display=swap"
+    rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-color: #f4f8f4;
+      --surface-color: #ffffff;
+      --surface-hover: #eef5ee;
+      --text-primary: #1b2e1b;
+      --text-secondary: #5c705c;
+      --accent-color: #2e7d32;
+      --grid-color: rgba(46, 125, 50, 0.04);
+      --border-color: #e2e8f0;
+      --jade-light: #e8f5e9;
+      --jade-medium: #a5d6a7;
+      --jade-dark: #2e7d32;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 20px 20px;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 380px;
+      background: #fff;
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+      position: absolute;
+    }
+
+    .header {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+    }
+
+    .tabs {
+      display: flex;
+      background: #f1f5f9;
+      padding: 2px;
+      border-radius: 4px;
+    }
+
+    .tab {
+      padding: 4px 12px;
+      font-size: 9px;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 3px;
+      text-transform: capitalize;
+      color: #94a3b8;
+    }
+
+    .tab.active {
+      background: #fff;
+      color: var(--text-primary);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Plant Grid */
+    .plant-grid {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .plant-card {
+      background: #fff;
+      border: 1px solid #f1f5f9;
+      border-radius: 6px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .plant-card:hover {
+      border-color: var(--jade-medium);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .plant-card input[type="text"] {
+      border: none;
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      width: 100%;
+      outline: none;
+      color: var(--text-primary);
+    }
+
+    .card-controls {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      display: none;
+      gap: 2px;
+    }
+
+    .plant-card:hover .card-controls {
+      display: flex;
+    }
+
+    .icon-btn {
+      background: #fff;
+      border: 1px solid #f1f5f9;
+      padding: 3px;
+      border-radius: 3px;
+      cursor: pointer;
+      color: #94a3b8;
+    }
+
+    .icon-btn:hover {
+      color: var(--jade-dark);
+      background: #f8fafc;
+    }
+
+    /* Color Inputs */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      flex: 1;
+    }
+
+    .color-item {
+      aspect-ratio: 1;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 0.5px solid #f1f5f9;
+    }
+
+    .color-item input[type="color"] {
+      width: 200%;
+      height: 200%;
+      transform: translate(-25%, -25%);
+      border: none;
+      cursor: pointer;
+      background: none;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 8px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      gap: 8px;
+      background: #f8fafc;
+    }
+
+    .btn-export {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: #64748b;
+    }
+
+    .btn-export:hover {
+      border-color: var(--jade-medium);
+      color: var(--text-primary);
+    }
+
+    /* Main View */
+    .main-view {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+    }
+
+    .fullscreen-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      z-index: 50;
+    }
+
+    .chart-container {
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 1;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+      border: 4px solid #fff;
+      outline: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .year-label {
+      position: absolute;
+      top: 32px;
+      right: 0;
+      text-align: right;
+      opacity: 0.3;
+    }
+
+    .year-text {
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--text-primary);
+      margin-bottom: -4px;
+    }
+
+    .seasonal-text {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: var(--jade-dark);
+    }
+
+    .collection-text {
+      font-size: 18px;
+      font-weight: 400;
+      font-style: italic;
+      margin-top: 8px;
+      color: var(--text-secondary);
+      text-transform: capitalize;
+    }
+
+    /* Add Item Button */
+    .add-btn {
+      aspect-ratio: 1;
+      border: 2px dashed #e2e8f0;
+      border-radius: 6px;
+      background: #f8fafc;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #94a3b8;
+      transition: all 0.2s;
+    }
+
+    .add-btn:hover {
+      border-color: var(--jade-medium);
+      background: #fff;
+      color: var(--jade-dark);
+    }
+
+    .add-btn span {
+      font-size: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Scrollbar */
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <header class="header">
+      <div class="logo">
+        <i data-lucide="sprout" size="14"></i>
+        Leaf Chroma
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="setViewMode('tree')">Trees</button>
+        <button class="tab" onclick="setViewMode('shrub')">Shrubs</button>
+      </div>
+    </header>
+
+    <div class="plant-grid scrollbar-hide" id="plantGrid">
+      <!-- Dynamic Plants -->
+    </div>
+
+    <footer class="footer">
+      <button class="btn-export" onclick="downloadPNG()">
+        <i data-lucide="image" size="12"></i>
+        PNG
+      </button>
+      <button class="btn-export" onclick="downloadSVG()">
+        <i data-lucide="file-code" size="12"></i>
+        SVG
+      </button>
+    </footer>
+  </aside>
+
+  <!-- Main View -->
+  <main class="main-view">
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">
+      <i id="fullscreenIcon" data-lucide="maximize" size="20"></i>
+    </button>
+
+    <div class="year-label" id="yearLabel">
+      <p class="year-text">2026</p>
+      <p class="seasonal-text">Seasonal Index</p>
+      <p class="collection-text" id="collectionName">Tree Collection</p>
+    </div>
+
+    <div class="chart-container" id="chartContainer">
+      <!-- SVG will be injected here -->
+    </div>
+  </main>
+
+  <script type="module">
+    // --- DATA ---
+    const INITIAL_PLANT_DATA = [
+      { latinName: "Acer campestre (Field Maple)", type: "tree", months: ["#a8bfa8", "#a8bfa8", "#a9dfbf", "#2ecc71", "#27ae60", "#1e8449", "#1e8449", "#5e6d61", "#9acd32", "#f1c40f", "#f9e79f", "#a8bfa8"] },
+      { latinName: "Fraxinus ornus (Manna Ash)", type: "tree", months: ["#8e9e8e", "#8e9e8e", "#d0f0c0", "#90ee90", "#228b22", "#228b22", "#98fb98", "#98fb98", "#9acd32", "#fffacd", "#7da87d", "#7da87d"] },
+      { latinName: "Laurus nobilis (Bay Laurel)", type: "tree", months: Array(12).fill("#006400") },
+      { latinName: "Platanus \u00d7 acerifolia (London Plane)", type: "tree", months: ["#a8bfa8", "#a8bfa8", "#90ee90", "#32cd32", "#228b22", "#006400", "#006400", "#006400", "#9acd32", "#daa520", "#7da87d", "#7da87d"] },
+      { latinName: "Prunus serrulata (Ornamental Cherry)", type: "tree", months: ["#b2c2b2", "#ffb7c5", "#ff69b4", "#90ee90", "#32cd32", "#228b22", "#228b22", "#228b22", "#ff8c00", "#ff4500", "#7da87d", "#7da87d"] },
+      { latinName: "Quercus robur (Pedunculate Oak)", type: "tree", months: ["#4b3621", "#4b3621", "#c1d7a0", "#32cd32", "#228b22", "#006400", "#006400", "#006400", "#808000", "#daa520", "#8b4513", "#4b3621"] },
+      { latinName: "Celtis australis (Hackberry)", type: "tree", months: ["#b2c2b2", "#b2c2b2", "#90ee90", "#32cd32", "#228b22", "#228b22", "#98fb98", "#98fb98", "#9acd32", "#fffacd", "#7da87d", "#7da87d"] },
+      { latinName: "Robinia pseudoacacia (Black Locust)", type: "tree", months: ["#5c7a5c", "#5c7a5c", "#90ee90", "#32cd32", "#98fb98", "#228b22", "#98fb98", "#98fb98", "#9acd32", "#fffacd", "#7da87d", "#7da87d"] },
+      { latinName: "Cornus alba (S\u00fcs K\u0131z\u0131lc\u0131\u011f\u0131)", type: "shrub", months: ["#8b0000", "#8b0000", "#cd5c5c", "#32cd32", "#228b22", "#228b22", "#228b22", "#228b22", "#228b22", "#ff8c00", "#b22222", "#ff0000"] },
+      { latinName: "Lavandula angustifolia (Lavanta)", type: "shrub", months: ["#8db58d", "#8db58d", "#8db58d", "#8db58d", "#9370db", "#8a2be2", "#d8bfd8", "#8db58d", "#8db58d", "#8db58d", "#8db58d", "#8db58d"] },
+      { latinName: "Nandina domestica (Cennet Bambusu)", type: "shrub", months: ["#a52a2a", "#a52a2a", "#556b2f", "#32cd32", "#228b22", "#228b22", "#228b22", "#228b22", "#228b22", "#ff4500", "#ff0000", "#8b0000"] },
+      { latinName: "Pittosporum tobira (Y\u0131ld\u0131z \u00c7al\u0131s\u0131)", type: "shrub", months: ["#006400", "#006400", "#006400", "#006400", "#98fb98", "#006400", "#006400", "#006400", "#006400", "#006400", "#006400", "#006400"] },
+      { latinName: "Rosa canina (Ku\u015fburnu)", type: "shrub", months: ["#8b4513", "#8b4513", "#90ee90", "#228b22", "#ff69b4", "#db7093", "#228b22", "#228b22", "#b22222", "#b22222", "#b22222", "#8b4513"] },
+      { latinName: "Rosmarinus officinalis (Biberiye)", type: "shrub", months: Array(12).fill("#006400").map((c, i) => i === 2 ? "#5f9ea0" : c) },
+      { latinName: "Spiraea japonica (Ke\u00e7i Sakal\u0131)", type: "shrub", months: ["#8b4513", "#8b4513", "#90ee90", "#32cd32", "#ff69b4", "#ff69b4", "#228b22", "#228b22", "#228b22", "#ffa500", "#a0522d", "#8b4513"] },
+      { latinName: "Thymus vulgaris (Kekik)", type: "shrub", months: ["#8db58d", "#8db58d", "#8db58d", "#8db58d", "#d8bfd8", "#d8bfd8", "#8db58d", "#8db58d", "#8db58d", "#8db58d", "#8db58d", "#8db58d"] }
+    ];
+
+    // --- STATE ---
+    let plants = INITIAL_PLANT_DATA.map((p, i) => ({
+      ...p,
+      id: i.toString(),
+      mode: 'MONTHLY',
+      seasonalColors: { WINTER: '#e8f5e9', SPRING: '#c5e1a5', SUMMER: '#a5d6a7', AUTUMN: '#ffccbc' }
+    }));
+    let viewMode = 'tree';
+    let isFullscreen = false;
+
+    // --- CONSTANTS ---
+    const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const START_ANGLE = 90;
+    const END_ANGLE = 360;
+    const TOTAL_ANGLE = END_ANGLE - START_ANGLE;
+    const INNER_RADIUS_START = 80;
+    const RING_WIDTH = 25;
+    const RING_GAP = 10;
+
+    // --- UTILS ---
+    function hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null;
+    }
+    function rgbToHex(r, g, b) {
+      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
+    function interpolateColor(color1, color2, factor) {
+      const rgb1 = hexToRgb(color1);
+      const rgb2 = hexToRgb(color2);
+      if (!rgb1 || !rgb2) return color1;
+      const r = Math.round(rgb1.r + (rgb2.r - rgb1.r) * factor);
+      const g = Math.round(rgb1.g + (rgb2.g - rgb1.g) * factor);
+      const b = Math.round(rgb1.b + (rgb2.b - rgb1.b) * factor);
+      return rgbToHex(r, g, b);
+    }
+
+    function expandSeasonsToMonths(seasonal) {
+      const stops = [
+        { idx: 0, color: seasonal.WINTER },
+        { idx: 3, color: seasonal.SPRING },
+        { idx: 6, color: seasonal.SUMMER },
+        { idx: 9, color: seasonal.AUTUMN },
+        { idx: 12, color: seasonal.WINTER }
+      ];
+      const result = [];
+      for (let m = 0; m < 12; m++) {
+        let s1, s2;
+        for (let i = 0; i < stops.length - 1; i++) {
+          if (m >= stops[i].idx && m < stops[i + 1].idx) {
+            s1 = stops[i]; s2 = stops[i + 1];
+            break;
+          }
+        }
+        const factor = (m - s1.idx) / (s2.idx - s1.idx);
+        result[m] = interpolateColor(s1.color, s2.color, factor);
+      }
+      return result;
+    }
+
+    // --- CORE LOGIC ---
+    function render() {
+      renderSidebar();
+      renderChart();
+      lucide.createIcons();
+    }
+
+    function renderSidebar() {
+      const grid = document.getElementById('plantGrid');
+      grid.innerHTML = '';
+
+      const filtered = plants.filter(p => p.type === viewMode);
+
+      const addBtn = document.createElement('button');
+      addBtn.className = 'add-btn';
+      addBtn.onclick = addPlant;
+      addBtn.innerHTML = `<i data-lucide="plus" size="20"></i><span>New ${viewMode}</span>`;
+      grid.appendChild(addBtn);
+
+      filtered.forEach(plant => {
+        const card = document.createElement('div');
+        card.className = 'plant-card';
+        card.innerHTML = `
+                    <div class="card-controls">
+                        <button class="icon-btn" onclick="toggleMode('${plant.id}')" title="Toggle Seasonal/Monthly">
+                            <i data-lucide="${plant.mode === 'SEASONAL' ? 'layout-grid' : 'palette'}" size="8"></i>
+                        </button>
+                        <button class="icon-btn" onclick="removePlant('${plant.id}')"><i data-lucide="trash-2" size="8"></i></button>
+                    </div>
+                    <input type="text" value="${plant.latinName}" onchange="updatePlantName('${plant.id}', this.value)">
+                    <div class="color-grid" style="grid-template-columns: repeat(${plant.mode === 'SEASONAL' ? 2 : 4}, 1fr)">
+                        ${plant.mode === 'SEASONAL' ?
+            Object.entries(plant.seasonalColors).map(([s, c]) => `
+                                <div class="color-item" title="${s}">
+                                    <input type="color" value="${c}" onchange="updateSeasonColor('${plant.id}', '${s}', this.value)">
+                                </div>
+                            `).join('') :
+            plant.months.map((c, i) => `
+                                <div class="color-item" title="${MONTH_NAMES[i]}">
+                                    <input type="color" value="${c}" onchange="updatePlantColor('${plant.id}', ${i}, this.value)">
+                                </div>
+                            `).join('')
+          }
+                    </div>
+                `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderChart() {
+      const container = document.getElementById('chartContainer');
+      const filtered = plants.filter(p => p.type === viewMode);
+
+      const maxR = INNER_RADIUS_START + filtered.length * (RING_WIDTH + RING_GAP) + 120;
+      const size = maxR * 2;
+      const labelR = INNER_RADIUS_START + filtered.length * (RING_WIDTH + RING_GAP) + 8;
+
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", `${-maxR} ${-maxR} ${size} ${size}`);
+      svg.style.width = "100%"; svg.style.height = "100%"; svg.style.overflow = "visible";
+
+      // Create defs for text paths
+      const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+      svg.appendChild(defs);
+
+      MONTH_NAMES.forEach((name, m) => {
+        const monthAngle = TOTAL_ANGLE / 12;
+        const startAngle = START_ANGLE + m * monthAngle;
+        const endAngle = startAngle + monthAngle;
+
+        // Create arc path for this month's text
+        const pathId = `monthPath${m}`;
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+        // Draw arc from start to end (text will face toward center)
+        const rad1 = startAngle * (Math.PI / 180);
+        const rad2 = endAngle * (Math.PI / 180);
+
+        const x1 = Math.cos(rad1) * labelR;
+        const y1 = Math.sin(rad1) * labelR;
+        const x2 = Math.cos(rad2) * labelR;
+        const y2 = Math.sin(rad2) * labelR;
+
+        // sweep=1 for clockwise arc (text faces inward)
+        path.setAttribute("d", `M ${x1} ${y1} A ${labelR} ${labelR} 0 0 1 ${x2} ${y2}`);
+        path.setAttribute("id", pathId);
+        path.setAttribute("fill", "none");
+        defs.appendChild(path);
+
+        // Create text on path
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("fill", "#5c705c");
+        text.setAttribute("font-size", "12");
+        text.setAttribute("font-weight", "900");
+        text.style.fontFamily = "'Montserrat', sans-serif";
+
+        const textPath = document.createElementNS("http://www.w3.org/2000/svg", "textPath");
+        textPath.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", `#${pathId}`);
+        textPath.setAttribute("href", `#${pathId}`);
+        textPath.setAttribute("startOffset", "50%");
+        textPath.setAttribute("text-anchor", "middle");
+        textPath.textContent = name;
+
+        text.appendChild(textPath);
+        svg.appendChild(text);
+      });
+
+      filtered.forEach((plant, pIndex) => {
+        const innerR = INNER_RADIUS_START + pIndex * (RING_WIDTH + RING_GAP);
+        const outerR = innerR + RING_WIDTH;
+        const STEPS_PER_MONTH = 10;
+        const TOTAL_STEPS = 12 * STEPS_PER_MONTH;
+
+        const colors = plant.mode === 'SEASONAL' ? expandSeasonsToMonths(plant.seasonalColors) : plant.months;
+
+        for (let i = 0; i < TOTAL_STEPS; i++) {
+          const monthIdx = Math.floor(i / STEPS_PER_MONTH);
+          const nextMonthIdx = (monthIdx + 1) % 12;
+          const factor = (i % STEPS_PER_MONTH) / STEPS_PER_MONTH;
+          const color = interpolateColor(colors[monthIdx], colors[nextMonthIdx], factor);
+
+          const progress = i / TOTAL_STEPS;
+          const nextProgress = (i + 1) / TOTAL_STEPS;
+          const startA = START_ANGLE + progress * TOTAL_ANGLE;
+          const endA = START_ANGLE + nextProgress * TOTAL_ANGLE;
+
+          const rad1 = startA * (Math.PI / 180);
+          const rad2 = endA * (Math.PI / 180);
+          const x1i = Math.cos(rad1) * innerR; const y1i = Math.sin(rad1) * innerR;
+          const x2i = Math.cos(rad2) * innerR; const y2i = Math.sin(rad2) * innerR;
+          const x1o = Math.cos(rad1) * outerR; const y1o = Math.sin(rad1) * outerR;
+          const x2o = Math.cos(rad2) * outerR; const y2o = Math.sin(rad2) * outerR;
+
+          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          path.setAttribute("d", `M ${x1i} ${y1i} L ${x1o} ${y1o} A ${outerR} ${outerR} 0 0 1 ${x2o} ${y2o} L ${x2i} ${y2i} A ${innerR} ${innerR} 0 0 0 ${x1i} ${y1i} Z`);
+          path.setAttribute("fill", color); path.setAttribute("stroke", color); path.setAttribute("stroke-width", "0.5");
+          svg.appendChild(path);
+        }
+
+        const r = innerR + RING_WIDTH / 2;
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", "0"); line.setAttribute("y1", r); line.setAttribute("x2", "10"); line.setAttribute("y2", r);
+        line.setAttribute("stroke", "#a5d6a7"); line.setAttribute("stroke-width", "1");
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", "15"); text.setAttribute("y", r); text.setAttribute("text-anchor", "start");
+        text.setAttribute("dominant-baseline", "middle"); text.setAttribute("fill", "#1b2e1b");
+        text.style.fontFamily = "'Montserrat', sans-serif"; text.setAttribute("font-size", "10"); text.setAttribute("font-weight", "500");
+        text.textContent = plant.latinName;
+        g.appendChild(line); g.appendChild(text); svg.appendChild(g);
+      });
+
+      container.innerHTML = '';
+      container.appendChild(svg);
+      document.getElementById('collectionName').textContent = `${viewMode} Collection`;
+    }
+
+    // --- ACTIONS ---
+    window.setViewMode = (mode) => {
+      viewMode = mode;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.textContent.toLowerCase() === mode + 's'));
+      render();
+    };
+
+    window.toggleMode = (id) => {
+      const p = plants.find(p => p.id === id);
+      if (p) p.mode = p.mode === 'SEASONAL' ? 'MONTHLY' : 'SEASONAL';
+      render();
+    };
+
+    window.updatePlantName = (id, name) => {
+      const p = plants.find(p => p.id === id);
+      if (p) p.latinName = name;
+      renderChart();
+    };
+
+    window.updatePlantColor = (id, monthIdx, color) => {
+      const p = plants.find(p => p.id === id);
+      if (p) {
+        p.months[monthIdx] = color;
+        p.mode = 'MONTHLY';
+      }
+      renderChart();
+    };
+
+    window.updateSeasonColor = (id, season, color) => {
+      const p = plants.find(p => p.id === id);
+      if (p) {
+        p.seasonalColors[season] = color;
+        renderChart();
+      }
+    };
+
+    window.addPlant = () => {
+      plants.push({ id: Date.now().toString(), latinName: `New ${viewMode}`, type: viewMode, mode: 'SEASONAL', months: Array(12).fill("#a5d6a7"), seasonalColors: { WINTER: '#e8f5e9', SPRING: '#c5e1a5', SUMMER: '#a5d6a7', AUTUMN: '#ffccbc' } });
+      render();
+    };
+
+    window.removePlant = (id) => {
+      plants = plants.filter(p => p.id !== id);
+      render();
+    };
+
+    window.toggleFullscreen = () => {
+      isFullscreen = !isFullscreen;
+      document.getElementById('sidebar').classList.toggle('hidden', isFullscreen);
+      document.getElementById('fullscreenIcon').setAttribute('data-lucide', isFullscreen ? 'minimize' : 'maximize');
+      const cb = document.getElementById('chartContainer');
+      cb.style.maxWidth = isFullscreen ? "85vh" : "800px"; cb.style.maxHeight = isFullscreen ? "85vh" : "800px";
+      lucide.createIcons(); renderChart();
+    };
+
+    window.downloadSVG = () => {
+      const svg = document.querySelector('#chartContainer svg').cloneNode(true);
+      svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      const vb = svg.getAttribute("viewBox").split(' ');
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", vb[0]); rect.setAttribute("y", vb[1]); rect.setAttribute("width", vb[2]); rect.setAttribute("height", vb[3]);
+      rect.setAttribute("fill", "white"); svg.insertBefore(rect, svg.firstChild);
+      const style = document.createElementNS("http://www.w3.org/2000/svg", "style");
+      style.textContent = "@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap'); text { font-family: 'Montserrat', sans-serif !important; }";
+      svg.prepend(style);
+      const serializer = new XMLSerializer();
+      const svgString = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + serializer.serializeToString(svg);
+
+      // Data URL instead of Blob for Chrome file:// filename support
+      const dataUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgString);
+      const a = document.createElement('a'); a.href = dataUrl; a.download = `leaf-chroma-${viewMode}.svg`;
+      document.body.appendChild(a); a.click();
+      setTimeout(() => { document.body.removeChild(a); }, 100);
+    };
+
+    window.downloadPNG = () => {
+      const svg = document.querySelector('#chartContainer svg').cloneNode(true);
+      svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      const vb = svg.getAttribute("viewBox").split(' ');
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", vb[0]); rect.setAttribute("y", vb[1]); rect.setAttribute("width", vb[2]); rect.setAttribute("height", vb[3]);
+      rect.setAttribute("fill", "white"); svg.insertBefore(rect, svg.firstChild);
+      const canvas = document.createElement('canvas'); canvas.width = 2400; canvas.height = 2400;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      const svgString = new XMLSerializer().serializeToString(svg);
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, 2400, 2400);
+        const pngDataUrl = canvas.toDataURL("image/png");
+        const a = document.createElement('a'); a.href = pngDataUrl; a.download = `leaf-chroma-${viewMode}.png`;
+        document.body.appendChild(a); a.click();
+        setTimeout(() => { document.body.removeChild(a); }, 100);
+      };
+      img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgString)));
+    };
+
+    render();
+  </script>
+</body>
+
+</html>
