@@ -5,6 +5,7 @@ const CHAMPION_POOLS = {
     doruk: [
         { name: "Blitzcrank", color: "#FCD34D" },
         { name: "Thresh", color: "#10B981" },
+        { name: "Pyke", color: "#006666" },
     ],
     ozer: [
         { name: "Aphelios", color: "#0EA5E9" },
