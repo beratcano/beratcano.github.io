@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShotGlow - Beautiful Screenshot Maker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #0a0a0b;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .app {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Drop Zone */
+        .drop-zone {
+            border: 2px dashed #333;
+            border-radius: 16px;
+            padding: 60px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #111;
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #667eea;
+            background: #1a1a2e;
+        }
+
+        .drop-zone-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .drop-zone-text {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        .drop-zone-text span {
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        /* Preview Area */
+        .preview-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .preview-container.active {
+            display: flex;
+        }
+
+        .canvas-wrapper {
+            max-width: 100%;
+            overflow: auto;
+            border-radius: 12px;
+            background: #111;
+            padding: 20px;
+        }
+
+        #canvas {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Controls Panel */
+        .controls {
+            background: #111;
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .control-group {
+            margin-bottom: 24px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Gradient Presets */
+        .gradient-presets {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .gradient-preset {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gradient-preset:hover {
+            transform: scale(1.05);
+        }
+
+        .gradient-preset.active {
+            border-color: #fff;
+        }
+
+        /* Sliders */
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: #333;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .slider-value {
+            min-width: 45px;
+            text-align: right;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Toggle */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toggle {
+            width: 48px;
+            height: 26px;
+            background: #333;
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle.active {
+            background: #667eea;
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s;
+        }
+
+        .toggle.active::after {
+            transform: translateX(22px);
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: #222;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #333;
+        }
+
+        /* Hidden file input */
+        #file-input {
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        /* Watermark notice */
+        .watermark-notice {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .watermark-notice strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ShotGlow</h1>
+            <p class="tagline">Make your screenshots look stunning in seconds</p>
+        </header>
+
+        <div class="app">
+            <div class="main-area">
+                <div class="drop-zone" id="drop-zone">
+                    <div class="drop-zone-icon">📸</div>
+                    <p class="drop-zone-text">Drop your screenshot here or <span>browse</span></p>
+                </div>
+
+                <div class="preview-container" id="preview-container">
+                    <div class="canvas-wrapper">
+                        <canvas id="canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="watermark-notice">
+                    <strong>Free forever</strong> - No watermarks, no signup, no limits.
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Background</label>
+                    <div class="gradient-presets" id="gradient-presets"></div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Padding</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="padding-slider" min="20" max="150" value="60">
+                        <span class="slider-value" id="padding-value">60px</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Corner Radius</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="radius-slider" min="0" max="40" value="12">
+                        <span class="slider-value" id="radius-value">12px</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Shadow</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="shadow-slider" min="0" max="100" value="50">
+                        <span class="slider-value" id="shadow-value">50%</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Scale</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="scale-slider" min="50" max="200" value="100">
+                        <span class="slider-value" id="scale-value">100%</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="toggle-container">
+                        <label class="control-label" style="margin-bottom: 0;">Browser Frame</label>
+                        <div class="toggle" id="frame-toggle"></div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="download-btn" disabled>Download PNG</button>
+                <button class="btn btn-secondary" id="reset-btn">Upload New Image</button>
+            </div>
+        </div>
+
+        <footer>
+            Made with ShotGlow
+        </footer>
+    </div>
+
+    <input type="file" id="file-input" accept="image/*">
+
+    <script>
+        // Gradient presets
+        const gradients = [
+            { name: 'Purple Dream', colors: ['#667eea', '#764ba2'] },
+            { name: 'Sunset', colors: ['#f093fb', '#f5576c'] },
+            { name: 'Ocean', colors: ['#4facfe', '#00f2fe'] },
+            { name: 'Peach', colors: ['#ffecd2', '#fcb69f'] },
+            { name: 'Emerald', colors: ['#11998e', '#38ef7d'] },
+            { name: 'Midnight', colors: ['#2c3e50', '#4ca1af'] },
+            { name: 'Fire', colors: ['#f12711', '#f5af19'] },
+            { name: 'Lavender', colors: ['#ee9ca7', '#ffdde1'] },
+            { name: 'Dark', colors: ['#232526', '#414345'] },
+            { name: 'Sky', colors: ['#89f7fe', '#66a6ff'] },
+            { name: 'Berry', colors: ['#8e2de2', '#4a00e0'] },
+            { name: 'Coral', colors: ['#ff9966', '#ff5e62'] },
+        ];
+
+        // State
+        let state = {
+            image: null,
+            gradientIndex: 0,
+            padding: 60,
+            radius: 12,
+            shadow: 50,
+            scale: 100,
+            showFrame: false
+        };
+
+        // DOM Elements
+        const dropZone = document.getElementById('drop-zone');
+        const previewContainer = document.getElementById('preview-container');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const fileInput = document.getElementById('file-input');
+        const gradientPresetsContainer = document.getElementById('gradient-presets');
+        const paddingSlider = document.getElementById('padding-slider');
+        const paddingValue = document.getElementById('padding-value');
+        const radiusSlider = document.getElementById('radius-slider');
+        const radiusValue = document.getElementById('radius-value');
+        const shadowSlider = document.getElementById('shadow-slider');
+        const shadowValue = document.getElementById('shadow-value');
+        const scaleSlider = document.getElementById('scale-slider');
+        const scaleValue = document.getElementById('scale-value');
+        const frameToggle = document.getElementById('frame-toggle');
+        const downloadBtn = document.getElementById('download-btn');
+        const resetBtn = document.getElementById('reset-btn');
+
+        // Initialize gradient presets
+        function initGradientPresets() {
+            gradients.forEach((gradient, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'gradient-preset' + (index === 0 ? ' active' : '');
+                btn.style.background = `linear-gradient(135deg, ${gradient.colors[0]} 0%, ${gradient.colors[1]} 100%)`;
+                btn.title = gradient.name;
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.gradient-preset').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    state.gradientIndex = index;
+                    render();
+                });
+                gradientPresetsContainer.appendChild(btn);
+            });
+        }
+
+        // Handle file drop
+        function handleFile(file) {
+            if (!file.type.startsWith('image/')) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    state.image = img;
+                    dropZone.style.display = 'none';
+                    previewContainer.classList.add('active');
+                    downloadBtn.disabled = false;
+                    render();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Render canvas
+        function render() {
+            if (!state.image) return;
+
+            const gradient = gradients[state.gradientIndex];
+            const padding = state.padding;
+            const radius = state.radius;
+            const shadowBlur = state.shadow;
+            const scale = state.scale / 100;
+            const frameHeight = state.showFrame ? 32 : 0;
+
+            // Calculate dimensions
+            const imgWidth = state.image.width * scale;
+            const imgHeight = state.image.height * scale;
+            const canvasWidth = imgWidth + padding * 2;
+            const canvasHeight = imgHeight + padding * 2 + frameHeight;
+
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+
+            // Draw gradient background
+            const grd = ctx.createLinearGradient(0, 0, canvasWidth, canvasHeight);
+            grd.addColorStop(0, gradient.colors[0]);
+            grd.addColorStop(1, gradient.colors[1]);
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+            // Draw shadow
+            if (shadowBlur > 0) {
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+                ctx.shadowBlur = shadowBlur;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = shadowBlur / 3;
+            }
+
+            // Draw rounded rectangle for clipping
+            const imgX = padding;
+            const imgY = padding + frameHeight;
+
+            ctx.beginPath();
+            ctx.roundRect(imgX, imgY, imgWidth, imgHeight, radius);
+            ctx.fillStyle = '#fff';
+            ctx.fill();
+
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+
+            // Draw browser frame
+            if (state.showFrame) {
+                ctx.fillStyle = '#e8e8e8';
+                ctx.beginPath();
+                ctx.roundRect(imgX, padding, imgWidth, frameHeight + radius, [radius, radius, 0, 0]);
+                ctx.fill();
+
+                // Traffic lights
+                const dotY = padding + frameHeight / 2;
+                const dotRadius = 6;
+                const dotSpacing = 20;
+                const startX = imgX + 16;
+
+                ctx.fillStyle = '#ff5f57';
+                ctx.beginPath();
+                ctx.arc(startX, dotY, dotRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#febc2e';
+                ctx.beginPath();
+                ctx.arc(startX + dotSpacing, dotY, dotRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#28c840';
+                ctx.beginPath();
+                ctx.arc(startX + dotSpacing * 2, dotY, dotRadius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Clip and draw image
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(imgX, imgY, imgWidth, imgHeight, radius);
+            ctx.clip();
+            ctx.drawImage(state.image, imgX, imgY, imgWidth, imgHeight);
+            ctx.restore();
+        }
+
+        // Event Listeners
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) handleFile(file);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleFile(file);
+        });
+
+        paddingSlider.addEventListener('input', (e) => {
+            state.padding = parseInt(e.target.value);
+            paddingValue.textContent = state.padding + 'px';
+            render();
+        });
+
+        radiusSlider.addEventListener('input', (e) => {
+            state.radius = parseInt(e.target.value);
+            radiusValue.textContent = state.radius + 'px';
+            render();
+        });
+
+        shadowSlider.addEventListener('input', (e) => {
+            state.shadow = parseInt(e.target.value);
+            shadowValue.textContent = state.shadow + '%';
+            render();
+        });
+
+        scaleSlider.addEventListener('input', (e) => {
+            state.scale = parseInt(e.target.value);
+            scaleValue.textContent = state.scale + '%';
+            render();
+        });
+
+        frameToggle.addEventListener('click', () => {
+            state.showFrame = !state.showFrame;
+            frameToggle.classList.toggle('active');
+            render();
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'shotglow-' + Date.now() + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            state.image = null;
+            dropZone.style.display = 'block';
+            previewContainer.classList.remove('active');
+            downloadBtn.disabled = true;
+            fileInput.value = '';
+        });
+
+        // Handle paste
+        document.addEventListener('paste', (e) => {
+            const items = e.clipboardData.items;
+            for (let item of items) {
+                if (item.type.startsWith('image/')) {
+                    const file = item.getAsFile();
+                    handleFile(file);
+                    break;
+                }
+            }
+        });
+
+        // Initialize
+        initGradientPresets();
+    </script>
+</body>
+</html>
