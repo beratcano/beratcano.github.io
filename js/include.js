@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(data => {
                     element.innerHTML = data;
+                    // Dispatch event when content is loaded
+                    document.dispatchEvent(new CustomEvent('includeLoaded', { detail: elementId }));
                 })
                 .catch(error => {
                     console.error('Error including HTML:', error);
@@ -21,12 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Determine base path for includes (handles subdirectories)
-    // Assumes include files are always at the root level in _includes
-    const isSubPage = window.location.pathname.split('/').length > 2 && window.location.pathname.endsWith('/');
-    const basePath = isSubPage ? '../' : './'; 
-
-    // Include header and footer
-    includeHTML('header-placeholder', basePath + 'includes/header.html');
-    includeHTML('footer-placeholder', basePath + 'includes/footer.html');
-}); 
+    // Always use absolute paths from root
+    includeHTML('header-placeholder', '/includes/header.html');
+    includeHTML('footer-placeholder', '/includes/footer.html');
+});

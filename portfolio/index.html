@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <script src="../js/theme-toggle.js"></script>
 </head>
 <body>
 
@@ -14,13 +15,40 @@
         <!-- Content will be loaded by JS -->
     </header>
 
-    <main>
-        <section id="portfolio">
-            <h2>Portfolio / Experiments</h2>
-            <p>This section is currently under construction. Check back later for projects and design work!</p>
-            <p>In the meantime, you can view my code experiments on <a href="https://github.com/beratcano" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
-             <!-- We can add direct project/design showcases here later -->
+    <main class="portfolio-landing">
+        <section class="portfolio-intro">
+            <h1>Portfolio</h1>
+            <p>Explore my work across two disciplines</p>
         </section>
+
+        <div class="portfolio-split">
+            <a href="/portfolio/design/" class="portfolio-card portfolio-card--design">
+                <div class="portfolio-card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="13.5" cy="6.5" r="0.5"/>
+                        <circle cx="17.5" cy="10.5" r="0.5"/>
+                        <circle cx="8.5" cy="7.5" r="0.5"/>
+                        <circle cx="6.5" cy="12.5" r="0.5"/>
+                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.555C21.965 6.012 17.461 2 12 2z"/>
+                    </svg>
+                </div>
+                <h2 class="portfolio-card__title">Design</h2>
+                <p class="portfolio-card__desc">UI/UX, visual design, and creative projects</p>
+                <span class="portfolio-card__arrow">&rarr;</span>
+            </a>
+
+            <a href="/portfolio/development/" class="portfolio-card portfolio-card--dev">
+                <div class="portfolio-card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                </div>
+                <h2 class="portfolio-card__title">Development</h2>
+                <p class="portfolio-card__desc">Web apps, tools, and code experiments</p>
+                <span class="portfolio-card__arrow">&rarr;</span>
+            </a>
+        </div>
     </main>
 
     <footer id="footer-placeholder">
@@ -29,4 +57,4 @@
 
     <script src="../js/include.js"></script>
 </body>
-</html> 
+</html>

@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beratcan Özkan - Abstract</title>
+    <title>Beratcan Özkan</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <script src="js/theme-toggle.js"></script>
 </head>
 <body>
 
@@ -14,19 +15,29 @@
         <!-- Content will be loaded by JS -->
     </header>
 
-    <main>
+    <main class="home">
+        <!-- Gradient blobs (behind glass) -->
+        <div class="gradient-blob blob-1"></div>
+        <div class="gradient-blob blob-2"></div>
+        <div class="gradient-blob blob-3"></div>
+
+        <!-- Glass shapes (frosted overlay) -->
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
         <div class="shape shape-3"></div>
 
-        <section id="intro">
-            <h1>Beratcan Özkan</h1>
-            <p>Test1</p>
+        <section class="hero">
+            <p class="hero-greeting">Hi, I'm</p>
+            <h1 class="hero-name">Beratcan Özkan</h1>
+            <p class="hero-tagline">self designer self developer</p>
+            <div class="hero-links">
+                <a href="/portfolio/" class="btn btn-primary">View Work</a>
+                <a href="/contact/" class="btn btn-secondary">Get in Touch</a>
+            </div>
         </section>
 
-        <section id="about">
-            <h2>About</h2>
-            <p>I'm a student at Istanbul University, studying Management Information Systems.</p>
+        <section class="about-brief">
+            <p>I'm a Management Information Systems student at Istanbul University, passionate about crafting digital experiences that blend thoughtful design with clean code.</p>
         </section>
 
     </main>
