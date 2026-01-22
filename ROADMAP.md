@@ -3,11 +3,11 @@
 ## Phase 1: Custom Domain Setup
 - [x] Configure DNS settings for custom domain
 - [x] Add CNAME file to repository root
-- [ ] Enable HTTPS through GitHub Pages settings (wait for certificate)
-- [ ] Test domain propagation
+- [x] Enable HTTPS through GitHub Pages settings
+- [x] Test domain propagation
 
 ## Phase 2: Core Pages Enhancement
-- [ ] **Portfolio Page** - Replace placeholder with actual projects
+- [ ] **Portfolio Page** - Enhance with actual projects
   - [ ] Create project card grid layout
   - [ ] Add featured projects with thumbnails
   - [ ] Include links to ShotGlow, Circle Graph, League Hub
@@ -53,8 +53,8 @@
 ## Phase 5: Polish & UX
 - [ ] Add loading states/skeletons
 - [ ] Improve accessibility (ARIA labels, keyboard nav)
-- [ ] Add dark/light theme toggle (optional)
-- [ ] Create 404 page
+- [x] Add dark/light theme toggle
+- [x] Create 404 page
 - [ ] Add page transitions
 - [ ] Mobile navigation improvements
 - [ ] Add scroll-to-top button
