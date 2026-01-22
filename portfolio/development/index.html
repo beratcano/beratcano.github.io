@@ -23,9 +23,18 @@
             <p>Web apps, tools, and code experiments</p>
         </section>
 
+        <div class="skill-filters-container">
+            <button class="filter-button active" data-filter="all">All</button>
+            <button class="filter-button" data-filter="javascript">JavaScript</button>
+            <button class="filter-button" data-filter="canvas-api">Canvas API</button>
+            <button class="filter-button" data-filter="svg">SVG</button>
+            <button class="filter-button" data-filter="data-viz">Data Viz</button>
+            <button class="filter-button" data-filter="css-grid">CSS Grid</button>
+        </div>
+
         <div class="project-grid">
             <!-- ShotGlow -->
-            <a href="/shotglow/" class="project-card">
+            <a href="/shotglow/" class="project-card" data-tags="javascript canvas-api">
                 <div class="project-card__image">
                     <span>ShotGlow Preview</span>
                 </div>
@@ -40,7 +49,7 @@
             </a>
 
             <!-- Leaf Chroma -->
-            <a href="/circlegraph/" class="project-card">
+            <a href="/circlegraph/" class="project-card" data-tags="javascript svg data-viz">
                 <div class="project-card__image">
                     <span>Leaf Chroma Preview</span>
                 </div>
@@ -56,7 +65,7 @@
             </a>
 
             <!-- League Hub -->
-            <a href="/league/" class="project-card">
+            <a href="/league/" class="project-card" data-tags="javascript css-grid">
                 <div class="project-card__image">
                     <span>League Hub Preview</span>
                 </div>
@@ -71,7 +80,7 @@
             </a>
 
             <!-- Skills Compass -->
-            <a href="/skills/" class="project-card">
+            <a href="/skills/" class="project-card" data-tags="javascript css-grid">
                 <div class="project-card__image">
                     <span>Skills Compass Preview</span>
                 </div>
@@ -93,5 +102,31 @@
     </footer>
 
     <script src="../../js/include.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    // Filter cards
+                    projectCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = '';
+                        } else {
+                            const tags = card.dataset.tags || '';
+                            card.style.display = tags.includes(filter) ? '' : 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>

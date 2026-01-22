@@ -7,23 +7,24 @@
 - [x] Test domain propagation
 
 ## Phase 2: Core Pages Enhancement
-- [ ] **Portfolio Page** - Enhance with actual projects
-  - [ ] Create project card grid layout
-  - [ ] Add featured projects with thumbnails
-  - [ ] Include links to ShotGlow, Circle Graph, League Hub
-  - [ ] Add external project links (if any)
-  - [ ] Add filtering by technology/category
+- [x] **Portfolio Page** - Replace placeholder with actual projects
+  - [x] Create project card grid layout
+  - [x] Split into Design and Development sections
+  - [x] Include links to ShotGlow, Circle Graph, League Hub
+  - [ ] Add actual thumbnails/images to design portfolio
+  - [x] Add filtering by technology/category
 
-- [ ] **Home Page** - Polish landing experience
-  - [ ] Add subtle animations/transitions
-  - [ ] Improve hero section with better CTA
-  - [ ] Add quick links to best projects
-  - [ ] Consider adding a brief skills preview
+- [x] **Home Page** - Polish landing experience
+  - [x] Add gradient blobs and glass effects
+  - [x] Hero section with CTAs
+  - [x] About brief section
+  - [ ] Add subtle animations/transitions (optional enhancement)
 
-- [ ] **Contact Page** - Enhance engagement
-  - [ ] Add contact form (Formspree/Netlify Forms)
-  - [ ] Add availability status
-  - [ ] Improve social link styling
+- [x] **Contact Page** - Enhance engagement
+  - [x] Styled contact links with icons
+  - [x] Email, GitHub, LinkedIn, Behance links
+  - [x] Add contact form (Formspree)
+  - [x] Add availability status
 
 ## Phase 3: New Features
 - [ ] **Blog/Writing Section**

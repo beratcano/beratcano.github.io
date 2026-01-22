@@ -17,22 +17,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Skill Icon Mapping --- 
     const skillIconMap = {
-        photoshop: 'devicon-photoshop-plain colored',
-        illustrator: 'devicon-illustrator-plain colored',
-        figma: 'devicon-figma-plain colored',
-        python: 'devicon-python-plain colored',
-        django: 'devicon-django-plain colored',
-        csharp: 'devicon-csharp-plain colored',
-        'c#': 'devicon-csharp-plain colored',
-        rust: 'devicon-rust-original colored',
-        docker: 'devicon-docker-plain colored',
-        aws: 'devicon-amazonwebservices-plain-wordmark colored',
-        "cloud engineering": 'devicon-amazonwebservices-plain-wordmark colored',
-        "ui/ux design": 'devicon-figma-plain colored',
-        "devops concepts": 'devicon-devicon-plain colored'
+        photoshop: 'devicon-photoshop-plain ',
+        illustrator: 'devicon-illustrator-plain ',
+        figma: 'devicon-figma-plain ',
+        python: 'devicon-python-plain ',
+        django: 'devicon-django-plain ',
+        csharp: 'devicon-csharp-plain ',
+        'c#': 'devicon-csharp-plain ',
+        rust: 'devicon-rust-original ',
+        docker: 'devicon-docker-plain ',
+        aws: 'devicon-amazonwebservices-plain-wordmark ',
+        "cloud engineering": 'devicon-amazonwebservices-plain-wordmark ',
+        "ui/ux design": 'devicon-figma-plain ',
+        "devops concepts": 'devicon-devicon-plain '
         // Add more mappings here as needed
     };
-    const defaultIconClass = 'devicon-devicon-plain colored';
+    const defaultIconClass = 'devicon-devicon-plain ';
     // -------------------------
 
     // --- Fetch Categories and Skills Data ---

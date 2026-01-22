@@ -51,8 +51,14 @@ nav ul li a:focus {
     background-color: var(--accent-color);
 }
 
-/* Theme Toggle Button */
-.theme-toggle {
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-icon-btn {
     background: none;
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -63,15 +69,16 @@ nav ul li a:focus {
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    text-decoration: none;
 }
 
-.theme-toggle:hover {
+.header-icon-btn:hover {
     background-color: var(--accent-color);
     color: var(--bg-color);
     border-color: var(--accent-color);
 }
 
-.theme-toggle svg {
+.header-icon-btn svg {
     width: 18px;
     height: 18px;
 }
@@ -97,11 +104,11 @@ nav ul li a:focus {
         padding: 0.3rem 0.5rem;
     }
 
-    .theme-toggle {
+    .header-icon-btn {
         padding: 6px;
     }
 
-    .theme-toggle svg {
+    .header-icon-btn svg {
         width: 16px;
         height: 16px;
     }

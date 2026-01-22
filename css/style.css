@@ -372,15 +372,12 @@ a:hover {
 
 .skill-point i {
     font-size: 2rem;
-    color: var(--text-color);
-    filter: grayscale(100%);
-    opacity: 0.8;
-    transition: transform 0.2s ease-out, color 0.3s ease, filter 0.2s ease, opacity 0.2s ease;
+    color: var(--text-secondary);
+    transition: transform 0.2s ease-out, color 0.2s ease;
 }
 
 .skill-point:hover i {
-    filter: grayscale(0%);
-    opacity: 1;
+    color: var(--accent-color);
 }
 
 .skill-point::after {
@@ -533,6 +530,13 @@ main.home {
     border-color: var(--accent-color);
     color: var(--accent-color);
     background-color: transparent;
+}
+
+.cv-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
 }
 
 .about-brief {
@@ -955,31 +959,33 @@ main.home {
 
 .contact-links {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
 }
 
 .contact-link {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    background: var(--bg-secondary);
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 6px;
     text-decoration: none;
     transition: all 0.2s ease;
 }
 
 .contact-link:hover {
     border-color: var(--accent-color);
-    transform: translateX(4px);
-    background: var(--bg-secondary);
+    color: var(--accent-color);
 }
 
 .contact-link__icon {
     color: var(--text-secondary);
     flex-shrink: 0;
+    width: 18px;
+    height: 18px;
     transition: color 0.2s ease;
 }
 
@@ -989,22 +995,128 @@ main.home {
 
 .contact-link__text {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
 }
 
 .contact-link__label {
+    display: none;
+}
+
+.contact-link__value {
+    color: var(--text-color);
+    font-size: 0.875rem;
     font-family: var(--mono-font);
-    font-size: 0.75rem;
+}
+
+.contact-link:hover .contact-link__value {
+    color: var(--accent-color);
+}
+
+/* Availability Status */
+.availability-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-family: var(--mono-font);
+    margin-bottom: 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.availability-status__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.availability-status--available .availability-status__dot {
+    background-color: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+.availability-status--busy .availability-status__dot {
+    background-color: #eab308;
+    box-shadow: 0 0 8px #eab308;
+}
+
+.availability-status--unavailable .availability-status__dot {
+    background-color: #ef4444;
+    box-shadow: 0 0 8px #ef4444;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Contact Form */
+.contact-form-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.contact-form-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-family: var(--mono-font);
+    font-size: 0.8rem;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.contact-link__value {
+.form-group input,
+.form-group textarea {
+    padding: 0.875rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     color: var(--text-color);
-    font-size: 0.95rem;
+    font-family: var(--inter-font);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus {
+    box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .btn {
+    margin-top: 0.5rem;
 }
 
 /* ==================== */
