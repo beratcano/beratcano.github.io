@@ -1,3 +1,23 @@
+/* Skip Link */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border-radius: 4px;
+    font-family: var(--mono-font);
+    font-size: 0.85rem;
+    text-decoration: none;
+    z-index: 9999;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0.5rem;
+}
+
 /* Header - Minimal */
 header {
     background: var(--bg-color);
@@ -90,18 +110,74 @@ nav ul li a:focus {
 [data-theme="dark"] .sun-icon { display: block; }
 [data-theme="dark"] .moon-icon { display: none; }
 
+/* Hamburger Toggle */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 1001;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text-color);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(4px, 4px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -4px);
+}
+
 @media (max-width: 600px) {
     header {
         padding: 0.75rem 1rem;
     }
 
+    .nav-toggle {
+        display: flex;
+    }
+
     nav ul {
-        gap: 0.25rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--bg-color);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 1000;
+    }
+
+    nav ul.open {
+        opacity: 1;
+        visibility: visible;
     }
 
     nav ul li a {
-        font-size: 0.85rem;
-        padding: 0.3rem 0.5rem;
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
     }
 
     .header-icon-btn {

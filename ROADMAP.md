@@ -7,40 +7,48 @@
 - [x] Test domain propagation
 
 ## Phase 2: Core Pages Enhancement
-- [x] **Portfolio Page** - Replace placeholder with actual projects
+- [x] **Lab Page** - Project showcase
   - [x] Create project card grid layout
   - [x] Split into Design and Development sections
   - [x] Include links to ShotGlow, Circle Graph, League Hub
-  - [ ] Add actual thumbnails/images to design portfolio
   - [x] Add filtering by technology/category
+  - [x] Add "Try it" and "Learn more" buttons
+  - [x] Cards aligned with clamped descriptions
+  - [ ] Add actual thumbnails/images to design portfolio
 
 - [x] **Home Page** - Polish landing experience
   - [x] Add gradient blobs and glass effects
   - [x] Hero section with CTAs
   - [x] About brief section
-  - [ ] Add subtle animations/transitions (optional enhancement)
 
 - [x] **Contact Page** - Enhance engagement
-  - [x] Styled contact links with icons
-  - [x] Email, GitHub, LinkedIn, Behance links
-  - [x] Add contact form (Formspree)
+  - [x] Compact social links (Email, GitHub, LinkedIn, Behance, Medium)
   - [x] Add availability status
+  - [x] Add CV download button
+
+- [x] **Skills Page**
+  - [x] Theme-aware icons (dark on light, light on dark)
+  - [x] Category filtering
+
+- [x] **Header**
+  - [x] Renamed Portfolio to Lab
+  - [x] Added Buy Me a Coffee link
+  - [x] Added Blog link (Medium)
 
 ## Phase 3: New Features
-- [ ] **Blog/Writing Section**
-  - [ ] Create blog index page
-  - [ ] Design article template
-  - [ ] Add markdown support or simple HTML posts
+- [x] **Blog/Writing Section**
+  - [x] Links to Medium (@beratcano)
+  - [x] Added to header nav and contact page
 
-- [ ] **Project Case Studies**
-  - [ ] Create detailed pages for major projects
-  - [ ] Include problem, solution, tech stack, learnings
-  - [ ] Add screenshots/demos
+- [x] **Project Case Studies**
+  - [x] Created /project/about/ pages for each project
+  - [x] ShotGlow, Leaf Chroma, League Hub case studies
+  - [x] Dual navigation (back to projects / go to app)
+  - [x] Full descriptions on about pages
 
-- [ ] **Resume/CV Page**
-  - [ ] Downloadable PDF option
-  - [ ] Interactive web version
-  - [ ] Timeline of experience
+- [x] **Resume/CV**
+  - [x] Downloadable PDF option on contact page
+  - [x] Site itself serves as interactive resume
 
 ## Phase 4: SEO & Performance
 - [ ] Add meta tags (Open Graph, Twitter Cards)
