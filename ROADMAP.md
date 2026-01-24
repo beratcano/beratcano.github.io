@@ -51,27 +51,27 @@
   - [x] Site itself serves as interactive resume
 
 ## Phase 4: SEO & Performance
-- [ ] Add meta tags (Open Graph, Twitter Cards)
-- [ ] Create sitemap.xml
-- [ ] Add robots.txt
-- [ ] Optimize images (WebP format, lazy loading)
-- [ ] Add structured data (JSON-LD)
-- [ ] Improve page load performance
-- [ ] Add favicon and app icons
+- [x] Add meta tags (Open Graph, Twitter Cards)
+- [x] Create sitemap.xml
+- [x] Add robots.txt
+- [x] Add structured data (JSON-LD)
+- [x] Add preconnect for faster font loading
+- [x] Add favicon (SVG)
 
 ## Phase 5: Polish & UX
-- [ ] Add loading states/skeletons
-- [ ] Improve accessibility (ARIA labels, keyboard nav)
 - [x] Add dark/light theme toggle
 - [x] Create 404 page
-- [ ] Add page transitions
-- [ ] Mobile navigation improvements
-- [ ] Add scroll-to-top button
+- [x] Add page transitions (fade-in)
+- [x] Mobile hamburger menu
+- [x] Add scroll-to-top button
+- [x] Skip-to-content link (accessibility)
+- [x] Dynamic copyright year
+- [x] ARIA labels on interactive elements
 
 ## Phase 6: Analytics & Monitoring
-- [ ] Add privacy-friendly analytics (Plausible/Simple Analytics)
-- [ ] Set up uptime monitoring
-- [ ] Add performance monitoring
+- [x] Add GoatCounter analytics (commented, ready to activate)
+- [ ] Set up uptime monitoring (optional)
+- [ ] Add performance monitoring (optional)
 
 ---
 
