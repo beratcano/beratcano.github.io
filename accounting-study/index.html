@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accounting Study Hub — Management &amp; Cost Accounting revision</title>
+<meta name="description" content="A complete, exam-focused study site for a Management & Cost Accounting course: managerial accounting basics, cost classification, cost of goods manufactured, relevant costs and decision making, with fully worked practice problems.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-root="" data-page="home">
+<div id="site-header"></div>
+
+<div class="wrap" style="padding-top:34px;">
+  <div class="page-head">
+    <span class="eyebrow">Management &amp; Cost Accounting · full course revision</span>
+    <h1>Cost &amp; managerial accounting,<br>worked through until it clicks.</h1>
+    <p class="lede">Six study chapters, every assigned problem solved step-by-step, printable formula sheets and an
+      interactive exam simulator — built <strong>only</strong> from your two chapters (Intro to Managerial Accounting &amp;
+      Relevant Costs) and the five problem sets. Your progress saves in this browser.</p>
+    <div class="btn-row">
+      <a class="btn" href="pages/01-intro-managerial.html">Start with Chapter 1 →</a>
+      <a class="btn ghost" href="pages/06-practice-problems.html">Worked problems</a>
+      <a class="btn ghost" href="pages/08-exam-practice.html">Exam practice</a>
+    </div>
+  </div>
+
+  <div class="progress-wrap" style="margin:8px 0 26px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+      <strong id="prog-label">Your progress</strong>
+      <button class="btn ghost small" id="reset-prog" style="padding:6px 12px;">Reset progress</button>
+    </div>
+    <div class="bar" style="margin:12px 0 6px;"><span id="prog-bar"></span></div>
+    <div class="muted small" id="prog-sub">Mark chapters as studied as you go.</div>
+  </div>
+
+  <h2 style="margin-top:.4em;">The whole course in three moves</h2>
+  <p class="muted" style="margin-top:-.4em;">Everything you'll be tested on fits one of these.</p>
+  <div class="grid cols-3">
+    <div class="card"><h3>① Classify costs</h3><p class="small">Sort every cost: <strong>product vs period</strong>, <strong>direct vs indirect</strong>, <strong>DM / DL / MOH</strong>, prime vs conversion. Get this right and everything else follows.</p></div>
+    <div class="card"><h3>② Report the cost</h3><p class="small">Build the <strong>schedule of cost of goods manufactured</strong> and the <strong>income statement</strong>, then a <strong>unit cost</strong>. Trace cost through RM → WIP → FG.</p></div>
+    <div class="card"><h3>③ Decide with cost</h3><p class="small">Use <strong>relevant costs</strong> (ignore sunk costs!) for special orders, make-or-buy, constraints and equipment replacement.</p></div>
+  </div>
+
+  <h2>Study chapters</h2>
+  <div class="grid cols-3" id="topic-grid"></div>
+
+  <h2>How to use this site</h2>
+  <div class="grid cols-3">
+    <div class="card"><h3>📖 Read the chapter</h3><p class="small">Sticky table of contents, colour-coded <span class="tag">key term</span>, <span class="tag" style="background:var(--ok-soft);color:var(--ok)">exam tip</span> and <span class="tag" style="background:var(--mn-soft);color:var(--mn-line)">memory hook</span> callouts.</p></div>
+    <div class="card"><h3>🧮 Work the problems</h3><p class="small">Every assigned problem is solved line-by-line in <a href="pages/06-practice-problems.html">Practice Problems</a> — try it, then reveal the full solution.</p></div>
+    <div class="card"><h3>🎯 Simulate the exam</h3><p class="small"><a href="pages/08-exam-practice.html">Exam Practice</a> has a scored, shuffleable question bank you can filter by topic.</p></div>
+  </div>
+
+  <div class="callout tip" style="margin-top:24px;">
+    <span class="label">Exam-night plan</span>
+    <p>Lock down <strong>cost classification</strong> (Ch 2) — it's the most common quick-marks question. Then drill the <strong>COGM → income statement</strong> format (Ch 3) until you can do Medi/Howell/Mandelo from memory. Finally rehearse the <strong>relevant-cost decision rules</strong> (Ch 4–5): special order, make-or-buy, constraints, equipment replacement. Finish on <a href="pages/08-exam-practice.html">Exam Practice</a>.</p>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script src="assets/js/main.js"></script>
+<script>
+  window.onPageReady = function () {
+    var blurbs = {
+      intro:          "Managerial vs financial accounting, the business environment, service/merchandising/manufacturing firms, the 3 inventories.",
+      classification: "Product vs period, DM/DL/MOH, prime & conversion, direct vs indirect — with classification drills.",
+      cogm:           "Schedule of cost of goods manufactured, COGS, unit cost + Medi, Howell & Mandelo fully solved.",
+      relevant:       "The 5-step decision process, relevant vs sunk costs, differential & opportunity cost.",
+      decisions:      "Special order, make-or-buy, product mix under constraints, TOC, customer profitability, equipment replacement.",
+      practice:       "All five problem sets with complete, step-by-step worked solutions for self-testing."
+    };
+    var grid = document.getElementById("topic-grid");
+    var done = window.ACC.getProgress();
+    var n = 0;
+    window.ACC.PAGES.forEach(function (p) {
+      if (!window.ACC.STUDY_IDS.includes(p.id)) return;
+      n++;
+      var isDone = !!done[p.id];
+      var a = document.createElement("a");
+      a.className = "topic";
+      a.href = p.path;
+      a.innerHTML =
+        '<span class="tnum">Chapter ' + n + '</span>' +
+        '<span class="ttitle">' + p.short + '</span>' +
+        '<span class="tdesc">' + (blurbs[p.id] || "") + '</span>' +
+        '<span class="tmeta"><span class="' + (isDone ? "dot-done" : "dot-todo") + '"></span>' +
+          (isDone ? "Studied" : "Not yet") + '</span>';
+      grid.appendChild(a);
+    });
+
+    var total = window.ACC.STUDY_IDS.length;
+    var doneCount = window.ACC.STUDY_IDS.filter(function (id) { return done[id]; }).length;
+    var pct = Math.round(doneCount / total * 100);
+    document.getElementById("prog-bar").style.width = pct + "%";
+    document.getElementById("prog-label").textContent = "Your progress — " + doneCount + " / " + total + " chapters";
+    document.getElementById("prog-sub").textContent = pct === 100
+      ? "All chapters studied. Go crush the exam practice 🎯"
+      : "Mark chapters as studied as you go. " + pct + "% complete.";
+    document.getElementById("reset-prog").addEventListener("click", function () {
+      if (confirm("Reset your studied-chapter progress?")) { window.ACC.resetProgress(); location.reload(); }
+    });
+  };
+</script>
+</body>
+</html>

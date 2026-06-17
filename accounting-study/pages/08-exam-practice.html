@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exam Practice — Accounting Study Hub</title>
+<meta name="description" content="Interactive management & cost accounting exam simulator: 45+ multiple-choice questions across all topics, filter by topic, shuffle, instant feedback with explanations, scoring and a review of your misses.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="exam">
+<div id="site-header"></div>
+
+<div class="page no-toc">
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Test yourself</span>
+      <h1>Exam Practice</h1>
+      <p class="lede">45+ multiple-choice questions drawn straight from the course. Pick a topic or do them all,
+      answer, and get instant explanations. Your misses are collected for review at the end.</p>
+    </div>
+
+    <!-- START -->
+    <div id="quiz-start">
+      <div class="quiz-card">
+        <h3 style="margin-top:0;">1 · Choose a topic (or "All")</h3>
+        <div class="chip-row" id="topic-chips"></div>
+        <h3>2 · Options</h3>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="shuffle-toggle" checked>
+          <span>Shuffle questions &amp; answer order (recommended)</span>
+        </label>
+        <div class="btn-row" style="margin-top:18px;">
+          <button class="btn" id="begin-btn">Begin quiz →</button>
+        </div>
+        <p class="muted small" id="best-note">Answer first, then reveal — active recall beats re-reading.</p>
+      </div>
+
+      <div class="callout tip" style="margin-top:18px;">
+        <span class="label">How scoring works</span>
+        <p>One point per correct answer on the first try. After each question you'll see whether you were right and a one-line explanation. At the end you get a score, a personal best (saved in this browser), and a list of everything you missed to review.</p>
+      </div>
+    </div>
+
+    <!-- LIVE -->
+    <div id="quiz-live" style="display:none;">
+      <div class="bar" style="margin-bottom:14px;"><span id="q-progress"></span></div>
+      <div class="quiz-card">
+        <div class="quiz-meta" id="q-meta"></div>
+        <div class="quiz-q" id="q-text"></div>
+        <div id="q-options"></div>
+        <div class="quiz-explain" id="q-explain" style="display:none;"></div>
+        <div class="btn-row" style="justify-content:flex-end;margin-bottom:0;">
+          <button class="btn" id="q-next" style="display:none;">Next →</button>
+        </div>
+      </div>
+      <p class="muted small">Tip: after answering, press <kbd>Enter</kbd> for the next question.</p>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="quiz-results" style="display:none;"></div>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/quiz-data.js"></script>
+<script src="../assets/js/quiz.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

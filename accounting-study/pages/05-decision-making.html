@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5 · Decision Making — Accounting Study Hub</title>
+<meta name="description" content="Applying relevant costs: one-time special orders, make-or-buy (insourcing vs outsourcing), opportunity cost, stock order-size decisions, product mix under capacity constraints, theory of constraints, customer profitability, and equipment replacement — fully worked.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="decisions">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 5 · Textbook Ch.10 applications</span>
+      <h1>Decision Making with Relevant Costs</h1>
+      <p class="lede">The decision types you'll be tested on — each reduces to the same move:
+      <strong>compare only the costs &amp; revenues that change.</strong> All examples use the course's Gabriela &amp; Co. data.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <h2>① One-time-only special order</h2>
+    <p>Gabriela &amp; Co. can make 44,000 towels/month but currently makes 30,000 → it has <strong>spare capacity</strong>. A hotel offers to buy <strong>5,000 towels at £11.50</strong> (= £57,500). No marketing costs apply to this order.</p>
+    <div class="table-wrap"><table><tbody>
+      <tr><th>Variable manufacturing cost / towel</th><td>£8.50 (DM 6.50 + DL 0.50 + mfg 1.50)</td></tr>
+      <tr><th>Full cost / towel (for reference)</th><td>£20.50 (variable 13.50 + fixed 7.00) — <em>includes irrelevant fixed &amp; marketing</em></td></tr>
+      <tr><th>Relevant cost of the order</th><td>£8.50 × 5,000 = <strong>£42,500</strong></td></tr>
+      <tr><th>Incremental revenue</th><td>£57,500 − £42,500 = <strong>£15,000 extra profit</strong></td></tr>
+      <tr><th>Contribution / towel</th><td>£11.50 − £8.50 = £3.00 × 5,000 = £15,000</td></tr>
+    </tbody></table></div>
+    <div class="callout key"><span class="label">Decision rule &amp; answer</span><p><strong>Accept</strong> if the revenue differential &gt; the cost differential. Here yes (+£15,000). The £20.50 full cost and the fixed costs are <strong>irrelevant</strong> — they don't change. <em>Accept the order.</em></p></div>
+
+    <h2>② Make-or-buy (insourcing vs outsourcing)</h2>
+    <p><strong>Outsourcing</strong> = buying from outside; <strong>insourcing</strong> = producing internally. The most important factors: <strong>quality, dependability of supply, and cost.</strong> Gabriela needs 150,000 of Part #2; Alec offers £0.55 each.</p>
+    <p class="small">Next year: 150 batches of 1,000 units; variable material-handling/set-up = £100/batch (so 150 × £100 = £15,000); fixed material-handling = £9,000. Variable manufacturing per unit = (DM 28,000 + DL 18,500 + variable OH 15,000) ÷ 150,000 = <strong>£0.41</strong>.</p>
+    <div class="vs">
+      <div class="card a"><h4>Scenario 1 — £9,000 fixed is unavoidable</h4>
+        <table><tbody>
+          <tr><td>Make: manufacturing (61,500) + handling/set-ups (15,000)</td><th>£76,500</th></tr>
+          <tr><td>Buy: 150,000 × £0.55</td><th>£82,500</th></tr>
+          <tr><td><strong>Making saves</strong></td><th>£6,000 → MAKE</th></tr>
+        </tbody></table></div>
+      <div class="card b"><h4>Scenario 2 — £9,000 fixed is avoidable if buying</h4>
+        <table><tbody>
+          <tr><td>Make: 76,500 + avoidable fixed 9,000</td><th>£85,500</th></tr>
+          <tr><td>Buy</td><th>£82,500</th></tr>
+          <tr><td><strong>Buying saves</strong></td><th>£3,000 → BUY</th></tr>
+        </tbody></table></div>
+    </div>
+    <div class="callout tip"><span class="label">The lesson</span><p>Whether a <strong>fixed</strong> cost is relevant depends on whether it's <strong>avoidable</strong>. The same problem flips from "make" to "buy" purely because £9,000 of fixed cost became avoidable.</p></div>
+
+    <h3>Adding opportunity cost</h3>
+    <p>If Gabriela buys Part #2, the freed facilities can make Part #3 for Krysta → <strong>+£18,000 profit</strong>. Compare the net cost of obtaining 150,000 Part #2:</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Option</th><th>Net relevant cost</th></tr></thead>
+      <tbody>
+        <tr><td>Make Part #2 (no Part #3)</td><td>£76,500</td></tr>
+        <tr><td>Buy Part #2, don't make Part #3</td><td>£82,500</td></tr>
+        <tr><th>Buy Part #2 &amp; make Part #3</th><td><strong>£82,500 − £18,000 = £64,500 ✓ lowest</strong></td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">The £18,000 forgone profit is an <strong>opportunity cost</strong> of making in-house. Including it, Gabriela should <strong>buy Part #2 and use the space for Part #3</strong>.</p>
+
+    <h2>③ Order-size / stock decision (opportunity cost of holding stock)</h2>
+    <p>150,000 units needed. Order cost £40/order. Price £0.55 if ordered in 1,500s, £0.54 if all 150,000 at once. Money tied up in stock could earn 6%. Average investment in stock = (order value) ÷ 2.</p>
+    <div class="vs">
+      <div class="card a"><h4>Option A — 100 orders of 1,500</h4>
+        <table><tbody>
+          <tr><td>Order costs (100 × £40)</td><td>£4,000.00</td></tr>
+          <tr><td>Purchase (150,000 × £0.55)</td><td>£82,500.00</td></tr>
+          <tr><td>Interest forgone (£412.50 × 6%)</td><td>£24.75</td></tr>
+          <tr><th>Relevant cost</th><th>£86,524.75</th></tr>
+        </tbody></table></div>
+      <div class="card b"><h4>Option B — 1 order of 150,000</h4>
+        <table><tbody>
+          <tr><td>Order cost (1 × £40)</td><td>£40</td></tr>
+          <tr><td>Purchase (150,000 × £0.54)</td><td>£81,000</td></tr>
+          <tr><td>Interest forgone (£40,500 × 6%)</td><td>£2,430</td></tr>
+          <tr><th>Relevant cost</th><th>£83,470 ✓</th></tr>
+        </tbody></table></div>
+    </div>
+    <p class="small muted">Buy all 150,000 at once: the lower price &amp; ordering cost outweigh the higher opportunity cost of holding more stock.</p>
+
+    <h2>④ Product mix under a capacity constraint</h2>
+    <p>3,000 machine hours are the constraint. Which product to emphasise?</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Per unit</th><th>Product #2</th><th>Product #3</th></tr></thead>
+      <tbody>
+        <tr><th>Contribution margin</th><td>£1.70 (CM ratio 81%)</td><td>£0.60 (CM ratio 4%)</td></tr>
+        <tr><th>Machine hours required</th><td>7 hrs</td><td>2 hrs</td></tr>
+        <tr><th>CM per machine hour</th><td>£1.70 ÷ 7 = £0.24</td><td>£0.60 ÷ 2 = <strong>£0.30 ✓</strong></td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="label">Decision rule</span><p>Maximise <strong>contribution margin per unit of the constraining resource</strong> — not CM per unit. Product #3 wins (£0.30 &gt; £0.24) <em>despite</em> a far lower CM per unit and CM ratio, because it uses far fewer machine hours. With multiple constraints, use <strong>linear programming</strong>.</p></div>
+
+    <h3>Bottlenecks &amp; the Theory of Constraints (TOC)</h3>
+    <p>A <strong>bottleneck</strong> limits the whole system's capacity (water leaving a bottle is limited by the neck). TOC's three measures: <strong>throughput margin, investments, operating costs</strong> — aim to <strong>increase throughput margin while decreasing investments &amp; operating costs</strong>.</p>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-sub">Recognize the bottleneck sets the whole system's CM</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-sub">Identify the bottleneck</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-sub">Keep it busy; subordinate everything else to it</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-sub">Increase its efficiency &amp; capacity</span></div>
+    </div>
+
+    <h2>⑤ Customer profitability</h2>
+    <p>Some customers lose money. Example operating income: Vogel <strong>€9,000</strong>, Brenner <strong>€16,000</strong>, Wisk <strong>€(32,000)</strong> → total <strong>€(7,000)</strong>.</p>
+    <ul class="small">
+      <li><strong>Why a customer is unprofitable:</strong> low-margin products ordered, high sales-order costs, high delivery/handling costs, high marketing costs. Work with them to reduce costs before dropping.</li>
+      <li><strong>Dropping vs adding — the key distinction:</strong> depreciation on <em>already-purchased</em> equipment is a <strong>sunk cost → irrelevant</strong> when deciding to drop a customer; but the cost of <em>new</em> equipment to be bought (its future depreciation) <strong>IS relevant</strong> when deciding to add a customer.</li>
+    </ul>
+
+    <h2>⑥ Equipment-replacement decision</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th></th><th>Existing machine</th><th>Replacement</th></tr></thead>
+      <tbody>
+        <tr><th>Original cost</th><td>£80,000</td><td>£105,000</td></tr>
+        <tr><th>Accumulated depreciation</th><td>£50,000</td><td>—</td></tr>
+        <tr><th>Book value</th><td>£30,000 <em>(sunk)</em></td><td>—</td></tr>
+        <tr><th>Current disposal price</th><td>£14,000</td><td>—</td></tr>
+        <tr><th>Annual operating costs</th><td>£46,000</td><td>£10,000</td></tr>
+      </tbody>
+    </table></div>
+    <div class="table-wrap"><table><tbody>
+      <tr><td>Annual cost saving (46,000 − 10,000)</td><td>£36,000</td></tr>
+      <tr><td>× 4-year life</td><td>£144,000</td></tr>
+      <tr><td>Net investment (105,000 − 14,000 trade-in)</td><td>(£91,000)</td></tr>
+      <tr><th>Advantage of replacing</th><th>£53,000 → REPLACE</th></tr>
+    </tbody></table></div>
+    <div class="callout key"><span class="label">The headline rule</span>
+      <p><strong>The book value of existing equipment is irrelevant</strong> — it's a sunk cost (neither future nor different between alternatives). <strong>Irrelevant:</strong> cost, accumulated depreciation, book value of old machine, and any accounting gain/loss on disposal. <strong>Relevant:</strong> the <em>current disposal value</em> of the old machine and the <em>purchase cost</em> of the new one.</p></div>
+    <div class="callout warn"><span class="label">Performance-evaluation conflict</span><p>The decision model can say "replace," but a manager may resist if scrapping the old machine shows a <strong>loss</strong> that hurts their performance review. Ideally, design the decision model and the performance-evaluation model to be <strong>consistent</strong>.</p></div>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>For a special order with spare capacity, which costs are relevant?</summary>
+      <div class="answer">Only the <strong>incremental variable costs</strong> of the order (and any avoidable costs). Fixed costs and full unit cost are irrelevant — accept if revenue &gt; incremental cost.</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>In make-or-buy, when does a fixed cost become relevant?</summary>
+      <div class="answer">When it is <strong>avoidable</strong> under one alternative. Gabriela's decision flipped from MAKE (save £6,000) to BUY (save £3,000) once £9,000 of fixed cost became avoidable.</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>With a single constraint, what do you maximise?</summary>
+      <div class="answer"><strong>Contribution margin per unit of the constraining resource</strong> (e.g. CM per machine hour) — not CM per unit. Product #3 won at £0.30/hr vs Product #2 at £0.24/hr.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>Why is book value irrelevant in equipment replacement?</summary>
+      <div class="answer">It's a sunk (past) cost — it's not a future cost and doesn't differ between keeping or replacing. Relevant items: old machine's current disposal value and the new machine's cost.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>Depreciation when dropping vs adding a customer?</summary>
+      <div class="answer">Dropping: depreciation on equipment already owned is <strong>sunk → irrelevant</strong>. Adding: the cost of <strong>new</strong> equipment (future depreciation) <strong>is relevant</strong>.</div></details>
+    <details class="q"><summary><span class="q-badge">Q6</span>What are TOC's three measures and its goal?</summary>
+      <div class="answer">Throughput margin, investments, operating costs. Goal: increase throughput margin while decreasing investments and operating costs; manage the bottleneck.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
