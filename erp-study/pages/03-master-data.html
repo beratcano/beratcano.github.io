@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3 · Master Data &amp; Governance — ERP Study Hub</title>
+<meta name="description" content="Master data and data governance in ERP: master vs transactional data, master data types, material master views, six data quality dimensions, governance framework, data owner vs steward, MDM strategies, cost of poor data, master data lifecycle and migration.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="masterdata">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 3 · Week 3 (Section B)</span>
+      <h1>Master Data &amp; Data Governance</h1>
+      <p class="lede">The quality of an ERP system is directly proportional to the quality of the data inside it.
+      The whole chapter is one idea: <strong>garbage in, garbage out.</strong></p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <h2>What is master data?</h2>
+    <div class="callout key"><span class="label">Definition</span>
+      <p>Core data <strong>shared across multiple business units or systems</strong>, relatively <strong>stable over time</strong>, and critical to operations.</p></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Attribute</th><th>Master data</th><th>Transaction data</th></tr></thead>
+      <tbody>
+        <tr><th>Definition</th><td>Describes core business entities</td><td>Records daily business operations</td></tr>
+        <tr><th>Change frequency</th><td>Rarely changes</td><td>Changes continuously</td></tr>
+        <tr><th>Examples</th><td>Customer, Product, Vendor, Account</td><td>Order, Invoice, Payment, Stock movement</td></tr>
+        <tr><th>Scope</th><td>All modules &amp; systems</td><td>Relevant process / module only</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">A customer record is master data because it's used across hundreds of order transactions; the order itself is transaction data. <strong>If master data is flawed, all transaction data built on it is flawed.</strong></p>
+
+    <h2>Master data types in ERP</h2>
+    <div class="grid cols-2">
+      <div class="card"><h4>Customer Master <span class="tag">SD · FI · CRM</span></h4><ul class="small"><li>Customer number &amp; name</li><li>Address &amp; contact</li><li>Payment terms &amp; credit limit</li><li>Sales area &amp; distribution channel</li><li>Account group assignment</li></ul></div>
+      <div class="card"><h4>Vendor Master <span class="tag">MM · FI · SCM</span></h4><ul class="small"><li>Vendor number &amp; name</li><li>Bank &amp; payment details</li><li>Delivery lead times</li><li>Evaluation score</li><li>Tax identification</li></ul></div>
+      <div class="card"><h4>Material Master <span class="tag">MM · PP · WM · FI</span></h4><ul class="small"><li>Material number &amp; description</li><li>Unit of measure, weight, dimensions</li><li>Storage &amp; purchasing data</li><li>Accounting &amp; costing data</li><li>MRP planning parameters</li></ul></div>
+      <div class="card"><h4>Finance Master <span class="tag">FI · CO · PS</span></h4><ul class="small"><li>Chart of Accounts structure</li><li>Cost center hierarchy</li><li>Profit center organization</li><li>Currency &amp; exchange data</li><li>Reporting categories</li></ul></div>
+    </div>
+
+    <h3>Material master: views in SAP <span class="muted small">(the most complex master record!)</span></h3>
+    <p>The material master holds <strong>"views"</strong> — each maintained by a different department for its own needs. A missing/incorrect view directly breaks that unit's processes.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>View</th><th>Owner</th><th>Key fields</th></tr></thead>
+      <tbody>
+        <tr><th>Basic Data</th><td>All units</td><td>Material no., description, UoM, weight, dimensions</td></tr>
+        <tr><th>Purchasing</th><td>Procurement</td><td>Vendor, min. order qty, lead time, price unit</td></tr>
+        <tr><th>MRP / Planning</th><td>Production Planning</td><td>MRP type, lot sizing, safety stock, reorder point</td></tr>
+        <tr><th>Warehouse</th><td>Warehouse / Logistics</td><td>Storage type, shelf life, transport group, volume</td></tr>
+        <tr><th>Accounting</th><td>Finance</td><td>Valuation method (standard / moving average), valuation class</td></tr>
+        <tr><th>Sales</th><td>Sales</td><td>Sales org., distribution channel, tax class, customer price</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>Data quality: the 6 dimensions</h2>
+    <div class="grid cols-3">
+      <div class="card"><h4>Accuracy</h4><p class="small">Does the data correctly reflect the real world? <em>Is the customer's address current?</em></p></div>
+      <div class="card"><h4>Completeness</h4><p class="small">Are all required fields populated? <em>Does the vendor record include payment details?</em></p></div>
+      <div class="card"><h4>Consistency</h4><p class="small">Same data consistent across systems? <em>Does the SAP customer name match CRM?</em></p></div>
+      <div class="card"><h4>Timeliness</h4><p class="small">Updated when changes occur? <em>Has the price-list expiry passed?</em></p></div>
+      <div class="card"><h4>Uniqueness</h4><p class="small">Any duplicates for the same entity? <em>Same customer under two codes?</em></p></div>
+      <div class="card"><h4>Validity</h4><p class="small">Conforms to defined rules/formats? <em>Is the UoM in the allowed values?</em></p></div>
+    </div>
+    <div class="callout mnemonic"><span class="label">Mnemonic</span><p><strong>"A C C T U V"</strong> → Accuracy, Completeness, Consistency, Timeliness, Uniqueness, Validity.</p></div>
+
+    <h2>Data governance</h2>
+    <div class="callout key"><span class="label">Definition</span><p>The overall management of the <strong>availability, usability, integrity, and security</strong> of data through defined authorities, responsibilities, policies and standards.</p></div>
+    <p>Four pillars:</p>
+    <div class="grid cols-4">
+      <div class="card small"><strong>Policy &amp; Standards</strong><br>data definitions, naming conventions, mandatory fields, quality thresholds</div>
+      <div class="card small"><strong>Organization &amp; Roles</strong><br>data owner, data steward, data-quality team, governance committee</div>
+      <div class="card small"><strong>Processes &amp; Workflows</strong><br>creation/approval, change management, periodic cleansing, exception handling</div>
+      <div class="card small"><strong>Technology &amp; Tools</strong><br>MDM platform, data-quality tools, reporting dashboards, audit trails</div>
+    </div>
+
+    <h3>Key roles: Owner vs Steward</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Role</th><th>Who</th><th>Responsibilities</th></tr></thead>
+      <tbody>
+        <tr><th>Data Owner</th><td>Senior / mid-level manager</td><td>Approves policies &amp; standards, sets quality targets/KPIs, authorizes access, <strong>accountable for data-related business outcomes</strong>, drives corrective action</td></tr>
+        <tr><th>Data Steward</th><td>Operational expert in the business unit</td><td>Monitors daily quality, reviews/approves new record requests, fixes/deduplicates records, trains users on entry standards</td></tr>
+        <tr><th>Technical Data Steward</th><td>IT / ERP support</td><td>Manages data model &amp; integration rules, defines system validations, runs migration, develops the MDM platform</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip"><span class="label">Don't mix these up</span><p><strong>Owner = accountable</strong> (policy &amp; outcomes, a manager). <strong>Steward = operational</strong> (daily quality, a business expert). <strong>Technical steward = IT</strong> (model, validations, migration).</p></div>
+
+    <h2>MDM (Master Data Management) strategies</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Strategy</th><th>How it works</th><th>Pros / Cons</th><th>Best fit</th></tr></thead>
+      <tbody>
+        <tr><th>Centralized</th><td>All master data in one central repository; systems pull from it</td><td><strong>+</strong> single source of truth, high consistency<br><strong>−</strong> complex, costly integration</td><td>Large, multi-system enterprises</td></tr>
+        <tr><th>Decentralized</th><td>Each system manages its own data, periodic sync</td><td><strong>+</strong> flexible, fast to implement<br><strong>−</strong> inconsistency risk, sync overhead</td><td>Mid-sized orgs with diverse IT</td></tr>
+        <tr><th>Federated</th><td>Local data + shared rules &amp; a reference model</td><td><strong>+</strong> local autonomy, central standards<br><strong>−</strong> governance complexity, needs oversight</td><td>Holding companies, multinationals</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>The business cost of poor data quality</h2>
+    <div class="grid cols-2">
+      <div class="stat card"><div class="num">$12.9M</div><div class="cap">Avg. lost per org per year due to poor data quality (Gartner, 2021)</div></div>
+      <div class="stat card"><div class="num">$3.1T</div><div class="cap">Estimated annual cost to the U.S. economy (IBM)</div></div>
+    </div>
+    <div class="grid cols-2" style="margin-top:14px;">
+      <div class="card"><h4>Where it bites</h4><ul class="small"><li>Wrong vendor record → delayed/duplicate payments</li><li>Wrong address → shipment cancellations</li><li>Incomplete MRP data → production plan failure</li><li>Wrong price → revenue leakage; wrong cost center → bad reporting</li><li>Duplicate CRM records → inconsistent communication</li></ul></div>
+      <div class="card"><h4>Two real cases</h4>
+        <p class="small"><strong>Retail chaos (failure):</strong> 500-store chain migrated to SAP <em>without cleansing</em> — 3 vendor records for one supplier, 12,000 wrong units of measure, 800 customers missing tax numbers, 40% stock inconsistency → 6-month, €1.2M remediation. <em>Lesson: governance &amp; stewardship must exist before the project.</em></p>
+        <p class="small"><strong>Global manufacturer (success):</strong> 18 countries, 8 months of governance before S/4HANA go-live; appointed data owners, trained 180 stewards, centralized MDM, cleaned 2.4M material records → <strong>98.7% completeness</strong>, procurement −34%, invoice errors 12%→1.4%. <em>Key: CEO sponsorship, business owned the data, governance launched 8 months early.</em></p></div>
+    </div>
+    <div class="callout warn"><span class="label">Remember</span><p>"<strong>Data quality is not an IT problem.</strong>" KPIs calculated on bad data lead to wrong market decisions.</p></div>
+
+    <h2>Master data lifecycle</h2>
+    <p>Managed from creation to archival — and note: in ERP, records are generally <strong>not deleted</strong>.</p>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Request &amp; Initiation</span><span class="s-sub">business unit raises request + justification</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Validation &amp; Enrichment</span><span class="s-sub">steward checks mandatory fields</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Approval &amp; Authorization</span><span class="s-sub">owner approves; rules verified</span></div>
+    </div>
+    <div class="flow">
+      <div class="step"><span class="n">4</span><span class="s-title">Creation &amp; Activation</span><span class="s-sub">entered into ERP, distributed to modules</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Maintenance &amp; Update</span><span class="s-sub">periodic reviews + change management</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">6</span><span class="s-title">Archive &amp; Block</span><span class="s-sub">inactive records blocked, never deleted</span></div>
+    </div>
+    <div class="callout key"><span class="label">Why "block", not "delete"?</span><p>If records were deleted, historical <strong>transaction data would become meaningless</strong>. Instead records are <strong>blocked / deactivated</strong> to preserve the audit trail.</p></div>
+
+    <h2>Data migration in ERP implementation</h2>
+    <p>One of the most complex, time-consuming phases — <strong>15–25% of total project budget</strong>.</p>
+    <div class="flow">
+      <div class="step"><span class="n">01</span><span class="s-title">Source Analysis</span><span class="s-sub">inventory existing data &amp; owners</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">02</span><span class="s-title">Field Mapping</span><span class="s-sub">legacy → new ERP, transformation rules</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">03</span><span class="s-title">Data Cleansing</span><span class="s-sub">dedup/incomplete/wrong — most time-consuming</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">04</span><span class="s-title">Test Migration</span><span class="s-sub">load to test env; business UAT</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">05</span><span class="s-title">Production Go-Live</span><span class="s-sub">approved data loaded live</span></div>
+    </div>
+    <div class="callout warn"><span class="label">Critical success factor</span><p>Data migration is a <strong>business process, not a technical one</strong>. Without active involvement from business units, success is impossible.</p></div>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>List the six data-quality dimensions.</summary>
+      <div class="answer">Accuracy, Completeness, Consistency, Timeliness, Uniqueness, Validity.</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>Data Owner vs Data Steward — who does what?</summary>
+      <div class="answer"><strong>Owner</strong> = senior manager, approves policy/standards, sets quality KPIs, authorizes access, accountable for outcomes. <strong>Steward</strong> = operational business expert, monitors daily quality, approves/fixes records, trains users. (<strong>Technical steward</strong> = IT: model, validations, migration, MDM platform.)</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>Name the three MDM strategies and the best fit for each.</summary>
+      <div class="answer"><strong>Centralized</strong> (single source of truth) — large multi-system enterprises. <strong>Decentralized</strong> (own data + sync) — mid-sized with diverse IT. <strong>Federated</strong> (local data + shared rules) — holdings/multinationals.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>Why are ERP records blocked instead of deleted?</summary>
+      <div class="answer">To preserve the audit trail — deleting master records would make historical transaction data meaningless.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>Which material master view does each of Finance, Procurement and PP own?</summary>
+      <div class="answer">Finance → <strong>Accounting</strong> view (valuation). Procurement → <strong>Purchasing</strong> view. PP → <strong>MRP/Planning</strong> view. (Plus Basic Data, Warehouse, Sales.)</div></details>
+    <details class="q"><summary><span class="q-badge">Q6</span>Roughly what share of project budget is data migration, and is it technical or business work?</summary>
+      <div class="answer"><strong>15–25%</strong> of the budget; it is a <strong>business process</strong>, not a technical one — needs business-unit involvement.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

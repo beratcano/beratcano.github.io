@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheat Sheets — ERP Study Hub</title>
+<meta name="description" content="ERP exam cheat sheets: SAP T-codes by module, goods movement types, FI document types, SD billing types, HCM infotypes, wage types, G/L account ranges, module abbreviations, organizational levels, key comparisons, mnemonics and numbers.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="cheatsheets">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Quick reference</span>
+      <h1>Cheat Sheets</h1>
+      <p class="lede">Everything factual in one place — codes, movement types, infotypes, comparisons, mnemonics and numbers.
+      <strong>Tip:</strong> press <kbd>Ctrl</kbd>/<kbd>⌘</kbd>+<kbd>P</kbd> to print this page to PDF for last-minute cramming.</p>
+    </div>
+
+    <h2>T-codes by module</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Module</th><th>T-codes</th></tr></thead>
+      <tbody>
+        <tr><th>MM (Procure-to-Pay)</th><td><span class="tcode">ME51N</span> create PR · <span class="tcode">ME21N</span> create PO · <span class="tcode">ME23N</span> display PO · <span class="tcode">MIGO</span> goods receipt · <span class="tcode">MIRO</span> invoice verification · <span class="tcode">F110</span> payment run · <span class="tcode">MRBR</span> release blocked invoices</td></tr>
+        <tr><th>MM (master / sourcing)</th><td><span class="tcode">XK01</span> vendor (all) · <span class="tcode">MK01</span> vendor (purch) · <span class="tcode">FK01</span> vendor (FI) · <span class="tcode">ME61</span> vendor eval · <span class="tcode">ME11</span> info record · <span class="tcode">ME41</span> RFQ · <span class="tcode">ME31K</span> contract · <span class="tcode">MB52</span>/<span class="tcode">MMBE</span> stock · <span class="tcode">LT01</span>/<span class="tcode">LS24</span>/<span class="tcode">LX02</span> WM · <span class="tcode">CK11N</span>/<span class="tcode">CK24</span> standard cost</td></tr>
+        <tr><th>PP</th><td><span class="tcode">CS01</span> BOM · <span class="tcode">CA01</span> routing · <span class="tcode">CR01</span> work center · <span class="tcode">MD11</span> planned order · <span class="tcode">MD01</span>/<span class="tcode">MD02</span> MRP run · <span class="tcode">CO01</span> production order · <span class="tcode">CO02</span> release · <span class="tcode">CO11N</span> confirmation · <span class="tcode">CM01</span>/<span class="tcode">CM21</span>/<span class="tcode">CM04</span> capacity</td></tr>
+        <tr><th>SD (Order-to-Cash)</th><td><span class="tcode">VA11</span> inquiry · <span class="tcode">VA21</span> quotation · <span class="tcode">VA01</span> sales order · <span class="tcode">VL01N</span> delivery · <span class="tcode">VF01</span> billing · <span class="tcode">F-28</span> incoming payment · <span class="tcode">VKM3</span>/<span class="tcode">VKM4</span> release credit block</td></tr>
+        <tr><th>SD (master / pricing)</th><td><span class="tcode">XD01</span> customer (all) · <span class="tcode">VD01</span> customer (SD) · <span class="tcode">FD01</span> customer (FI) · <span class="tcode">MM01</span> material · <span class="tcode">VK11</span> pricing condition</td></tr>
+        <tr><th>FI (period-end)</th><td><span class="tcode">FBS1</span> accruals · <span class="tcode">AFAB</span> depreciation · <span class="tcode">F.13</span> GR/IR clearing · <span class="tcode">FAGL_FC_VAL</span> FX reval · <span class="tcode">OB52</span> close periods · <span class="tcode">F.01</span> financial statements · <span class="tcode">F.08</span> trial balance</td></tr>
+        <tr><th>CO (reports)</th><td><span class="tcode">S_ALR_87013611</span> cost center · <span class="tcode">KE5Z</span> profit center P&amp;L · <span class="tcode">KE30</span> profitability · <span class="tcode">KOB1</span> internal order · <span class="tcode">S_ALR_87012271</span> cash flow</td></tr>
+        <tr><th>HCM</th><td><span class="tcode">PA10</span> personnel file · <span class="tcode">PA30</span> maintain master · <span class="tcode">PA40</span> personnel actions · <span class="tcode">PA20</span> display · <span class="tcode">PT60</span> time evaluation · <span class="tcode">PCP0</span> payroll posting</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout mnemonic"><span class="label">Pattern</span><p>In MM the last digit means <strong>1 Create · 2 Change · 3 Display</strong> (<span class="tcode">ME51N/52N/53N</span>, <span class="tcode">CS01/02/03</span>). "<strong>N</strong>" = new UI. Vendor/customer first letter: <strong>X</strong>=all views, <strong>M/V</strong>=logistics-only, <strong>F</strong>=FI-only.</p></div>
+
+    <h2>Goods movement types (MM)</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>101</th><th>261</th><th>311</th><th>501</th><th>601</th><th>702</th></tr></thead>
+      <tbody><tr>
+        <td>GR for PO (stock ↑)</td><td>GI for production (cost center)</td><td>Transfer within plant</td><td>Receipt without PO</td><td>GI for delivery (COGS ↑)</td><td>Phys. inventory adjust</td>
+      </tr></tbody>
+    </table></div>
+
+    <h2>FI document types &amp; SD billing types</h2>
+    <div class="vs">
+      <div class="card"><h4>FI document types</h4>
+        <table><tbody>
+          <tr><th>SA</th><td>G/L doc (manual journal)</td></tr>
+          <tr><th>DR</th><td>Customer invoice (from SD)</td></tr>
+          <tr><th>KR</th><td>Vendor invoice (from MIRO)</td></tr>
+          <tr><th>DZ</th><td>Customer payment (incoming)</td></tr>
+          <tr><th>KZ</th><td>Vendor payment (outgoing)</td></tr>
+          <tr><th>AA</th><td>Asset doc (depreciation/acq.)</td></tr>
+        </tbody></table>
+        <p class="small muted">D = customer (Debitor), K = vendor (Kreditor); R = invoice, Z = payment.</p></div>
+      <div class="card"><h4>SD billing document types</h4>
+        <table><tbody>
+          <tr><th>F2</th><td>Standard invoice (from delivery)</td></tr>
+          <tr><th>G2</th><td>Credit memo (reduces balance)</td></tr>
+          <tr><th>L2</th><td>Debit memo (increases balance)</td></tr>
+          <tr><th>RE</th><td>Returns (reverses rev. &amp; COGS)</td></tr>
+          <tr><th>Pro Forma</th><td>Customs; no FI posting</td></tr>
+        </tbody></table></div>
+    </div>
+
+    <h2>HCM infotypes &amp; wage types</h2>
+    <div class="vs">
+      <div class="card"><h4>Key infotypes</h4>
+        <table><tbody>
+          <tr><th>0000</th><td>Actions</td></tr>
+          <tr><th>0001</th><td>Org Assignment ★ (→ cost center)</td></tr>
+          <tr><th>0002</th><td>Personal Data</td></tr>
+          <tr><th>0006</th><td>Address</td></tr>
+          <tr><th>0007</th><td>Planned Working Time</td></tr>
+          <tr><th>0008</th><td>Basic Pay</td></tr>
+          <tr><th>0014 / 0015</th><td>Recurring / Additional Payments</td></tr>
+          <tr><th>0021 / 0041</th><td>Family / Date Specifications</td></tr>
+          <tr><th>2001 / 2002</th><td>Absences / Attendances</td></tr>
+        </tbody></table></div>
+      <div class="card"><h4>Wage types</h4>
+        <table><tbody>
+          <tr><th>Primary</th><td>1000–9999, entered (1000 salary, 1500 OT, 2000 car)</td></tr>
+          <tr><th>Secondary "/"</th><td>/100–/999, system-only (/101 employer SS, /559 net pay)</td></tr>
+          <tr><th>Cumulation</th><td>/111 total gross · /112 taxable gross · /113 SI base</td></tr>
+        </tbody></table>
+        <p class="small muted">Slash (/) wage types are <strong>never</strong> entered manually.</p></div>
+    </div>
+
+    <h2>G/L account ranges &amp; module codes</h2>
+    <div class="vs">
+      <div class="card"><h4>G/L ranges (1-2-3-4-5)</h4>
+        <table><tbody>
+          <tr><th>1xxxxx</th><td>Assets</td></tr><tr><th>2xxxxx</th><td>Liabilities</td></tr>
+          <tr><th>3xxxxx</th><td>Equity</td></tr><tr><th>4xxxxx</th><td>Revenue</td></tr>
+          <tr><th>5xxxxx</th><td>Expense</td></tr>
+        </tbody></table></div>
+      <div class="card"><h4>Module codes</h4>
+        <p class="small"><strong>SD</strong> Sales · <strong>MM</strong> Materials · <strong>FI</strong> Finance · <strong>CO</strong> Controlling · <strong>PP</strong> Production · <strong>WM/EWM</strong> Warehouse · <strong>PS</strong> Project System · <strong>HR/HCM</strong> Human Capital · <strong>CRM</strong> Customer Rel. · <strong>SCM</strong> Supply Chain (APO)</p></div>
+    </div>
+
+    <h2>Organizational levels</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Area</th><th>Hierarchy (top → bottom)</th></tr></thead>
+      <tbody>
+        <tr><th>FI</th><td>Client → <strong>Company Code</strong> → Business Area → Fiscal Year/Period</td></tr>
+        <tr><th>HCM</th><td>Client → Company Code → Personnel Area → Personnel Subarea → Employee Group/Subgroup</td></tr>
+        <tr><th>PP</th><td>Client → Company Code → <strong>Plant</strong> → Storage Location → Work Center</td></tr>
+        <tr><th>SD</th><td>Client → Company Code → <strong>Sales Org → Distribution Channel → Division</strong> → Sales Office → Sales Group → Shipping Point</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>The "X vs Y" comparisons examiners love</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Pair</th><th>Key distinction</th></tr></thead>
+      <tbody>
+        <tr><th>Master vs transactional data</th><td>Stable, shared (customer/material) vs daily ops (order/invoice). No good transactions without good master data.</td></tr>
+        <tr><th>FI vs CO</th><td>External/statutory/GAAP-IFRS/closed vs internal/management/flexible.</td></tr>
+        <tr><th>Cost vs profit center vs internal order</th><td>Costs only / revenue+costs / time-limited activity (settled then closed).</td></tr>
+        <tr><th>Standard vs moving average price</th><td>Fixed + variance analysis (finished goods) vs recalculated each GR (raw/traded).</td></tr>
+        <tr><th>Primary vs secondary wage type</th><td>Entered (1000–9999) vs system-generated (/100–/999).</td></tr>
+        <tr><th>IM vs WM</th><td>Plant/location totals (no bins) vs bin-level with transfer orders.</td></tr>
+        <tr><th>PR vs PO</th><td>Internal request (no FI, CO commitment) vs legally binding vendor commitment (FI on GR/IR).</td></tr>
+        <tr><th>Static vs dynamic credit check</th><td>Current exposure vs exposure + future-horizon orders.</td></tr>
+        <tr><th>Config vs customization vs modification</th><td>Parameters / BAdIs &amp; exits / core-code change (avoid).</td></tr>
+        <tr><th>Vanilla vs custom ERP</th><td>Cheaper, upgrade-safe, best practice vs preserves processes but technical debt + lock-in.</td></tr>
+        <tr><th>Centralized vs decentralized vs federated MDM</th><td>One repository / own data+sync / local data + shared rules.</td></tr>
+        <tr><th>Data Owner vs Steward</th><td>Accountable manager (policy/outcomes) vs operational business expert (daily quality).</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>All the mnemonics</h2>
+    <div class="grid cols-2">
+      <div class="callout mnemonic"><span class="label">4 core ERP principles</span><p><strong>I-S-S-C</strong>: Integration, Standard process, Single source, Control/reporting.</p></div>
+      <div class="callout mnemonic"><span class="label">6 data-quality dimensions</span><p><strong>A-C-C-T-U-V</strong>: Accuracy, Completeness, Consistency, Timeliness, Uniqueness, Validity.</p></div>
+      <div class="callout mnemonic"><span class="label">G/L ranges</span><p><strong>1-2-3-4-5 = A-L-E-R-E</strong>: Assets, Liabilities, Equity, Revenue, Expense.</p></div>
+      <div class="callout mnemonic"><span class="label">SAP Activate phases</span><p><strong>D-P-E-R-D-R</strong>: Discover, Prepare, Explore, Realize, Deploy, Run.</p></div>
+      <div class="callout mnemonic"><span class="label">Production order status</span><p>CRTD → REL → PCNF → CNF → DLV → TECO → CLSD.</p></div>
+      <div class="callout mnemonic"><span class="label">SCOR / ARIS</span><p>SCOR = Plan-Source-Make-Deliver-Return-Enable. ARIS = 5 views (Org, Data, Function, Output, Control).</p></div>
+      <div class="callout mnemonic"><span class="label">Three-way match</span><p>PO + GR + Invoice. (And O2C "601 = COGS"; P2P "FI fires on GR".)</p></div>
+      <div class="callout mnemonic"><span class="label">Golden rule</span><p>Fit the process to the system, not the system to the process.</p></div>
+    </div>
+
+    <h2>Numbers worth memorizing</h2>
+    <div class="grid cols-4">
+      <div class="stat card"><div class="num">55–75%</div><div class="cap">ERP projects over budget/time</div></div>
+      <div class="stat card"><div class="num">70%</div><div class="cap">ERP failures are people/process (and Gartner: fail to fully implement in 3 yrs)</div></div>
+      <div class="stat card"><div class="num">15–25%</div><div class="cap">of budget = data migration</div></div>
+      <div class="stat card"><div class="num">3–5×</div><div class="cap">TCO vs license cost</div></div>
+      <div class="stat card"><div class="num">98%</div><div class="cap">master-data completeness rollback floor</div></div>
+      <div class="stat card"><div class="num">6 hrs</div><div class="cap">window to decide rollback</div></div>
+      <div class="stat card"><div class="num">80+</div><div class="cap">vendor score = preferred</div></div>
+      <div class="stat card"><div class="num">29 / 15</div><div class="cap">Gargeya: success / failure firms (of 44)</div></div>
+    </div>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

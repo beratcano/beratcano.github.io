@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7 · Production &amp; Sales (PP / SD) — ERP Study Hub</title>
+<meta name="description" content="SAP Production Planning and Sales & Distribution: BOM/Routing/Work Center master data, production order lifecycle, MRP-PP integration, capacity requirements planning, SD master data and pricing, Order-to-Cash, sales order processing, delivery & goods issue, billing document types, credit management & ATP, and PP-SD integration.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="ppsd">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 7 · Week 7</span>
+      <h1>Production Planning &amp; Sales / Distribution</h1>
+      <p class="lede">Manufacturing meets the market: how PP drives the shop floor, how SD runs <strong>Order-to-Cash</strong>,
+      and how customer demand instantly becomes production.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <h2>SAP PP — Production Planning</h2>
+    <p>PP manages the manufacturing process from demand to finished goods: SOP → Demand Management (PIR) → <strong>MRP</strong> → Production Execution. Org levels: Client → Company Code → <strong>Plant</strong> → Storage Location → Work Center.</p>
+
+    <h3>PP master data: BOM, Routing, Work Center</h3>
+    <p>Three objects define how a product is made — <strong>without them, no production order can be created.</strong></p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Object</th><th>T-code</th><th>What it is</th><th>Key fields / link</th></tr></thead>
+      <tbody>
+        <tr><th>Bill of Materials (BOM)</th><td><span class="tcode">CS01</span></td><td>Structured list of all components to produce one unit</td><td>Component, qty, UoM, scrap; MRP <strong>explodes</strong> the BOM to get component requirements</td></tr>
+        <tr><th>Routing</th><td><span class="tcode">CA01</span></td><td>Sequence of operations, each assigned to a Work Center</td><td>Operation, setup/machine/labor time; times × activity prices feed <strong>CO product cost</strong></td></tr>
+        <tr><th>Work Center</th><td><span class="tcode">CR01</span></td><td>Machine/line/person where operations happen</td><td>Available capacity, efficiency; linked to a <strong>CO cost center</strong>; CRP checks overloads</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Production order lifecycle</h3>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Planned Order</span><span class="s-sub"><span class="tcode">MD11</span>/MRP</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Production Order</span><span class="s-sub"><span class="tcode">CO01</span> (BOM exploded)</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Released</span><span class="s-sub"><span class="tcode">CO02</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">Goods Issue</span><span class="s-sub"><span class="tcode">MIGO</span> (261)</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Confirmation</span><span class="s-sub"><span class="tcode">CO11N</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">6</span><span class="s-title">Goods Receipt</span><span class="s-sub"><span class="tcode">MIGO</span> (101)</span></div>
+    </div>
+    <div class="callout key"><span class="label">Status flow (memorize the order)</span>
+      <p><strong>CRTD</strong> (Created) → <strong>REL</strong> (Released) → <strong>PCNF</strong> (Partially Confirmed) → <strong>CNF</strong> (Confirmed) → <strong>DLV</strong> (Delivered) → <strong>TECO</strong> (Technically Completed) → <strong>CLSD</strong> (Closed). You can't confirm before release; you can't close before delivery.</p></div>
+
+    <h3>MRP → PP integration &amp; CRP</h3>
+    <p>MRP (<span class="tcode">MD01</span>/<span class="tcode">MD02</span>) bridges demand to the shop floor: net requirement calc, lot sizing, lead-time scheduling, availability check, exception messages → outputs planned orders, purchase requisitions and exception messages. Planning horizon: the <strong>firm zone</strong> (within lead time) is frozen; the <strong>planning zone</strong> allows system proposals.</p>
+    <div class="callout tip"><span class="label">Capacity Requirements Planning (CRP)</span>
+      <p>CRP checks whether enough capacity exists. Available capacity = shifts × hours/shift × efficiency%. If load &gt; available → <strong>overload flagged</strong>; the planner must reschedule, split, or add capacity (leveling via <span class="tcode">CM21</span>; load <span class="tcode">CM01</span>; overload <span class="tcode">CM04</span>).</p></div>
+
+    <h2>SAP SD — Sales &amp; Distribution</h2>
+    <p>SD manages the customer-facing process from quotation to cash. Org levels: Client → Company Code → <strong>Sales Organization → Distribution Channel → Division</strong> → Sales Office → Sales Group → Shipping Point.</p>
+
+    <h3>SD master data &amp; pricing</h3>
+    <div class="grid cols-3">
+      <div class="card"><h4>Customer Master</h4><p class="small"><span class="tcode">XD01</span> all views · <span class="tcode">VD01</span> SD only · <span class="tcode">FD01</span> FI only. General data, company-code data (payment terms, credit limit), sales-area data.</p></div>
+      <div class="card"><h4>Material Master (SD views)</h4><p class="small"><span class="tcode">MM01</span>. Needs SD views per Sales Org + Distribution Channel (delivering plant, tax classification, availability check).</p></div>
+      <div class="card"><h4>Pricing — Condition Technique</h4><p class="small"><span class="tcode">VK11</span>. <strong>Condition records</strong> (price, discount, surcharge, freight); an <strong>access sequence</strong> finds the right record by priority. Net value flows into the billing doc &amp; FI.</p></div>
+    </div>
+
+    <h2>Order-to-Cash (O2C) end-to-end</h2>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Pre-Sales</span><span class="s-sub">Inquiry <span class="tcode">VA11</span> / Quote <span class="tcode">VA21</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Sales Order</span><span class="s-sub"><span class="tcode">VA01</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Outbound Delivery</span><span class="s-sub"><span class="tcode">VL01N</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">Billing</span><span class="s-sub"><span class="tcode">VF01</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Payment Receipt</span><span class="s-sub"><span class="tcode">F-28</span></span></div>
+    </div>
+    <p class="small muted">Document chain: Inquiry → Quotation → Sales Order → Outbound Delivery → Goods Issue → Billing Document → Accounting Document → Payment Clearing.</p>
+
+    <h3>Sales order processing (VA01) — four automatic checks</h3>
+    <div class="grid cols-2">
+      <div class="card small"><strong>Pricing determination</strong> — condition technique finds price/discount/tax by customer-material.</div>
+      <div class="card small"><strong>ATP (Availability check)</strong> — confirms quantity &amp; delivery date against stock, open POs, production orders.</div>
+      <div class="card small"><strong>Credit check (FI)</strong> — verifies credit limit; if exceeded the order is blocked (credit hold).</div>
+      <div class="card small"><strong>Transfer of requirements</strong> — passes demand to MRP; if ATP can't confirm, MRP may trigger production.</div>
+    </div>
+    <p class="small">Order structure: <strong>Header</strong> (sold-to, dates, pricing procedure, terms) · <strong>Item</strong> (material, qty, confirmed qty, plant) · <strong>Schedule lines</strong> (confirmed dates/quantities) · <strong>Partner functions</strong> (Sold-to, Ship-to, Bill-to, Payer — each can differ).</p>
+
+    <h3>Delivery &amp; Goods Issue (the COGS trigger)</h3>
+    <p>Outbound delivery (<span class="tcode">VL01N</span>): create delivery → pick (WM transfer order) → pack/ship → <strong>Post Goods Issue</strong> (movement type <strong>601</strong>).</p>
+    <div class="callout key"><span class="label">Goods Issue = revenue recognition trigger</span>
+      <p>At GI (601): <strong>Cost of Goods Sold debited</strong> (P&amp;L expense), <strong>Inventory credited</strong> (stock ↓ on the balance sheet). In manufacturing this is the moment delivery is confirmed and COGS must be recognized — regardless of when the invoice is raised.</p></div>
+
+    <h3>Billing &amp; revenue (VF01)</h3>
+    <p>Billing creates the invoice and the FI revenue posting in one transaction: <strong>AR debited</strong>, <strong>Revenue credited</strong>, <strong>Tax payable credited</strong> — and a <strong>CO-PA document</strong> capturing revenue, COGS &amp; margin per customer/product/region.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Doc type</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><th>F2 — Invoice</th><td>Standard billing from delivery (most common)</td></tr>
+        <tr><th>G2 — Credit Memo</th><td>Reduces customer balance (returns, pricing errors, goodwill)</td></tr>
+        <tr><th>L2 — Debit Memo</th><td>Increases customer balance (original invoice too low)</td></tr>
+        <tr><th>RE — Returns</th><td>From a return order; reverses revenue &amp; COGS</td></tr>
+        <tr><th>Pro Forma</th><td>Advance invoice for customs; <strong>no FI posting</strong></td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Credit management &amp; ATP</h3>
+    <div class="vs">
+      <div class="card a"><h4>Credit management (protects cash)</h4>
+        <ul class="small"><li>Credit limit per customer (per credit control area)</li><li>Exposure = open orders + deliveries + invoices + AR</li><li><strong>Static check</strong>: exposure &gt; limit → blocked</li><li><strong>Dynamic check</strong>: adds future-horizon orders (more conservative)</li><li>Release blocked order: <span class="tcode">VKM3</span>/<span class="tcode">VKM4</span></li></ul></div>
+      <div class="card b"><h4>ATP (protects delivery promises)</h4>
+        <p class="small"><strong>ATP qty = on-hand stock + planned receipts − confirmed sales-order requirements</strong> (by date).</p>
+        <ul class="small"><li>Full availability → full confirmation</li><li>Partial → confirm what's available, backlog rest</li><li>Unconfirmed lines → production requirement to MRP</li><li>Global ATP = cross-plant, needs APO/SCM</li></ul></div>
+    </div>
+
+    <h2>PP ↔ SD integration &amp; the MM → PP → SD flow</h2>
+    <div class="callout key"><span class="label">Key insight</span><p>When a sales-order quantity exceeds ATP stock, SAP automatically creates a <strong>production requirement</strong>; MRP converts it to a planned order within minutes. Finished-goods receipts in PP re-trigger ATP for waiting customer orders. The module boundary is invisible to the business.</p></div>
+    <p>A single order across three modules, with automatic FI/CO postings at each boundary:</p>
+    <div class="flow">
+      <div class="step"><span class="s-title">MM</span><span class="s-sub">PR→PO→GR; components in stock</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">PP</span><span class="s-sub">MRP → planned order → production order; GI 261 → GR 101</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">SD</span><span class="s-sub">Sales order → delivery → GI 601 (COGS) → billing (AR/revenue)</span></div>
+    </div>
+    <div class="callout tip"><span class="label">Case proof</span><p><strong>Arçelik</strong> integrated PP + SD: sales orders trigger real-time ATP, Transfer of Requirements feeds MRP, CRP detects overloads <em>before</em> confirmation → on-time delivery 74% → 93%, finished-goods inventory −18%, order-to-delivery 12 → 6 days.</p></div>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>Name the three PP master-data objects and their role.</summary>
+      <div class="answer"><strong>BOM</strong> (components — what), <strong>Routing</strong> (operations &amp; times — how), <strong>Work Center</strong> (where; capacity, linked to CO cost center). Without all three, no production order can be created.</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>Give the production order status flow.</summary>
+      <div class="answer">CRTD → REL → PCNF → CNF → DLV → TECO → CLSD. (Can't confirm before release; can't close before delivery.)</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>What are the four automatic checks at sales-order entry (VA01)?</summary>
+      <div class="answer">Pricing determination, ATP availability check, credit check (FI), transfer of requirements to MRP.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>Why is Goods Issue (601) so important in O2C?</summary>
+      <div class="answer">It's the <strong>revenue-recognition trigger</strong>: COGS is debited and inventory credited (stock ↓). Confirms delivery occurred, independent of the invoice.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>State the ATP formula.</summary>
+      <div class="answer">ATP quantity = on-hand stock + planned receipts − confirmed sales-order requirements (by date).</div></details>
+    <details class="q"><summary><span class="q-badge">Q6</span>Static vs dynamic credit check?</summary>
+      <div class="answer"><strong>Static:</strong> total exposure (open orders+deliveries+invoices+AR) &gt; limit → block. <strong>Dynamic:</strong> also adds open orders within a future horizon — more conservative.</div></details>
+    <details class="q"><summary><span class="q-badge">Q7</span>What FI postings does billing (VF01) create?</summary>
+      <div class="answer">AR debited, Revenue credited, Tax payable credited — plus a CO-PA document (revenue, COGS, margin by customer/product/region).</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

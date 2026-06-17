@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4 · Finance &amp; Accounting (FI/CO) — ERP Study Hub</title>
+<meta name="description" content="SAP Finance & Accounting: FI organizational levels, Chart of Accounts, General Ledger and document types, parallel ledgers, Accounts Payable & three-way match, Accounts Receivable & credit management, period-end close, Controlling (cost centers, profit centers, internal orders, product costing, CO-PA), FI/CO integration and reporting.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="finance">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 4 · Week 4</span>
+      <h1>Finance &amp; Accounting — FI / CO</h1>
+      <p class="lede">External reporting (FI) and internal performance management (CO) — and how every operational
+      transaction in ERP creates an automatic financial consequence.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <div class="callout key"><span class="label">FI in one breath</span>
+      <p>FI records every financial event and produces statutory reports for <strong>external</strong> stakeholders (shareholders, tax authorities, regulators, banks). The four verbs: <strong>Record → Classify → Report → Comply.</strong></p></div>
+
+    <h2>Organizational levels in SAP FI</h2>
+    <div class="flow" style="flex-direction:column;align-items:stretch;">
+      <div class="step"><span class="s-title">Client</span><span class="s-sub">Highest level = the whole company group. Master data here is shared across all company codes.</span></div>
+      <div class="step"><span class="s-title">Company Code</span><span class="s-sub"><strong>The legally independent entity</strong> — own balance sheet &amp; P&amp;L. Most FI postings happen here.</span></div>
+      <div class="step"><span class="s-title">Business Area</span><span class="s-sub">Optional segment for internal reporting across company codes (segment balance sheets without separate legal entities).</span></div>
+      <div class="step"><span class="s-title">Fiscal Year / Posting Period</span><span class="s-sub">Defines the accounting year &amp; which periods are open — the time dimension of all transactions.</span></div>
+    </div>
+    <p class="small muted">Multinational group: 1 Client → many Company Codes (DE, TR, US) → each with its own Chart of Accounts &amp; fiscal year variant.</p>
+
+    <h2>Chart of Accounts (CoA)</h2>
+    <p>The complete list of <strong>General Ledger (G/L) accounts</strong> used to classify every financial transaction.</p>
+    <div class="grid cols-3">
+      <div class="card small"><strong>Operating CoA</strong><br>Day-to-day postings; assigned to company codes. Most postings happen here.</div>
+      <div class="card small"><strong>Group CoA</strong><br>Consolidated reporting across the group; maps from operating accounts.</div>
+      <div class="card small"><strong>Country-specific CoA</strong><br>Local statutory reporting; runs parallel to the operating CoA.</div>
+    </div>
+    <h3>G/L account number ranges</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Range</th><th>Category</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><th>1xxxxx</th><td>Asset accounts</td><td>Cash, AR, Inventory, Fixed Assets</td></tr>
+        <tr><th>2xxxxx</th><td>Liability accounts</td><td>AP, Bank Loans, Provisions</td></tr>
+        <tr><th>3xxxxx</th><td>Equity accounts</td><td>Share Capital, Retained Earnings</td></tr>
+        <tr><th>4xxxxx</th><td>Revenue accounts</td><td>Domestic Sales, Export Revenue</td></tr>
+        <tr><th>5xxxxx</th><td>Expense accounts</td><td>COGS, Wages, Depreciation</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout mnemonic"><span class="label">Mnemonic</span><p><strong>1-2-3-4-5 = A-L-E-R-E</strong>: <strong>A</strong>ssets, <strong>L</strong>iabilities, <strong>E</strong>quity, <strong>R</strong>evenue, <strong>E</strong>xpense.</p></div>
+
+    <h2>General Ledger &amp; document types</h2>
+    <p>The G/L is the central repository for all financial data. Every transaction creates an <strong>FI document</strong> with at least two line items that must balance — <strong>debit = credit</strong> (double-entry bookkeeping).</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Type</th><th>Document</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><th>SA</th><td>G/L account document</td><td>Manual journal entry</td></tr>
+        <tr><th>DR</th><td>Customer invoice</td><td>Posted from SD / billing</td></tr>
+        <tr><th>KR</th><td>Vendor invoice</td><td>Posted from MM / MIRO</td></tr>
+        <tr><th>DZ</th><td>Customer payment</td><td>Incoming bank transfer</td></tr>
+        <tr><th>KZ</th><td>Vendor payment</td><td>Outgoing payment run</td></tr>
+        <tr><th>AA</th><td>Asset document</td><td>Depreciation, acquisition</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip"><span class="label">Memory hook for doc types</span><p><strong>D</strong> = customer (Debitor): <strong>DR</strong> invoice, <strong>DZ</strong> payment. <strong>K</strong> = vendor (Kreditor): <strong>KR</strong> invoice, <strong>KZ</strong> payment. <strong>R</strong>=Rechnung (invoice), <strong>Z</strong>=Zahlung (payment).</p></div>
+    <h3>New G/L &amp; parallel ledgers</h3>
+    <p>The New G/L (ECC 6.0; mandatory in S/4HANA) enables <strong>parallel accounting</strong> — the same transaction valued under different standards simultaneously.</p>
+    <div class="grid cols-3">
+      <div class="card small"><strong>0L — Leading Ledger</strong><br>Local GAAP / group reporting</div>
+      <div class="card small"><strong>2L — Parallel Ledger</strong><br>IFRS</div>
+      <div class="card small"><strong>3L — Parallel Ledger</strong><br>US GAAP</div>
+    </div>
+    <p class="small muted">Benefit: one posting, reported under multiple standards — no manual reconciliation between IFRS and local GAAP.</p>
+
+    <h2>Accounts Payable (FI-AP)</h2>
+    <p>Manages outgoing payments to vendors — from invoice receipt to payment clearing.</p>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">PO Created</span><span class="s-sub">MM · <span class="tcode">ME21N</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Goods Received</span><span class="s-sub">MM · <span class="tcode">MIGO</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Invoice Verified</span><span class="s-sub">3-way match · <span class="tcode">MIRO</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">FI Document</span><span class="s-sub">auto-posted (KR)</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Payment Run</span><span class="s-sub"><span class="tcode">F110</span> bank transfer</span></div>
+    </div>
+    <div class="callout key"><span class="label">Three-way match — the core AP control</span>
+      <p>Before an invoice posts, SAP verifies three documents match within tolerance: <strong>① Purchase Order</strong> (what was ordered &amp; price) · <strong>② Goods Receipt</strong> (what was received) · <strong>③ Vendor Invoice</strong> (what's being charged). If quantities/prices deviate beyond tolerance → <strong>invoice is blocked automatically</strong>.</p></div>
+    <p class="small">Other AP capabilities: automatic payment program <span class="tcode">F110</span> (schedules/executes by due date), payment-method config (transfer, check, SEPA), dunning &amp; overdue tracking, real-time G/L update.</p>
+
+    <h2>Accounts Receivable (FI-AR)</h2>
+    <p>Manages incoming payments from customers — from billing to cash collection.</p>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Sales Order</span><span class="s-sub">SD · <span class="tcode">VA01</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Delivery &amp; GI</span><span class="s-sub"><span class="tcode">VL01N</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Billing</span><span class="s-sub"><span class="tcode">VF01</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">FI Document</span><span class="s-sub">auto-posted (DR)</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Payment Receipt</span><span class="s-sub"><span class="tcode">F-28</span></span></div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card small"><strong>Credit Management</strong> — credit limits per customer; orders over the limit are auto-blocked until re-evaluated.</div>
+      <div class="card small"><strong>Dunning</strong> — automated overdue notices at configurable intervals (10/20/30 days) with escalating pressure.</div>
+      <div class="card small"><strong>Cash Application</strong> — incoming transfers matched to open AR; unmatched flagged. Reduces <strong>DSO</strong>.</div>
+      <div class="card small"><strong>Aging Report</strong> — groups open items: current, 1–30, 31–60, 61–90, 90+ days. Input for bad-debt provisioning.</div>
+    </div>
+
+    <h2>Bank accounting &amp; period-end closing</h2>
+    <p class="small">Bank accounting (FI-BL): house banks configured as master data; statement processing (MT940, BAI2, camt.053); automatic clearing against open AP/AR; real-time cash position.</p>
+    <h3>Period-end closing checklist</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Step</th><th>T-code</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Post accruals and deferrals</td><td><span class="tcode">FBS1</span></td></tr>
+        <tr><td>2</td><td>Run depreciation posting</td><td><span class="tcode">AFAB</span></td></tr>
+        <tr><td>3</td><td>GR/IR clearing account reconcile</td><td><span class="tcode">F.13</span></td></tr>
+        <tr><td>4</td><td>Foreign currency revaluation</td><td><span class="tcode">FAGL_FC_VAL</span></td></tr>
+        <tr><td>5</td><td>Close posting periods</td><td><span class="tcode">OB52</span></td></tr>
+        <tr><td>6</td><td>Generate financial statements</td><td><span class="tcode">F.01</span></td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">"Fast close" benchmarks: best-in-class close cycle <strong>3–5 days</strong>; ~70% automated reconciliation in mature orgs; &lt;1% target error rate.</p>
+
+    <h2>Controlling (CO): internal management</h2>
+    <div class="vs">
+      <div class="card a"><h4>FI — Financial Accounting</h4><ul class="small"><li>Legally mandated <strong>external</strong> reports</li><li>Balance sheet, P&amp;L, cash flow</li><li>Follows GAAP / IFRS</li><li>Visible to shareholders &amp; auditors</li><li>Closed periods — no retrospective changes</li></ul></div>
+      <div class="card b"><h4>CO — Controlling</h4><ul class="small"><li><strong>Internal</strong> management decision support</li><li>Cost analysis, profitability, budgeting</li><li>No external standard — per company need</li><li>Data internal, not disclosed</li><li>Flexible — allocations can be re-run</li></ul></div>
+    </div>
+
+    <h3>Cost centers, profit centers &amp; internal orders</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Object</th><th>What it is</th><th>Key trait</th></tr></thead>
+      <tbody>
+        <tr><th>Cost Center</th><td>Org unit responsible for <strong>incurring costs</strong> (does not generate revenue directly). Costs posted via a <strong>cost element</strong> (the CO equivalent of a G/L account).</td><td>Permanent; plan vs actual analysis (CO-CCA)</td></tr>
+        <tr><th>Profit Center (EC-PCA)</th><td>Org unit responsible for <strong>revenues AND costs</strong> → internal P&amp;L per segment (by product line, region, customer, business unit).</td><td>Enables internal ROI per segment</td></tr>
+        <tr><th>Internal Order (CO-OPA)</th><td>Collects costs for a specific, <strong>time-limited</strong> activity (event, repair, prototype, capex).</td><td>Lifecycle: <strong>open → active → settled → closed</strong>; settled to CC/PC/asset</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>Product costing &amp; profitability analysis</h3>
+    <div class="grid cols-2">
+      <div class="card"><h4>Product Costing (CO-PC)</h4><p class="small">Calculates the <strong>standard cost</strong> of a manufactured product using <strong>Bill of Materials + routing</strong> from PP. (Illustrative split: material ~48%, labor ~22%, machine/OH ~18%, overhead ~12%.)</p></div>
+      <div class="card"><h4>Profitability Analysis (CO-PA)</h4><p class="small">Analyzes profitability across <strong>multiple dimensions simultaneously</strong>: customer segment, product group, region, distribution channel, sales rep. The bridge from operations to strategic P&amp;L.</p></div>
+    </div>
+
+    <h2>FI/CO integration &amp; real-time posting</h2>
+    <div class="callout key"><span class="label">Key principle</span><p>In SAP, financial postings are generated <strong>automatically by operational transactions</strong> — not by manual journal entry. This eliminates the reconciliation gap between operational and financial data.</p></div>
+    <p>Every operational step triggers a simultaneous financial update — no batch jobs:</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Step</th><th>FI effect</th><th>CO effect</th></tr></thead>
+      <tbody>
+        <tr><th>Purchase Requisition <span class="tcode">ME51N</span></th><td>No FI posting</td><td>Commitment recorded</td></tr>
+        <tr><th>Purchase Order <span class="tcode">ME21N</span></th><td>No FI posting</td><td>PO commitment</td></tr>
+        <tr><th>Goods Receipt <span class="tcode">MIGO</span></th><td>Inventory ↑, GR/IR ↑</td><td>Material stock value</td></tr>
+        <tr><th>Invoice Verification <span class="tcode">MIRO</span></th><td>AP ↑, GR/IR clearing</td><td>Cost to cost center</td></tr>
+        <tr><th>Payment Run <span class="tcode">F110</span></th><td>Bank ↓, AP cleared</td><td>No CO impact</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip"><span class="label">The accounting equation, enforced</span><p>SAP won't save a document if <strong>debits ≠ credits</strong>. Every FI document must satisfy <strong>Assets = Liabilities + Equity</strong> — unbalanced books are impossible.</p></div>
+
+    <h2>Financial reporting in SAP</h2>
+    <div class="vs">
+      <div class="card a"><h4>Statutory (FI)</h4><ul class="small"><li>Balance Sheet <span class="tcode">F.01</span></li><li>Income Statement (P&amp;L) <span class="tcode">F.01</span></li><li>Cash Flow <span class="tcode">S_ALR_87012271</span></li><li>Trial Balance <span class="tcode">F.08</span></li></ul></div>
+      <div class="card b"><h4>Management (CO)</h4><ul class="small"><li>Cost Center Report <span class="tcode">S_ALR_87013611</span></li><li>Profit Center P&amp;L <span class="tcode">KE5Z</span></li><li>Profitability Report <span class="tcode">KE30</span></li><li>Internal Order Report <span class="tcode">KOB1</span></li></ul></div>
+    </div>
+
+    <h2>Critical FI/CO config decisions</h2>
+    <p class="small">Made once at project start, very hard to change later:</p>
+    <ul class="small">
+      <li><strong>Fiscal Year Variant</strong> (HIGH) — calendar vs non-calendar; number of posting periods (typically 12 + 4 special).</li>
+      <li><strong>Chart of Accounts</strong> (HIGH) — account ranges; adding accounts later is possible, restructuring is not.</li>
+      <li><strong>Controlling Area</strong> (HIGH) — one company code or several; affects cross-company allocations &amp; group CO-PA.</li>
+      <li><strong>Parallel Ledger Strategy</strong> (MED) — must be configured <em>before</em> any transaction posts.</li>
+      <li><strong>Cost Center Hierarchy &amp; Profit Center Structure</strong> (MED) — CO-PA dimensions are fixed at config; can't be added retroactively.</li>
+    </ul>
+    <div class="callout tip"><span class="label">Case proof</span><p><strong>Turkcell</strong> consolidated 14 countries on one S/4HANA instance with a group CoA + parallel ledgers (IFRS leading + local GAAP) → consolidation cut from <strong>4 weeks to 4 days</strong>, automated FX revaluation, near-zero intercompany errors.</p></div>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>Which FI org level is the legally independent entity, and what does it own?</summary>
+      <div class="answer">The <strong>Company Code</strong> — it has its own balance sheet and P&amp;L, and is where most FI postings occur. (Client &gt; Company Code &gt; Business Area &gt; Fiscal Year/Period.)</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>What are the three documents in the three-way match?</summary>
+      <div class="answer"><strong>Purchase Order + Goods Receipt + Vendor Invoice.</strong> If they deviate beyond tolerance, the invoice is auto-blocked.</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>What do G/L ranges 1–5 represent?</summary>
+      <div class="answer">1 Assets, 2 Liabilities, 3 Equity, 4 Revenue, 5 Expense.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>Cost center vs profit center vs internal order?</summary>
+      <div class="answer"><strong>Cost center</strong> — incurs costs, permanent. <strong>Profit center</strong> — revenue + costs, internal P&amp;L per segment. <strong>Internal order</strong> — collects costs for a time-limited activity; lifecycle open→active→settled→closed.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>FI vs CO — external/internal and which one follows IFRS?</summary>
+      <div class="answer"><strong>FI</strong> = external, statutory, follows GAAP/IFRS, closed periods. <strong>CO</strong> = internal, no external standard, flexible (allocations can re-run).</div></details>
+    <details class="q"><summary><span class="q-badge">Q6</span>Name the FI document types for customer/vendor invoices and payments.</summary>
+      <div class="answer">Customer invoice <strong>DR</strong>, customer payment <strong>DZ</strong>; vendor invoice <strong>KR</strong>, vendor payment <strong>KZ</strong>; manual G/L <strong>SA</strong>; asset <strong>AA</strong>.</div></details>
+    <details class="q"><summary><span class="q-badge">Q7</span>What does CO-PA do that a profit center doesn't?</summary>
+      <div class="answer">CO-PA analyzes profitability across <strong>multiple dimensions simultaneously</strong> (customer, product, region, channel, rep) — the bridge from billing to strategic P&amp;L.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

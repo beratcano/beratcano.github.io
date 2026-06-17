@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ERP Study Hub — Enterprise Resource Planning revision</title>
+<meta name="description" content="A complete, exam-focused study site for an Enterprise Resource Planning (ERP) course — foundations, SAP modules (FI/CO, HCM, MM, PP, SD), implementation and real case studies.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preconnect" href="data:">
+</head>
+<body data-root="" data-page="home">
+<div id="site-header"></div>
+
+<div class="wrap" style="padding-top:34px;">
+  <div class="page-head">
+    <span class="eyebrow">Enterprise Resource Planning · full course revision</span>
+    <h1>Everything from your ERP course,<br>rebuilt to actually make it stick.</h1>
+    <p class="lede">Nine study chapters, hundreds of self-test flashcards, printable cheat sheets and an
+      interactive exam simulator — drawn <strong>only</strong> from your eight lecture decks, two readings and the BPMN worksheet.
+      Start anywhere; your progress is saved in this browser.</p>
+    <div class="btn-row">
+      <a class="btn" href="pages/01-foundations.html">Start with Chapter 1 →</a>
+      <a class="btn ghost" href="pages/11-exam-practice.html">Jump to exam practice</a>
+      <a class="btn ghost" href="pages/10-cheatsheets.html">Cheat sheets</a>
+    </div>
+  </div>
+
+  <!-- Progress dashboard -->
+  <div class="progress-wrap" style="margin:8px 0 26px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+      <strong id="prog-label">Your progress</strong>
+      <button class="btn ghost small" id="reset-prog" style="padding:6px 12px;">Reset progress</button>
+    </div>
+    <div class="bar" style="margin:12px 0 6px;"><span id="prog-bar"></span></div>
+    <div class="muted small" id="prog-sub">Mark chapters as studied as you go.</div>
+  </div>
+
+  <h2 style="margin-top:.4em;">The 3 axes of the course</h2>
+  <p class="muted" style="margin-top:-.4em;">Every week maps onto one of these. Keep the big picture in mind.</p>
+  <div class="grid cols-3">
+    <div class="card"><h3>① Processes</h3><p class="small">End-to-end flows that cross departments: <strong>Order-to-Cash</strong>, <strong>Procure-to-Pay</strong>, Plan-to-Produce, Hire-to-Retire. Think process, not department.</p></div>
+    <div class="card"><h3>② Data</h3><p class="small"><strong>Master data</strong> (stable: customer, vendor, material, accounts) vs <strong>transactional data</strong> (daily: orders, invoices, movements). Garbage in → garbage out.</p></div>
+    <div class="card"><h3>③ Implementation</h3><p class="small">Selection, project, change &amp; risk. Most ERP value — and most ERP <em>failure</em> — lives here, not in the software itself.</p></div>
+  </div>
+
+  <h2>Study chapters</h2>
+  <div class="grid cols-3" id="topic-grid"></div>
+
+  <h2>How to use this site</h2>
+  <div class="grid cols-3">
+    <div class="card"><h3>📖 Read the chapter</h3><p class="small">Each page has a sticky table of contents, colour-coded <span class="tag">key term</span>, <span class="tag" style="background:var(--ok-soft);color:var(--ok)">exam tip</span> and <span class="tag" style="background:var(--mn-soft);color:var(--mn-line)">mnemonic</span> callouts.</p></div>
+    <div class="card"><h3>🃏 Quiz yourself</h3><p class="small">Click any <strong>flashcard</strong> to reveal the answer. Try to answer first — recall beats re-reading.</p></div>
+    <div class="card"><h3>🎯 Simulate the exam</h3><p class="small">The <a href="pages/11-exam-practice.html">Exam Practice</a> page has a scored, shuffleable question bank you can filter by topic.</p></div>
+  </div>
+
+  <div class="callout tip" style="margin-top:24px;">
+    <span class="label">Exam-night plan</span>
+    <p>Chapters 1–3 give you the vocabulary (process, data, BPMN). Chapters 4–7 are the SAP modules — most factual questions live here, so drill the <a href="pages/10-cheatsheets.html">cheat sheets</a>. Chapters 8–9 are implementation &amp; case studies — great for short-answer/essay questions. Finish on <a href="pages/11-exam-practice.html">Exam Practice</a>.</p>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+<script src="assets/js/main.js"></script>
+<script>
+  window.onPageReady = function () {
+    var blurbs = {
+      foundations: "What ERP is, why it exists, history, modules, KPIs, benefits & risks.",
+      processes:   "Business processes, functional silos, SCOR/APQC/ARIS, BPMN, vanilla vs custom.",
+      masterdata:  "Master vs transactional data, data quality, governance, MDM, migration.",
+      finance:     "FI org levels, GL, AP/AR, three-way match, CO cost/profit centers, CO-PA.",
+      hr:          "HCM org structure, infotypes, time management, payroll & wage types.",
+      mm:          "Procure-to-Pay, goods movements, valuation, MRP, vendors, warehouse.",
+      ppsd:        "BOM/Routing/Work Center, production orders, Order-to-Cash, ATP, credit.",
+      impl:        "Selection, TCO, SAP Activate phases, fit-gap, change management, go-live.",
+      successfail: "Why ERP projects fail/succeed + Mission Produce, Lidl, Revlon, Hershey…"
+    };
+    var grid = document.getElementById("topic-grid");
+    var done = window.ERP.getProgress();
+    var n = 0;
+    window.ERP.PAGES.forEach(function (p) {
+      if (!window.ERP.STUDY_IDS.includes(p.id)) return;
+      n++;
+      var isDone = !!done[p.id];
+      var a = document.createElement("a");
+      a.className = "topic";
+      a.href = p.path;
+      a.innerHTML =
+        '<span class="tnum">Chapter ' + n + '</span>' +
+        '<span class="ttitle">' + p.short + '</span>' +
+        '<span class="tdesc">' + (blurbs[p.id] || "") + '</span>' +
+        '<span class="tmeta"><span class="' + (isDone ? "dot-done" : "dot-todo") + '"></span>' +
+          (isDone ? "Studied" : "Not yet") + '</span>';
+      grid.appendChild(a);
+    });
+
+    // progress meter
+    var total = window.ERP.STUDY_IDS.length;
+    var doneCount = window.ERP.STUDY_IDS.filter(function (id) { return done[id]; }).length;
+    var pct = Math.round(doneCount / total * 100);
+    document.getElementById("prog-bar").style.width = pct + "%";
+    document.getElementById("prog-label").textContent = "Your progress — " + doneCount + " / " + total + " chapters";
+    document.getElementById("prog-sub").textContent = pct === 100
+      ? "All chapters studied. Go crush the exam practice 🎯"
+      : "Mark chapters as studied as you go. " + pct + "% complete.";
+    document.getElementById("reset-prog").addEventListener("click", function () {
+      if (confirm("Reset your studied-chapter progress?")) { window.ERP.resetProgress(); location.reload(); }
+    });
+  };
+</script>
+</body>
+</html>

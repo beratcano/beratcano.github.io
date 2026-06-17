@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8 · ERP Implementation — ERP Study Hub</title>
+<meta name="description" content="ERP implementation: why selections fail, the six-criteria selection framework, RFP process, business case & TCO, project governance, SAP Activate methodology, fit-gap analysis, critical success factors, configuration vs customization vs modification, change management, training and go-live cutover.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="impl">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 8 · Week 8</span>
+      <h1>ERP Implementation Process</h1>
+      <p class="lede">From choosing the right system to keeping it running. The recurring theme:
+      <strong>selection &amp; people decide outcomes more than technology does.</strong></p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <div class="callout warn"><span class="label">Headline statistic</span><p><strong>55–75% of ERP projects exceed budget or timeline.</strong> The root cause is almost always in the <strong>selection and planning phase</strong>, not the technology.</p></div>
+
+    <h2>Why ERP selections go wrong</h2>
+    <div class="grid cols-3">
+      <div class="card small"><strong>1. Vendor-led demo bias</strong> — decided on polished demos; real processes never tested. <em>Fix: scripted demos with your own data.</em></div>
+      <div class="card small"><strong>2. Ignoring TCO</strong> — only license compared; implementation/training/customization/maintenance ≈ <strong>3–5× the license</strong>. <em>Fix: full 5-year TCO model.</em></div>
+      <div class="card small"><strong>3. No business process owner</strong> — IT picks it alone. <em>Fix: cross-functional steering committee.</em></div>
+      <div class="card small"><strong>4. Scope creep at selection</strong> — requirements grow endlessly; no system can win. <em>Fix: must-have vs nice-to-have.</em></div>
+      <div class="card small"><strong>5. Underestimating change</strong> — focus on features, not adoption. <em>Fix: assess organizational readiness early.</em></div>
+      <div class="card small"><strong>6. References not checked</strong> — vendor-picked references are always positive. <em>Fix: independent references, same industry/size/country.</em></div>
+    </div>
+
+    <h2>ERP selection framework — 6 weighted criteria</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Weight</th><th>Criterion</th><th>What it covers</th></tr></thead>
+      <tbody>
+        <tr><th>25%</th><td>Functional Fit</td><td>Coverage of core processes; industry depth; out-of-box vs customization</td></tr>
+        <tr><th>20%</th><td>Total Cost of Ownership</td><td>License + implementation + training + annual maintenance + staffing</td></tr>
+        <tr><th>18%</th><td>Vendor Viability</td><td>Financial stability, R&amp;D/roadmap, partner ecosystem</td></tr>
+        <tr><th>15%</th><td>Technical Architecture</td><td>Cloud/on-prem/hybrid, integration, security/scalability</td></tr>
+        <tr><th>12%</th><td>Implementation Risk</td><td>Local partners, migration complexity, track record</td></tr>
+        <tr><th>10%</th><td>User Experience</td><td>Usability, mobile, built-in analytics</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip"><span class="label">RFP scoring tip</span><p>Each evaluator scores independently; <strong>average the scores</strong> — this stops one vocal champion overriding the group.</p></div>
+
+    <h3>Vendor evaluation &amp; RFP process</h3>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Long List</span><span class="s-sub">8–12 vendors; market scan</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">RFI</span><span class="s-sub">filter to 4–5</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">RFP</span><span class="s-sub">200–500 item requirements</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">Scripted Demos</span><span class="s-sub">YOUR data, YOUR process</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Reference Checks</span><span class="s-sub">3–5 independent per vendor</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">6</span><span class="s-title">Negotiation &amp; Selection</span></div>
+    </div>
+
+    <h3>Business case &amp; TCO</h3>
+    <div class="vs">
+      <div class="card a"><h4>5-year TCO components</h4><ul class="small"><li>Implementation services — <strong>35%</strong></li><li>Internal team (FTEs) — 20%</li><li>Software license / subscription — 18%</li><li>Training &amp; change management — 10%</li><li>Infrastructure / hosting — 10%</li><li>Annual maintenance &amp; upgrades — 7%</li></ul></div>
+      <div class="card b"><h4>Quantifiable benefits</h4><ul class="small"><li>Inventory reduction 15–25%</li><li>Procurement savings 8–12%</li><li>Finance close 50–70% faster (4 wks → 4 days)</li><li>Order fulfillment 20–35% faster</li><li>Audit/compliance cost 30–50% lower</li><li>Report prep 80% less manual effort</li></ul></div>
+    </div>
+    <p class="small"><strong>Project charter</strong> components: scope (incl. exclusions), measurable objectives, budget/resources, timeline/milestones, top-5 risks. <strong>Governance:</strong> Steering Committee (C-level, monthly) → PMO (program + workstream leads, weekly) → Functional Workstreams → Key/Super Users.</p>
+
+    <h2>SAP Activate methodology</h2>
+    <p>SAP's agile, phase-gated method. Between each phase a <strong>gate review</strong> must be signed off by the steering committee before progressing.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Phase</th><th>Duration</th><th>Focus</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><th>Discover</th><td>2–4 wks</td><td>Value assessment, business case, solution exploration — understand the "why"</td></tr>
+        <tr><td>2</td><th>Prepare</th><td>4–8 wks</td><td>Project setup, team onboarding, system provisioning, standards, kick-off</td></tr>
+        <tr><td>3</td><th>Explore</th><td>8–16 wks</td><td><strong>Fit-to-standard workshops + gap analysis</strong>; data migration strategy</td></tr>
+        <tr><td>4</td><th>Realize</th><td>12–24 wks</td><td>Build, configure, develop, integration test, UAT, performance test</td></tr>
+        <tr><td>5</td><th>Deploy</th><td>4–8 wks</td><td>Cutover planning &amp; execution, final migration, training, go-live</td></tr>
+        <tr><td>6</td><th>Run</th><td>Ongoing</td><td>Hypercare, stabilization, continuous improvement, upgrades</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout mnemonic"><span class="label">Mnemonic</span><p><strong>"Do People Explore, Realize, Deploy, Run"</strong> → Discover, Prepare, Explore, Realize, Deploy, Run.</p></div>
+
+    <h3>Explore — fit-to-standard &amp; gap analysis (the most important phase)</h3>
+    <p>Every gap found here is cheaper than one found in testing — or after go-live.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Gap type</th><th>Definition</th><th>Decision</th><th>Risk / Cost</th></tr></thead>
+      <tbody>
+        <tr><th>Fit</th><td>Standard covers it</td><td>Configure — use standard</td><td>Low / none</td></tr>
+        <tr><th>Minor Gap</th><td>Covers 80–90%</td><td>Configure + small change</td><td>Low / low</td></tr>
+        <tr><th>Process Gap</th><td>SAP works differently</td><td><strong>Redesign the process to fit SAP</strong></td><td>Med (change mgmt)</td></tr>
+        <tr><th>Functional Gap</th><td>Not covered out-of-box</td><td>Custom dev vs 3rd party vs process change</td><td>High</td></tr>
+        <tr><th>Critical Gap</th><td>Legally/operationally required, missing</td><td>Custom ABAP / SAP add-on</td><td>Very high</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn"><span class="label">Golden rule of implementation</span><p><strong>Fit the process to the system — not the system to the process.</strong> Customization solves today's gap but creates tomorrow's upgrade problem.</p></div>
+
+    <h3>Realize, Deploy &amp; Run</h3>
+    <p class="small"><strong>Realize</strong> (longest phase): config recorded in transport requests, moved <strong>DEV → QAS → PRD</strong>; custom dev with strict change requests; <strong>three migration rehearsals</strong>; testing waves = Unit → Integration → UAT → Performance/Stress. <strong>Deploy</strong> cutover sequence: T-8 readiness review → T-4 final migration rehearsal → T-2 freeze changes → T-1 go/no-go → T-0 cutover weekend → go-live (hypercare starts). <strong>Run</strong>: Hypercare (wks 1–4, war room, 24/7) → Stabilization (months 2–3, first month-end close) → Continuous Improvement.</p>
+
+    <h2>Critical success factors</h2>
+    <p>Across 500+ projects, the most consistent predictors:</p>
+    <div class="grid cols-3">
+      <div class="card small"><strong>1. Executive sponsorship</strong> <span class="tag" style="background:var(--bad-soft);color:var(--bad)">critical</span><br>Visible C-level sponsor who resolves escalations.</div>
+      <div class="card small"><strong>2. Dedicated business resources</strong> <span class="tag" style="background:var(--bad-soft);color:var(--bad)">critical</span><br>SMEs at 50–100% — ERP can't be done in free time.</div>
+      <div class="card small"><strong>3. Realistic scope &amp; timeline</strong><br>Define an MVP for go-live; phased go-live reduces risk.</div>
+      <div class="card small"><strong>4. Data quality investment</strong><br>Cleansing starts in Explore, not two weeks before go-live.</div>
+      <div class="card small"><strong>5. Change management</strong><br>Most failures are people failures, not technology.</div>
+      <div class="card small"><strong>6. Strong integration testing</strong><br>End-to-end tests across module boundaries; budget 20–30% for testing.</div>
+    </div>
+
+    <h2>Configuration vs customization vs modification</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Type</th><th>What</th><th>Upgrade risk</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><th>Configuration <span class="tag">low</span></th><td>Change behavior via parameters/tables, no code</td><td>Upgrades automatically; SAP-supported, reversible</td><td>Payment terms net 30 vs 60; tolerance limits; activate a workflow</td></tr>
+        <tr><th>Customization / Enhancement <span class="tag">medium</span></th><td>Extend standard via user exits, <strong>BAdIs</strong>, enhancement spots — no core change</td><td>Upgrade-safe if done right; needs ABAP + retest</td><td>Add a validation rule; email at goods receipt; populate a custom field</td></tr>
+        <tr><th>Modification (core change) <span class="tag" style="background:var(--bad-soft);color:var(--bad)">high</span></th><td>Directly modify SAP standard code/tables</td><td><strong>Very high</strong> — re-apply after every patch; SAP discourages</td><td>Change logic inside a standard program; alter a standard table</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>Change management — the human side</h2>
+    <p><strong>70% of ERP failures stem from people &amp; process issues, not technology.</strong> Change management is not optional — it is the project.</p>
+    <div class="flow">
+      <div class="step"><span class="s-title">1. Shock / Denial</span><span class="s-sub">"our system works fine"</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">2. Anger / Resistance</span><span class="s-sub">"why is IT forcing this?"</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">3. Exploration</span><span class="s-sub">"how does this work?"</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">4. Commitment</span><span class="s-sub">"this is actually better"</span></div>
+    </div>
+    <p class="small muted">(Kübler-Ross change curve, ERP context.) Interventions: executive communication, change-impact assessment, <strong>super-user network</strong>, communication calendar, resistance management (engage resistors early — opposition often becomes advocacy).</p>
+
+    <h3>Training strategy</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Level</th><th>Who</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><th>Core team</th><td>10–20 key users + SMEs</td><td>During <strong>Explore</strong> — deep SAP training</td></tr>
+        <tr><th>Super users</th><td>30–80 department champions</td><td>During <strong>Realize</strong> — they train their departments</td></tr>
+        <tr><th>End users</th><td>All affected employees</td><td><strong>4–6 weeks before go-live</strong> — task-based</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Methods: system simulation (sandbox), role-based job aids, eLearning modules, floor-walker support during go-live week.</p>
+
+    <h2>Go-live, cutover &amp; rollback</h2>
+    <p>Go-live weekend is the highest-risk event. A rollback plan is professionalism, not weakness. <strong>Revert to legacy</strong> if any of these occur:</p>
+    <ul class="small">
+      <li>Critical financial posting errors that can't be corrected in the cutover window</li>
+      <li>Data migration completeness <strong>below 98%</strong> for mandatory master data</li>
+      <li>Core interface failures blocking legally required transactions</li>
+      <li>Performance degradation making the system unusable</li>
+      <li>Regulatory compliance confirmed non-functional</li>
+    </ul>
+    <div class="callout warn"><span class="label">Rollback timing</span><p>The rollback decision must be made <strong>within 6 hours</strong> of go-live start — never at the last minute with no time to recover.</p></div>
+    <p class="small"><strong>Post-go-live support:</strong> L1 super users (how-to) → L2 functional team (config) → L3 SAP partner/ABAP (technical). SLA: Sev 1 (system down) &lt; 4h, Sev 2 &lt; 8h, Sev 3 &lt; 2 days. Plus ongoing master-data governance, quarterly patches (don't fall &gt;2 years behind), major upgrade every 3–5 years.</p>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>List the six SAP Activate phases in order.</summary>
+      <div class="answer">Discover → Prepare → Explore → Realize → Deploy → Run. (Gate review between each.)</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>Which phase is "most important" and why?</summary>
+      <div class="answer"><strong>Explore</strong> — fit-to-standard + gap analysis. Every gap found here is far cheaper than one found in testing or after go-live.</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>Config vs customization vs modification — rank by upgrade risk.</summary>
+      <div class="answer">Configuration (low, parameters, auto-upgrades) &lt; Customization/Enhancement (medium, BAdIs/user exits, upgrade-safe if done right) &lt; Modification (very high, changes core code, re-apply every patch — avoid).</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>What fraction of ERP failures are people-related, and name three change interventions.</summary>
+      <div class="answer"><strong>70%</strong>. Interventions: executive communication, super-user network, change-impact assessment, communication calendar, resistance management.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>Top selection criterion and its weight? Roughly how big is TCO vs the license?</summary>
+      <div class="answer"><strong>Functional Fit, 25%.</strong> Total cost of ownership is typically <strong>3–5× the license</strong> (TCO weight = 20%).</div></details>
+    <details class="q"><summary><span class="q-badge">Q6</span>Name the data-completeness rollback threshold.</summary>
+      <div class="answer">Below <strong>98%</strong> completeness for mandatory master data is a rollback trigger; decide within 6 hours of go-live.</div></details>
+    <details class="q"><summary><span class="q-badge">Q7</span>When is each training audience trained?</summary>
+      <div class="answer">Core team in Explore; super users in Realize; end users 4–6 weeks before go-live.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

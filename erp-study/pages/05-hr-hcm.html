@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5 · HR &amp; Payroll (HCM) — ERP Study Hub</title>
+<meta name="description" content="SAP Human Capital Management: HCM vs SuccessFactors, organizational structure, infotypes, personnel actions, time management and time evaluation, payroll schema, wage types, posting payroll to FI, talent management and HCM integration.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="hr">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 5 · Week 5</span>
+      <h1>Human Resources &amp; Payroll — HCM</h1>
+      <p class="lede">The people platform behind every business process — from employee record creation to paycheck,
+      stored in time-stamped <strong>infotypes</strong> and paid through a <strong>schema-driven</strong> payroll.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <h2>What is SAP HCM?</h2>
+    <p>SAP Human Capital Management manages the entire <strong>employee lifecycle — from hire to retire</strong>: master data &amp; org structure, time/attendance/absence, payroll &amp; legal reporting, and talent (recruiting, performance, learning).</p>
+    <div class="flow">
+      <div class="step"><span class="s-title">Recruit</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Hire</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Manage</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Develop</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Retire</span></div>
+    </div>
+    <div class="vs">
+      <div class="card a"><h4>SAP HCM (on-premise)</h4><p class="small">Legacy ECC / S/4HANA installed on company servers. Deep integration with FI, CO, MM. Still widely used.</p></div>
+      <div class="card b"><h4>SAP SuccessFactors (cloud / SaaS)</h4><p class="small">SAP's modern cloud HCM platform. Modules: Employee Central, Recruiting, Learning, Performance. Preferred for new implementations since 2015.</p></div>
+    </div>
+    <p class="small muted">Discussion point: a company may keep <strong>payroll on-premise</strong> (local legal complexity, deep FI/CO links) but run <strong>performance/talent in the cloud</strong>.</p>
+
+    <h2>Organizational structure</h2>
+    <p>HCM runs a <strong>parallel hierarchy alongside FI</strong> — both must align for correct payroll and cost posting.</p>
+    <div class="flow" style="flex-direction:column;align-items:stretch;">
+      <div class="step"><span class="s-title">Client</span><span class="s-sub">Company group level — shared configuration.</span></div>
+      <div class="step"><span class="s-title">Company Code</span><span class="s-sub">Legal entity — maps to FI company code. <strong>Payroll runs per company code.</strong></span></div>
+      <div class="step"><span class="s-title">Personnel Area</span><span class="s-sub">Geographic location / business division within a company code.</span></div>
+      <div class="step"><span class="s-title">Personnel Subarea</span><span class="s-sub">Subdivision — drives <strong>pay scale, work schedule, holiday calendar</strong>.</span></div>
+      <div class="step"><span class="s-title">Employee Group &amp; Subgroup</span><span class="s-sub">Classifies employees (active/retiree) &amp; category (executive/hourly/salaried) → controls payroll rules.</span></div>
+    </div>
+
+    <h2>Personnel Administration &amp; infotypes</h2>
+    <p>All employee data is stored in <strong>Infotypes</strong> — structured, <strong>time-dependent</strong> data containers. Each employee has a unique <strong>Personnel Number (PERNR)</strong>.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>T-code</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><th><span class="tcode">PA10</span></th><td>Personnel File — central entry to all infotypes</td></tr>
+        <tr><th><span class="tcode">PA30</span></th><td>Maintain HR Master Data — create/change infotypes</td></tr>
+        <tr><th><span class="tcode">PA40</span></th><td>Personnel Actions — hire, transfer, terminate (guided workflow)</td></tr>
+        <tr><th><span class="tcode">PA20</span></th><td>Display HR Master Data — read-only</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Key infotypes — the DNA of HR master data</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>IT</th><th>Name</th><th>Holds</th></tr></thead>
+      <tbody>
+        <tr><th>0000</th><td>Actions</td><td>All personnel actions — hire, promote, terminate</td></tr>
+        <tr><th>0001</th><td>Org Assignment</td><td>Links employee to company code, personnel area, <strong>cost center</strong></td></tr>
+        <tr><th>0002</th><td>Personal Data</td><td>Name, DoB, gender, national ID</td></tr>
+        <tr><th>0006</th><td>Address</td><td>Home address — payslip &amp; tax correspondence</td></tr>
+        <tr><th>0007</th><td>Planned Working Time</td><td>Work schedule — hours/week, shift pattern</td></tr>
+        <tr><th>0008</th><td>Basic Pay</td><td>Monthly salary, pay scale group &amp; level</td></tr>
+        <tr><th>0014</th><td>Recurring Payments/Deductions</td><td>Regular allowances: car, meal, housing</td></tr>
+        <tr><th>0015</th><td>Additional Payments</td><td>One-time bonus, commission</td></tr>
+        <tr><th>0021</th><td>Family Members</td><td>Spouse &amp; dependents — tax &amp; insurance</td></tr>
+        <tr><th>0041</th><td>Date Specifications</td><td>Hire date, trial-period end, retirement</td></tr>
+        <tr><th>2001</th><td>Absences</td><td>Annual/sick/unpaid leave</td></tr>
+        <tr><th>2002</th><td>Attendances</td><td>Overtime, business travel, special attendance</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="label">Most critical infotype</span><p><strong>IT0001 (Org Assignment)</strong> is the most important because it <strong>links the employee to the FI cost center</strong>. Change it (department transfer) and the next payroll run automatically routes that salary to the new cost center — no manual journal entry.</p></div>
+
+    <h3>Personnel actions (PA40) — guided workflows</h3>
+    <div class="grid cols-4">
+      <div class="card small"><strong>Hiring</strong><br>0000 → 0001 → 0002 → 0006 → 0007 → 0008</div>
+      <div class="card small"><strong>Transfer</strong><br>0000 → 0001 → 0007 → 0008 → cost center change → FI</div>
+      <div class="card small"><strong>Promotion</strong><br>0000 → 0001 → 0008 → 0014 → new pay scale level</div>
+      <div class="card small"><strong>Termination</strong><br>0000 → 0001 → leaving date → final payroll → access revoked</div>
+    </div>
+    <div class="callout tip"><span class="label">Time dependency</span><p>Every infotype record has a validity period (start → end). SAP keeps the <strong>full history — nothing is overwritten</strong>, only new records added. This is what enables <strong>retroactive payroll corrections</strong>.</p></div>
+
+    <h2>Time Management</h2>
+    <p>A <strong>Work Schedule Rule (WSR)</strong> combines: <strong>Daily Work Schedule</strong> (hours in a day) + <strong>Period Work Schedule</strong> (weekly pattern) + assignment to a calendar year with public holidays.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Type</th><th>Infotype</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><th>Annual Leave</th><td>IT 2001</td><td>Quota-controlled — deducted from entitlement</td></tr>
+        <tr><th>Sick Leave</th><td>IT 2001</td><td>May trigger medical-certification workflow</td></tr>
+        <tr><th>Unpaid Leave</th><td>IT 2001</td><td>Reduces payroll base — partial-month calc</td></tr>
+        <tr><th>Overtime</th><td>IT 2002</td><td>May generate compensation / time off in lieu</td></tr>
+        <tr><th>Business Travel</th><td>IT 2002</td><td>Linked to travel-expense management (FI-TV)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="label">Time Evaluation <span class="tcode">PT60</span></span><p>The bridge to payroll: processes raw time data (clock-in/out, absences, attendances) into <strong>payroll-relevant results</strong> — overtime → wage types, absence quota deductions, flextime balances, shift premiums. <strong>Accurate time data is a prerequisite for accurate payroll.</strong></p></div>
+
+    <h2>Payroll (PY)</h2>
+    <p>Payroll is <strong>schema-driven</strong> — a configurable set of rules (the payroll schema) determines every calculation step.</p>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Pre-Payroll</span><span class="s-sub">infotype data locked</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Payroll Run</span><span class="s-sub"><span class="tcode">PC00_M..</span> schema processes wage types</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Simulation</span><span class="s-sub">test run, no posting</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">Release &amp; Exit</span><span class="s-sub">results locked</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Post to FI</span><span class="s-sub">G/L + cost centers</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">6</span><span class="s-title">Payslip &amp; Reporting</span></div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card small"><strong>Payroll Area</strong> — groups employees paid on the same frequency &amp; pay date (MONTHLY salaried, WEEKLY hourly). Each has its own calendar.</div>
+      <div class="card small"><strong>Retroactive payroll</strong> — a past-dated change is auto-detected; SAP recalculates affected prior periods next run and posts the difference. No manual adjustment.</div>
+    </div>
+
+    <h3>Wage types — the building blocks</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Type</th><th>How created</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><th>Primary</th><td>Entered directly in infotypes / time evaluation (source values)</td><td>1000 Basic Salary, 1500 Overtime, 1800 Annual Bonus, 2000 Car Allowance</td></tr>
+        <tr><th>Secondary (slash /)</th><td><strong>Generated by the schema</strong> — never entered manually</td><td>/101 Employer Social Security, /559 Net Pay, /560 Payment Amount</td></tr>
+        <tr><th>Cumulation</th><td>Aggregate totals for reporting &amp; posting</td><td>/111 Total Gross, /112 Taxable Gross, /113 Social Insurance Base</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn"><span class="label">Critical distinction</span><p>Customer wage types start with a <strong>number (1000–9999)</strong> and are entered. SAP technical/secondary wage types start with a <strong>slash (/100–/999)</strong> and are <strong>system-generated — never enter them manually</strong>.</p></div>
+
+    <h3>Payroll results &amp; posting to FI</h3>
+    <p>After the run, results post to FI automatically (<span class="tcode">PCP0</span>), connecting HR costs to the balance sheet and cost centers via <strong>symbolic accounts</strong>. Example posting:</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Account</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><th>Salary Expense (P&amp;L)</th><td>₺85,000</td><td></td></tr>
+        <tr><th>Social Security Expense (P&amp;L)</th><td>₺12,750</td><td></td></tr>
+        <tr><th>Income Tax Liability (B/S)</th><td></td><td>₺18,200</td></tr>
+        <tr><th>Social Security Payable (B/S)</th><td></td><td>₺17,000</td></tr>
+        <tr><th>Net Pay Clearing (B/S)</th><td></td><td>₺62,550</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>Talent management &amp; integration</h2>
+    <p class="small"><strong>Recruitment</strong> → vacancy → posting → screening → interview → offer → hire action triggers PA infotypes. <strong>Performance:</strong> goal setting (SMART) → continuous feedback → review (1–5 scale) → calibration → outcome feeds merit pay (IT0008). <strong>Onboarding</strong> "first 90 days": Day-1 ready, buddy program, training plan (LSO), 90-day review.</p>
+    <div class="callout key"><span class="label">HCM integration (exam favourite)</span>
+      <p>Payroll results → <strong>FI</strong> (G/L, net pay to bank/AP). Labor cost → <strong>CO</strong> cost centers &amp; CO-PA. <strong>MM</strong> employee purchase requests. <strong>PP</strong> work-center capacity ↔ headcount, shift schedules, labor routing times. Transfer an employee (IT0001) → the next payroll automatically routes salary to the new cost center.</p></div>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>What is an infotype, and which is the most critical?</summary>
+      <div class="answer">A structured, time-dependent container for employee data. <strong>IT0001 (Org Assignment)</strong> is most critical — it links the employee to the FI cost center, so transfers reroute payroll automatically.</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>Primary vs secondary (slash) wage types?</summary>
+      <div class="answer"><strong>Primary</strong> (1000–9999) are entered in infotypes/time evaluation. <strong>Secondary "/" </strong>(/100–/999) are system-generated by the schema and must <strong>never</strong> be entered manually (e.g. /559 net pay).</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>What does PT60 do?</summary>
+      <div class="answer">Time Evaluation — converts raw time data (clock-in/out, absences, attendances) into payroll-relevant wage types/quota updates. The bridge between time management and payroll.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>What is retroactive payroll?</summary>
+      <div class="answer">A past-dated change is auto-detected; SAP recalculates the affected prior periods in the next run and posts the difference — no manual adjustment (possible because infotypes keep full history).</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>Give the HCM org hierarchy and say what runs per company code.</summary>
+      <div class="answer">Client → Company Code → Personnel Area → Personnel Subarea → Employee Group &amp; Subgroup. <strong>Payroll runs per company code.</strong></div></details>
+    <details class="q"><summary><span class="q-badge">Q6</span>HCM vs SuccessFactors?</summary>
+      <div class="answer">HCM = on-premise (ECC/S4), deep FI/CO/MM integration. SuccessFactors = SAP's cloud/SaaS platform (Employee Central, Recruiting, Learning, Performance), preferred for new implementations since 2015.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

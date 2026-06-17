@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1 · ERP Foundations — ERP Study Hub</title>
+<meta name="description" content="ERP foundations: definition, why ERP, MRP→ERP history, enterprise application landscape, four core principles, end-to-end processes, modules, master vs transactional data, KPIs, benefits, risks, project lifecycle, roles, cloud vs on-prem, security.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="foundations">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 1 · Weeks 1–2</span>
+      <h1>ERP Foundations</h1>
+      <p class="lede">The "integration + process + data" logic of ERP, where it sits in the enterprise,
+      and the vocabulary the rest of the course is built on.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <div class="callout key">
+      <span class="label">The one-line definition</span>
+      <p><strong>ERP is a suite of enterprise applications that runs a company's core processes using shared
+      data and rules, integrating functions across the organization.</strong> The motto: <em>"enter once, use everywhere."</em></p>
+    </div>
+
+    <h2>What ERP actually is</h2>
+    <ul>
+      <li><strong>Purpose — "enter once, use everywhere":</strong> single, consistent data (one source of truth).</li>
+      <li><strong>Process-oriented:</strong> follows an end-to-end flow, not departments.</li>
+      <li><strong>Standard business rules + traceability:</strong> who changed what, when?</li>
+      <li><strong>Real-time reporting and an audit trail.</strong></li>
+    </ul>
+    <div class="callout tip">
+      <span class="label">Exam framing</span>
+      <p>ERP is <strong>not a single product</strong> — it's an <strong>ecosystem and an architectural decision</strong>.
+      It creates value through <strong>integration and data</strong>, not through any one screen.</p>
+    </div>
+
+    <h2>Why ERP? The problems it solves</h2>
+    <div class="vs">
+      <div class="card a"><h4>Pre-ERP environment</h4>
+        <ul class="small">
+          <li>Departmental systems (software + Excel + email)</li>
+          <li>Same data in many places → inconsistent inventory/customer records</li>
+          <li>Manual approvals and delays</li>
+          <li>Unclear which data is "the truth"</li>
+          <li>Reporting = a "collect → merge → clean" cycle</li>
+        </ul>
+      </div>
+      <div class="card b"><h4>The ERP promise</h4>
+        <ul class="small">
+          <li>Shared data model &amp; a single source of truth</li>
+          <li>Process standardization and automation</li>
+          <li>Integration: order → inventory → invoice → accounting</li>
+          <li>Traceability and control (audit trail)</li>
+          <li>Faster, more consistent decision support</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>A brief history: MRP → ERP+</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Stands for</th><th>Key question it answered</th></tr></thead>
+      <tbody>
+        <tr><th>MRP</th><td>Material Requirements Planning</td><td>"What components do we need, how many, and when?"</td></tr>
+        <tr><th>MRP II</th><td>Manufacturing Resource Planning</td><td>"Can we actually produce this plan with our available capacity?"</td></tr>
+        <tr><th>ERP</th><td>Enterprise Resource Planning</td><td>"Integrate all core functions &amp; processes with shared data" (finance + sales + purchasing + inventory).</td></tr>
+        <tr><th>ERP+</th><td>ERP as an ecosystem</td><td>"Operate ERP connected to CRM/SCM/BI, cloud, mobile &amp; analytics."</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="small muted">As scope expanded, <strong>process integration</strong> became the critical challenge.</p>
+
+    <h2>Where ERP fits — the enterprise application landscape</h2>
+    <p>ERP sits at the heart of core business processes inside a <strong>layered architecture</strong> (top → bottom):</p>
+    <div class="flow" style="flex-direction:column;align-items:stretch;">
+      <div class="step"><span class="s-title">Users / Channels</span><span class="s-sub">web, mobile, dealers, e-commerce — the <em>interface</em></span></div>
+      <div class="step"><span class="s-title">Business Applications</span><span class="s-sub">ERP, CRM, SCM, HCM — the <em>system of record</em></span></div>
+      <div class="step"><span class="s-title">Integration</span><span class="s-sub">API, EDI, ESB/iPaaS — <em>work/data flow</em></span></div>
+      <div class="step"><span class="s-title">Data Layer</span><span class="s-sub">master data, transactional data, data warehouse — <em>analytics</em></span></div>
+      <div class="step"><span class="s-title">Infrastructure</span><span class="s-sub">cloud / on-premise, security, monitoring</span></div>
+    </div>
+    <p class="small">ERP lives mainly in the <strong>Business Applications</strong> layer but creates value through integration and data.</p>
+
+    <h2>The 4 core principles of ERP</h2>
+    <div class="grid cols-2">
+      <div class="card"><h4>① Integration</h4><p class="small">Modules work on the <strong>same data</strong>.</p></div>
+      <div class="card"><h4>② Standard process</h4><p class="small">End-to-end flow and rules.</p></div>
+      <div class="card"><h4>③ Single source of data</h4><p class="small">Master data + audit trail (e.g. the product card).</p></div>
+      <div class="card"><h4>④ Control / reporting</h4><p class="small">Real-time visibility.</p></div>
+    </div>
+    <div class="callout mnemonic"><span class="label">Mnemonic</span><p><strong>"I S S C"</strong> → <strong>I</strong>ntegration, <strong>S</strong>tandard process, <strong>S</strong>ingle source, <strong>C</strong>ontrol. The "4 core principles."</p></div>
+
+    <h2>End-to-end (E2E) processes</h2>
+    <p>The best way to learn ERP is to follow processes end-to-end:</p>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Process</th><th>Flow</th></tr></thead>
+      <tbody>
+        <tr><th>Order-to-Cash (O2C)</th><td>Quotation → Order → Shipment → Invoice → Collection</td></tr>
+        <tr><th>Procure-to-Pay (P2P)</th><td>Requisition → Order → Goods Receipt → Invoice → Payment</td></tr>
+        <tr><th>Plan-to-Produce</th><td>Forecast → MRP → Production → Quality → Inventory</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Think "process", not "department"</h3>
+    <p>A single business event passes through many departments — the danger mindset is <em>"I opened the sales order, my job is done."</em></p>
+    <div class="flow">
+      <div class="step"><span class="s-title">Sales</span><span class="s-sub">Order created</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Warehouse / Logistics</span><span class="s-sub">Shipment</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Finance</span><span class="s-sub">Invoice</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Customer</span><span class="s-sub">Payment</span></div>
+    </div>
+    <p class="small">ERP connects these handoffs with the same data and rules. In disconnected systems the linkage is manual and error-prone.</p>
+
+    <h2>ERP modules: the core map</h2>
+    <p>Modules are functional components that exist <strong>to support processes</strong>. The common core:</p>
+    <div class="grid cols-4">
+      <div class="card small"><strong>Sales &amp; Distribution</strong><br>(SD)</div>
+      <div class="card small"><strong>Purchasing</strong><br>(MM / PUR)</div>
+      <div class="card small"><strong>Inventory / Warehouse</strong><br>(INV / WMS)</div>
+      <div class="card small"><strong>Manufacturing</strong><br>(PP / MFG)</div>
+      <div class="card small"><strong>Finance</strong><br>(FI / GL)</div>
+      <div class="card small"><strong>Controlling / Cost</strong><br>(CO)</div>
+      <div class="card small"><strong>HR</strong><br>(HCM)</div>
+      <div class="card small"><strong>Asset Maintenance</strong><br>(EAM)</div>
+    </div>
+    <div class="callout warn"><span class="label">Most important point</span><p>Most "problems" come <strong>not from a module itself</strong>, but from <strong>cross-module integration and data management</strong>.</p></div>
+
+    <h2>Data: master vs transactional</h2>
+    <div class="vs">
+      <div class="card a"><h4>Master data</h4>
+        <ul class="small">
+          <li>Relatively <strong>stable</strong>, used across many processes</li>
+          <li>Examples: customer, supplier, product/service, warehouse, pricing</li>
+          <li>The <strong>infrastructure</strong>; needs ownership &amp; approval</li>
+          <li>Poor master data → errors in every module</li>
+        </ul>
+      </div>
+      <div class="card b"><h4>Transactional data</h4>
+        <ul class="small">
+          <li>Created by <strong>day-to-day operations</strong></li>
+          <li>Examples: order, delivery note, inventory movement, invoice, payment</li>
+          <li>Shows process flow &amp; performance (the proof)</li>
+          <li>Foundation for reporting and auditing</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout key"><span class="label">The rule</span><p>Without <strong>correct master data</strong>, you cannot produce <strong>"good" transactional data</strong>.</p></div>
+
+    <h3>Integration example: what does one sales order trigger?</h3>
+    <p>A single sales order creates a chain reaction across modules:</p>
+    <div class="flow">
+      <div class="step"><span class="s-title">Sales</span><span class="s-sub">Create order</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Inventory</span><span class="s-sub">Reservation / issue</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Logistics</span><span class="s-sub">Shipment / delivery</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Finance</span><span class="s-sub">Billing + accounting entry</span></div>
+    </div>
+    <p class="small">So in ERP, the <strong>design of these connections</strong> — not the screens — is what matters.</p>
+
+    <h2>Performance: the KPI logic</h2>
+    <p>The real value of ERP is making process performance <strong>measurable</strong> — "How long did it take? Where did they wait? Who approved it?"</p>
+    <div class="vs">
+      <div class="card a"><h4>O2C KPIs</h4>
+        <ul class="small"><li>Order cycle time</li><li>Shipping accuracy / <strong>OTIF</strong> (on-time-in-full)</li><li>Billing delay</li><li><strong>DSO</strong> (Days Sales Outstanding) / collection time</li></ul></div>
+      <div class="card b"><h4>P2P KPIs</h4>
+        <ul class="small"><li>Lead time / delivery performance</li><li>Inventory turnover</li><li>Purchasing savings (price variance)</li><li>Invoice match rate (PO-GR-Invoice)</li></ul></div>
+    </div>
+    <div class="callout mnemonic"><span class="label">Chain to remember</span><p><strong>KPI definition → data definition → process standard → system design.</strong> They're all connected: if not everyone posts their shipment on time in the system, the KPI is meaningless.</p></div>
+
+    <h2>Benefits vs risks</h2>
+    <div class="grid cols-2">
+      <div class="card"><h4 style="color:var(--ok)">Typical benefits</h4>
+        <ul class="small">
+          <li>Data consistency (single customer/product/warehouse records)</li>
+          <li>Standardization &amp; control of processes</li>
+          <li>Operational visibility (orders, inventory, production, cash)</li>
+          <li>Traceability &amp; compliance (audit trail)</li>
+          <li>Faster close and reporting</li>
+          <li>Risk reduction via authorization &amp; <strong>segregation of duties (SoD)</strong></li>
+        </ul></div>
+      <div class="card"><h4 style="color:var(--bad)">Typical risks</h4>
+        <p class="small" style="margin:.2em 0;"><strong>Non-technical (more common!):</strong></p>
+        <ul class="small"><li>Change management / user resistance</li><li>Scope creep</li><li>Unclear process ownership</li><li>Insufficient training &amp; adoption</li><li>Data cleansing / migration difficulty</li></ul>
+        <p class="small" style="margin:.4em 0 .2em;"><strong>Technical / architectural:</strong></p>
+        <ul class="small"><li>Poor integration design; performance/scalability</li><li>Authorization mistakes; customization dependency; reporting gaps</li></ul></div>
+    </div>
+    <div class="callout warn"><span class="label">Realistic expectation</span><p>ERP is <strong>not a miracle</strong>. It creates value with <strong>correct data, correct processes, and good change management</strong> — and most risk is human/process/project, not technology.</p></div>
+
+    <h2>The ERP project lifecycle</h2>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Prepare</span><span class="s-sub">Scope, team, plan</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Design</span><span class="s-sub">Process design, fit-gap</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Configure</span><span class="s-sub">Parameters, authorizations</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">Test</span><span class="s-sub">UAT, integration tests</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Go-Live</span><span class="s-sub">Cutover, support</span></div>
+    </div>
+    <p class="small">In every phase, <strong>process + data + integration + training</strong> are managed together. Success needs business ownership, clear scope, good testing, and a realistic cutover plan. Principle: this is a <strong>business transformation</strong>, not a "system project."</p>
+
+    <h2>Team, roles &amp; governance</h2>
+    <div class="grid cols-3">
+      <div class="card"><h4>Business side</h4><ul class="small"><li>Process owner</li><li>Key user</li><li>Data owner</li><li>Executive sponsorship</li></ul></div>
+      <div class="card"><h4>IT / project side</h4><ul class="small"><li>Project manager</li><li>Functional consultant</li><li>Technical / integration specialist</li><li>Authorization &amp; security</li></ul></div>
+      <div class="card"><h4>Governance</h4><ul class="small"><li>Steering committee</li><li>Process / design authority</li><li>Change control</li></ul></div>
+    </div>
+
+    <h2>Cloud ERP or on-prem?</h2>
+    <div class="vs">
+      <div class="card a"><h4>Cloud</h4><ul class="small"><li>Faster deployment / scaling</li><li>More frequent (regular) updates</li><li>Less infrastructure burden</li><li>Encourages alignment with <strong>standard</strong> processes (less customization)</li></ul></div>
+      <div class="card b"><h4>On-prem</h4><ul class="small"><li>More control / customization</li><li>Infrastructure &amp; maintenance responsibility</li><li>Updates can be heavier</li><li>Regulatory / integration needs can be decisive</li></ul></div>
+    </div>
+    <p class="small muted">Course view: choose on <strong>logic, not brand</strong> — process fit, data, integration, total cost of ownership.</p>
+
+    <h2>Security &amp; authorization (basics)</h2>
+    <ul>
+      <li><strong>Role-based access:</strong> user → role → permission.</li>
+      <li><strong>Segregation of duties (SoD):</strong> the same person should not both <em>order</em> and <em>pay</em>.</li>
+      <li><strong>Approval workflows:</strong> limits and levels.</li>
+      <li><strong>Audit trail:</strong> who changed what, when?</li>
+      <li>Authorization design is part of <strong>business risk management</strong>.</li>
+    </ul>
+
+    <h2>Reporting: operational vs analytical</h2>
+    <div class="vs">
+      <div class="card a"><h4>Operational reports</h4><ul class="small"><li>Daily operational tracking</li><li>Current inventory, open orders, pending invoices</li><li>Transaction-level detail (drill-down)</li><li>Helps catch process issues</li></ul></div>
+      <div class="card b"><h4>Analytical reports (BI)</h4><ul class="small"><li>Trends, profitability, performance</li><li>KPI dashboards</li><li>Summary + multidimensional analysis</li><li>Needs a data warehouse / modeling</li></ul></div>
+    </div>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>Give the one-line definition of ERP and its motto.</summary>
+      <div class="answer">A suite of enterprise applications that runs a company's core processes using <strong>shared data and rules</strong>, integrating functions across the organization. Motto: <strong>"enter once, use everywhere."</strong></div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>Name the four core principles of ERP.</summary>
+      <div class="answer"><strong>Integration, Standard process, Single source of data, Control/reporting.</strong></div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>What are the steps of O2C and P2P?</summary>
+      <div class="answer"><strong>O2C:</strong> Quotation → Order → Shipment → Invoice → Collection. <strong>P2P:</strong> Requisition → Order → Goods Receipt → Invoice → Payment.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>Master data vs transactional data — give two examples of each.</summary>
+      <div class="answer"><strong>Master</strong> (stable): customer, supplier, material, pricing. <strong>Transactional</strong> (daily ops): order, invoice, inventory movement, payment. Rule: no good transactional data without correct master data.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>Where do most ERP problems and most ERP risk come from?</summary>
+      <div class="answer">Problems come from <strong>cross-module integration &amp; data management</strong> (not a single module). Most risk is <strong>non-technical</strong>: change management, scope creep, unclear ownership, training/adoption.</div></details>
+    <details class="q"><summary><span class="q-badge">Q6</span>What is segregation of duties (SoD)? Give the classic example.</summary>
+      <div class="answer">A control where one person can't perform conflicting tasks — classic example: the same person should <strong>not both order and pay</strong>. Part of role-based access &amp; business risk management.</div></details>
+    <details class="q"><summary><span class="q-badge">Q7</span>What does the history MRP → MRP II → ERP add at each step?</summary>
+      <div class="answer">MRP = material needs (what/how many/when). MRP II = adds <strong>capacity</strong> feasibility. ERP = integrates <strong>all core functions</strong> on shared data. ERP+ = ecosystem with CRM/SCM/BI, cloud, mobile, analytics.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

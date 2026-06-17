@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2 · Business Processes &amp; BPMN — ERP Study Hub</title>
+<meta name="description" content="Business processes and the ERP process approach: functional silos vs process-oriented structures, cross-functional O2C/P2P, SAP module abbreviations, SCOR/APQC/ARIS reference models, BPMN notation, and standardization vs customization.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="processes">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 2 · Week 3 (Section A)</span>
+      <h1>Business Processes &amp; the ERP Process Approach</h1>
+      <p class="lede">Moving from functional silos to an integrated, process-oriented architecture — plus the
+      reference models and BPMN notation used to map it all.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <h2>What is a business process?</h2>
+    <div class="callout key"><span class="label">Definition</span>
+      <p>A <strong>structured sequence of interrelated activities</strong> that transforms a specific <strong>input</strong> into a specific <strong>output</strong> in order to deliver <strong>value</strong>.</p></div>
+    <div class="flow">
+      <div class="step"><span class="s-title">INPUT</span><span class="s-sub">customer order, raw-material request, financial transaction, employee record</span></div>
+      <div class="arrow">→</div>
+      <div class="step"><span class="s-title">TRANSFORMATION</span><span class="s-sub">activities, rules &amp; controls, system support, human decisions</span></div>
+      <div class="arrow">→</div>
+      <div class="step"><span class="s-title">OUTPUT</span><span class="s-sub">product/service, report/document, approval/rejection, customer satisfaction</span></div>
+    </div>
+    <p class="small muted"><strong>Hammer &amp; Champy (1993):</strong> a business process is a collection of activities that takes one or more kinds of input and creates an output of value to the customer. (Test: "Is buying a coffee in the morning a process?")</p>
+
+    <h2>From functional silos to a process-oriented structure</h2>
+    <div class="vs">
+      <div class="card a"><h4>Functional structure (before ERP)</h4>
+        <p class="small">Departments: Sales, Finance, Production, HR, Logistics.</p>
+        <ul class="small"><li>Information flow <strong>fragmented</strong> across departments</li><li>Customer orders <strong>re-entered</strong> in each department</li><li>Accountability gaps between functions</li></ul></div>
+      <div class="card b"><h4>Process-oriented structure (after ERP)</h4>
+        <p class="small">Processes: Order-to-Cash, Procure-to-Pay, Production Planning, Hire-to-Retire.</p>
+        <ul class="small"><li><strong>End-to-end process ownership</strong></li><li><strong>Real-time data sharing</strong> across functions</li><li>One record flows through the whole chain</li></ul></div>
+    </div>
+
+    <h2>Cross-functional processes in ERP</h2>
+    <p>Each process runs through real-time integration of multiple modules. <strong>Data is entered once and consumed across all relevant modules.</strong></p>
+    <h3>Example 1 — Order-to-Cash</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Step</th><th>Customer Order</th><th>Inventory Check</th><th>Production Order</th><th>Shipment Planning</th><th>Invoice Generation</th><th>Payment Collection</th></tr></thead>
+      <tbody><tr><th>Module</th><td>SD</td><td>MM / WM</td><td>PP</td><td>SD / WM</td><td>FI / SD</td><td>FI / AR</td></tr></tbody>
+    </table></div>
+    <h3>Example 2 — Procure-to-Pay</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Step</th><th>Purchase Requisition</th><th>Approval Workflow</th><th>Vendor Selection</th><th>Purchase Order</th><th>Goods Receipt</th><th>Invoice Payment</th></tr></thead>
+      <tbody><tr><th>Module</th><td>MM / PR</td><td>WF / FI</td><td>MM</td><td>MM / PO</td><td>MM / WM</td><td>FI / AP</td></tr></tbody>
+    </table></div>
+
+    <h2>SAP core module abbreviations</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Code</th><th>Module</th><th>Scope</th></tr></thead>
+      <tbody>
+        <tr><th>SD</th><td>Sales &amp; Distribution</td><td>Customer orders, pricing, shipping, billing, sales analysis</td></tr>
+        <tr><th>MM</th><td>Materials Management</td><td>Purchasing, inventory, goods receipt, vendor evaluation</td></tr>
+        <tr><th>FI</th><td>Financial Accounting</td><td>GL, AR, AP, bank accounting, balance-sheet reporting</td></tr>
+        <tr><th>CO</th><td>Controlling</td><td>Cost/profit centers, product costing, internal reporting (FI + CO = "FI/CO")</td></tr>
+        <tr><th>PP</th><td>Production Planning</td><td>Production orders, capacity planning, MRP, work centers</td></tr>
+        <tr><th>WM</th><td>Warehouse Management</td><td>Intra-warehouse movements, bins, transfer orders → <strong>EWM</strong> in S/4HANA</td></tr>
+        <tr><th>PS</th><td>Project System</td><td>Project cost tracking, WBS, project budgeting</td></tr>
+        <tr><th>HR / HCM</th><td>Human Capital Mgmt</td><td>Personnel admin, payroll, time management, org structure</td></tr>
+        <tr><th>CRM</th><td>Customer Relationship Mgmt</td><td>Customer interaction → repositioned as SAP C/4HANA / Sales Cloud</td></tr>
+        <tr><th>SCM</th><td>Supply Chain Mgmt</td><td>Demand planning, supply-chain visibility → via APO (Advanced Planner &amp; Optimizer)</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>Reference process models</h2>
+    <p>Standard frameworks that define industry best practices used in ERP implementations.</p>
+    <div class="grid cols-3">
+      <div class="card"><h4>SCOR</h4><p class="small"><strong>Supply Chain Operations Reference</strong> — org: <strong>ASCM</strong> (formerly APICS). Standardizes supply-chain processes as <strong>Plan–Source–Make–Deliver–Return–Enable</strong>. Use: logistics, manufacturing, supplier optimization.</p></div>
+      <div class="card"><h4>APQC PCF</h4><p class="small"><strong>Process Classification Framework</strong> — org: <strong>APQC</strong>. Cross-industry architecture: <strong>1,000+ process definitions across 12 categories</strong>. Use: benchmarking &amp; improvement prioritization.</p></div>
+      <div class="card"><h4>ARIS</h4><p class="small"><strong>Architecture of Integrated Information Systems</strong> — org: <strong>Software AG</strong>. Models from <strong>5 perspectives</strong>: organization, data, function, output, control. Use: process design/documentation in SAP.</p></div>
+    </div>
+    <div class="callout mnemonic"><span class="label">Mnemonic</span><p>SCOR = supply-chain "<strong>P-S-M-D-R-E</strong>". ARIS = <strong>5 views</strong> ("ODFOC": Organization, Data, Function, Output, Control). APQC = <strong>12 categories, 1000+</strong> processes.</p></div>
+
+    <h2>Process mapping &amp; BPMN fundamentals</h2>
+    <p><strong>BPMN</strong> = Business Process Model and Notation: a standardized graphical language for modeling business processes, maintained by the <strong>OMG</strong>.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Symbol</th><th>Element</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="t-center">●</td><th>Start Event</th><td>Where the process begins</td></tr>
+        <tr><td class="t-center">○</td><th>End Event</th><td>Where the process ends</td></tr>
+        <tr><td class="t-center">▭</td><th>Task</th><td>An activity — automated (■) or manual (□)</td></tr>
+        <tr><td class="t-center">◆</td><th>Gateway</th><td>A decision; <strong>⊕ parallel gateway</strong> = split/merge parallel paths</td></tr>
+        <tr><td class="t-center">[ ]</td><th>Subprocess</th><td>A collapsed nested process</td></tr>
+        <tr><td class="t-center">→</td><th>Sequence Flow</th><td>Order of activities (<strong>--</strong> message flow = across participants)</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Why use process maps?</h3>
+    <div class="grid cols-3">
+      <div class="card small"><strong>Visibility</strong> — makes complex processes visual.</div>
+      <div class="card small"><strong>Analysis</strong> — exposes bottlenecks, redundancies, gaps, accountability issues.</div>
+      <div class="card small"><strong>ERP design</strong> — clarifies which step belongs to which module.</div>
+      <div class="card small"><strong>Training</strong> — new users grasp the process; error rates drop.</div>
+      <div class="card small"><strong>Continuous improvement</strong> — enables <strong>AS-IS</strong> vs <strong>TO-BE</strong> analysis.</div>
+    </div>
+    <div class="callout tip"><span class="label">Worksheet pattern (AS-IS → TO-BE)</span>
+      <p>The BPMN exercise scenarios (onboarding, complaint handling, purchase requisition) all follow the same logic: map the <strong>current (AS-IS)</strong> process with swimlanes per actor, find the delays/handoffs, then design a <strong>TO-BE</strong> where ERP automates steps. Key questions: <em>which steps can ERP trigger automatically?</em> and <em>which approvals genuinely add value?</em></p></div>
+
+    <h2>The customization decision: standardization vs customization</h2>
+    <p>One of the most critical implementation decisions: adapt your process to the ERP, or adapt the ERP to your process?</p>
+    <div class="vs">
+      <div class="card a"><h4>Standardization ("Vanilla" ERP)</h4>
+        <p class="small"><strong>+</strong> Lower initial cost · easier upgrades/patches · industry best practices · reduced risk · lower long-term maintenance.</p>
+        <p class="small"><strong>−</strong> Existing processes must change · hard to differentiate competitively · adoption takes time.</p></div>
+      <div class="card b"><h4>Customization</h4>
+        <p class="small"><strong>+</strong> Competitive processes preserved · lower user resistance · industry-specific needs met.</p>
+        <p class="small"><strong>−</strong> High development cost · complex upgrades · technical debt accumulates · vendor lock-in risk.</p></div>
+    </div>
+    <div class="callout warn"><span class="label">Golden rule</span><p><strong>"Try the standard first."</strong> Fit the process to the system, not the system to the process. (This rule comes back hard in Chapter 8.)</p></div>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>Define a business process using the input/transformation/output frame.</summary>
+      <div class="answer">A structured sequence of interrelated activities that transforms a specific input into a specific output to deliver value. Input (order) → Transformation (activities, rules, system, decisions) → Output (product, document, satisfaction).</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>Map the O2C steps to SAP modules.</summary>
+      <div class="answer">Customer Order = <strong>SD</strong> · Inventory Check = <strong>MM/WM</strong> · Production Order = <strong>PP</strong> · Shipment = <strong>SD/WM</strong> · Invoice = <strong>FI/SD</strong> · Payment = <strong>FI/AR</strong>.</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>What do SCOR, APQC PCF and ARIS each stand for / who owns them?</summary>
+      <div class="answer"><strong>SCOR</strong> (Supply Chain Operations Reference, ASCM/APICS) — Plan-Source-Make-Deliver-Return-Enable. <strong>APQC PCF</strong> (Process Classification Framework, APQC) — 1000+ processes, 12 categories. <strong>ARIS</strong> (Architecture of Integrated Information Systems, Software AG) — 5 views.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>Name the core BPMN elements and who maintains BPMN.</summary>
+      <div class="answer">Start event, end event, task, gateway (decision; parallel gateway), subprocess, sequence flow, message flow. Maintained by the <strong>OMG</strong>.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>Give two advantages and two disadvantages of vanilla ERP.</summary>
+      <div class="answer"><strong>+</strong> lower cost, easier upgrades, best practices, lower risk. <strong>−</strong> existing processes must change, harder to differentiate, slower adoption. Rule: try the standard first.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

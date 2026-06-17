@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6 · Supply Chain / Materials Management (MM) — ERP Study Hub</title>
+<meta name="description" content="SAP Materials Management: Procure-to-Pay, purchase requisition & order, goods receipt & three-way match, invoice verification (MIRO) & payment (F110), goods movement types, material valuation (standard vs moving average), MRP, vendor master & evaluation, sourcing, warehouse management (IM/WM/EWM) and integration.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="mm">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 6 · Week 6</span>
+      <h1>Supply Chain — Materials Management (MM)</h1>
+      <p class="lede">From purchase request to goods in the warehouse — the full <strong>Procure-to-Pay</strong> cycle,
+      plus inventory, valuation, MRP, vendors and warehousing.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <p>SAP MM covers four things: <strong>Procurement</strong> (requisition → payment), <strong>Inventory Management</strong> (stock levels &amp; movements in real time), <strong>Material Planning</strong> (MRP: what to procure &amp; when), and <strong>Valuation &amp; Costing</strong> (standard or moving-average price).</p>
+
+    <h2>Procure-to-Pay (P2P) end-to-end</h2>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Purchase Requisition</span><span class="s-sub">MM · <span class="tcode">ME51N</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Purchase Order</span><span class="s-sub">MM · <span class="tcode">ME21N</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Goods Receipt</span><span class="s-sub">MM/WM · <span class="tcode">MIGO</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">Invoice Verification</span><span class="s-sub">MM/FI · <span class="tcode">MIRO</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">5</span><span class="s-title">Payment Run</span><span class="s-sub">FI · <span class="tcode">F110</span></span></div>
+    </div>
+    <div class="callout key"><span class="label">Critical principle</span><p>Each step creates a linked <strong>document chain (PR → PO → GR → IR → Payment)</strong> — a complete audit trail. No step can be skipped or manually bypassed.</p></div>
+
+    <h3>Purchase Requisition vs Purchase Order</h3>
+    <div class="vs">
+      <div class="card a"><h4>Purchase Requisition (PR) <span class="tcode">ME51N</span></h4>
+        <ul class="small"><li>Internal request for a material/service</li><li>Created by any authorized user, or <strong>automatically by MRP</strong></li><li>Release strategy: amount / material-group / cost-center based</li><li><strong>No FI posting</strong>; CO records a requisition <strong>commitment</strong> (budget visibility)</li></ul></div>
+      <div class="card b"><h4>Purchase Order (PO) <span class="tcode">ME21N</span></h4>
+        <ul class="small"><li>Formal, <strong>legally binding</strong> commitment to a vendor</li><li>From a PR, an info record, or a contract</li><li>Types: Standard, Subcontracting, Consignment, Stock Transport Order</li><li>CO posts a PO commitment; <strong>FI fires only on GR/IR</strong></li></ul></div>
+    </div>
+    <div class="callout mnemonic"><span class="label">T-code pattern in MM</span><p><span class="tcode">ME51N</span> create PR → <span class="tcode">ME21N</span> create PO → <span class="tcode">ME23N</span> display PO. The last digit: <strong>1 = Create, 2 = Change, 3 = Display</strong>; N = new UI.</p></div>
+
+    <h2>Goods Receipt &amp; the three-way match</h2>
+    <p>At Goods Receipt (<span class="tcode">MIGO</span>): stock quantity ↑, the <strong>GR/IR clearing account is debited</strong> (temporary), the <strong>Inventory G/L is credited</strong> (stock value enters FI in real time), and a <strong>Material Document</strong> is created.</p>
+    <div class="callout key"><span class="label">Three-way match</span>
+      <p><strong>Purchase Order</strong> (what was ordered &amp; at what price) + <strong>Goods Receipt</strong> (what was actually received) + <strong>Vendor Invoice</strong> (what's being charged). If any two deviate beyond tolerance → invoice is <strong>automatically blocked</strong>. The <strong>GR/IR clearing account</strong> is temporary — it closes when the invoice is verified in MIRO.</p></div>
+
+    <h3>Invoice verification (MIRO) &amp; automatic payment (F110)</h3>
+    <div class="flow">
+      <div class="step"><span class="s-title">Enter Invoice</span><span class="s-sub"><span class="tcode">MIRO</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">3-Way Match Check</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Post or Block</span><span class="s-sub">KR doc; block → <span class="tcode">MRBR</span></span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">FI Document</span><span class="s-sub">AP created, GR/IR cleared</span></div><div class="arrow">→</div>
+      <div class="step"><span class="s-title">Payment Run</span><span class="s-sub"><span class="tcode">F110</span></span></div>
+    </div>
+    <p class="small"><strong>F110</strong> selects open due items, groups by payment method &amp; bank, generates the transfer file and posts the clearing entry — essential when a company processes 10,000+ invoices/month. <strong>MRBR</strong> = Release Blocked Invoices (the AP exception queue).</p>
+
+    <h2>Inventory management — goods movements</h2>
+    <p>All stock changes are <strong>Goods Movements</strong> posted via <span class="tcode">MIGO</span>, each with a movement type:</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>MvT</th><th>Movement</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><th>101</th><td>Goods Receipt for PO</td><td>Stock ↑ against a PO; GR/IR cleared</td></tr>
+        <tr><th>261</th><td>Goods Issue for production</td><td>Stock ↓ for a production order; cost center charged</td></tr>
+        <tr><th>311</th><td>Transfer posting (plant)</td><td>Move stock between storage locations in a plant</td></tr>
+        <tr><th>501</th><td>Receipt without PO</td><td>Emergency / returned goods, no reference PO</td></tr>
+        <tr><th>601</th><td>Goods Issue for delivery</td><td>Stock ↓ on shipment to customer; FI: <strong>COGS debited</strong></td></tr>
+        <tr><th>702</th><td>Physical inventory adjust</td><td>Correct system stock to counted quantity</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Stock types: Unrestricted (usable) · Quality Inspection (blocked until inspected) · Blocked · In Transit · Consignment (owned by vendor until used).</p>
+
+    <h2>Material valuation: standard vs moving average</h2>
+    <div class="vs">
+      <div class="card a"><h4>Standard Price (S)</h4>
+        <p class="small">Fixed price per period (from CO product costing). All movements use it regardless of actual purchase price.</p>
+        <ul class="small"><li>Enables <strong>variance analysis</strong> (actual vs standard)</li><li>Used in CO product costing &amp; profitability</li><li><strong>Mandatory for finished &amp; semi-finished goods</strong></li><li>Price differences → price difference account</li></ul></div>
+      <div class="card b"><h4>Moving Average Price (V)</h4>
+        <p class="small">Recalculated after each goods receipt — weighted average of existing + incoming stock.</p>
+        <ul class="small"><li>Reflects <strong>actual purchase costs</strong> automatically</li><li>No variance postings for normal receipts</li><li>Preferred for <strong>traded goods &amp; raw materials</strong> with volatile prices</li><li>Harder to analyze trends; negative stock can distort it</li></ul></div>
+    </div>
+    <div class="callout warn"><span class="label">Master-data trap</span><p>The valuation method lives in the material master (Accounting view) and <strong>cannot be changed once goods movements have occurred</strong>. Critical config decision.</p></div>
+
+    <h2>MRP — Material Requirements Planning</h2>
+    <p>MRP calculates <strong>what to procure or produce, in what quantity, and by when</strong> — automatically.</p>
+    <div class="vs">
+      <div class="card a"><h4>Inputs</h4><ul class="small"><li>Demand (sales orders / forecasts)</li><li>Current stock levels</li><li>Open purchase / production orders</li><li>Safety stock &amp; lead times</li></ul></div>
+      <div class="card b"><h4>Outputs</h4><ul class="small"><li><strong>Planned orders</strong> → become production orders</li><li><strong>Purchase requisitions</strong> → external procurement</li><li>Schedule lines (split against contracts)</li><li><strong>Exception messages</strong> (reschedule in/out, expedite, cancel)</li></ul></div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>MRP type</th><th>Logic</th></tr></thead>
+      <tbody>
+        <tr><th>MRP (PD)</th><td>Classic demand-driven MRP</td></tr>
+        <tr><th>Consumption-Based (VB)</th><td>Reorder point — triggers when stock falls below minimum</td></tr>
+        <tr><th>Forecast-Based (VM)</th><td>Uses historical consumption forecasts</td></tr>
+        <tr><th>MRP Live</th><td>Real-time, in-memory MRP run (S/4HANA)</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>Vendor management &amp; sourcing</h2>
+    <div class="grid cols-2">
+      <div class="card"><h4>Vendor Master <span class="tcode">XK01</span> / <span class="tcode">MK01</span></h4>
+        <p class="small">Three data areas: <strong>General</strong> (name, address, bank), <strong>FI/Company Code</strong> (payment terms, recon account, dunning), <strong>MM/Purchasing Org</strong> (currency, order ack, delivery tolerance).</p>
+        <p class="small"><span class="tcode">XK01</span> creates all views · <span class="tcode">MK01</span> purchasing only · <span class="tcode">FK01</span> FI only · <span class="tcode">XK02</span> change.</p></div>
+      <div class="card"><h4>Vendor Evaluation <span class="tcode">ME61</span></h4>
+        <p class="small">Scores vendors 1–100: <strong>Price 30% · Quality 25% · Delivery reliability 25% · Service 20%</strong>. Threshold for preferred vendor ≈ <strong>80+</strong>. Scores feed automatic source determination.</p></div>
+    </div>
+    <p class="small"><strong>Sourcing strategies:</strong> Single (one vendor — max leverage, max risk) · Dual (two — balance cost vs continuity) · Multi (3+ via RFQ <span class="tcode">ME41</span>) · Preferred vendor via info record <span class="tcode">ME11</span>. Group contract = <span class="tcode">ME31K</span>.</p>
+
+    <h2>Warehouse management: IM, WM, EWM</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Level</th><th>Granularity</th><th>T-codes</th></tr></thead>
+      <tbody>
+        <tr><th>IM (Inventory Mgmt)</th><td>Plant / storage location — total stock per material, <strong>no bin visibility</strong></td><td><span class="tcode">MB52</span>, <span class="tcode">MMBE</span></td></tr>
+        <tr><th>WM (Warehouse Mgmt)</th><td>Warehouse / storage type / <strong>storage bin</strong>; transfer orders move stock</td><td><span class="tcode">LT01</span>, <span class="tcode">LS24</span>, <span class="tcode">LX02</span></td></tr>
+        <tr><th>EWM (Extended WM)</th><td>Advanced: wave/labor mgmt, slotting, cross-docking, yard. S/4HANA native</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>MM integration — the golden rule</h2>
+    <div class="callout key"><span class="label">Golden rule of MM integration</span><p>Every material movement <strong>automatically generates the corresponding FI and CO document</strong>. There is no manual reconciliation between operations and finance — the document is created once and all downstream systems consume it.</p></div>
+    <div class="grid cols-2">
+      <div class="card small"><strong>→ FI:</strong> GR → inventory G/L debit; invoice → AP; GR/IR clearing each step; stock value on the balance sheet.</div>
+      <div class="card small"><strong>→ CO:</strong> PR/PO → commitment; goods issue to production → cost-center charge; procurement variance.</div>
+      <div class="card small"><strong>→ PP:</strong> MRP driven by production plan; goods issue (261) supplies production orders; BOM/routing → demand; backflushing.</div>
+      <div class="card small"><strong>→ SD:</strong> goods issue (601) → revenue/COGS; ATP queries MM stock; returns reverse the goods receipt.</div>
+    </div>
+    <div class="callout tip"><span class="label">Case proof</span><p><strong>Koç Holding</strong> unified procurement across 8 industrial companies on one SAP MM instance: cycle time 12→4 days, unit costs −8–12%, 100% PO coverage, inventory write-downs −35%, 3-way match auto-blocks 94% of invoice discrepancies.</p></div>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>Give the P2P document chain with T-codes.</summary>
+      <div class="answer">PR (<span class="tcode">ME51N</span>) → PO (<span class="tcode">ME21N</span>) → GR (<span class="tcode">MIGO</span>) → Invoice (<span class="tcode">MIRO</span>) → Payment (<span class="tcode">F110</span>).</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>At what step does FI first post in P2P, and what is the GR/IR account?</summary>
+      <div class="answer">FI fires at <strong>Goods Receipt</strong> (PR/PO only create CO commitments). GR/IR is a <strong>temporary clearing account</strong> debited at GR and closed when the invoice is verified in MIRO.</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>What do movement types 101, 261 and 601 mean?</summary>
+      <div class="answer">101 = GR for PO (stock ↑). 261 = GI for production (cost center charged). 601 = GI for delivery to customer (COGS debited).</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>Standard vs moving average price — which is mandatory for finished goods?</summary>
+      <div class="answer"><strong>Standard (S)</strong> — fixed, enables variance analysis, mandatory for finished/semi-finished goods. <strong>Moving average (V)</strong> — recalculated each GR, for raw/traded goods with volatile prices. Can't be changed after movements occur.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>List MRP inputs and outputs.</summary>
+      <div class="answer"><strong>Inputs:</strong> demand, current stock, open POs/production orders, safety stock &amp; lead times. <strong>Outputs:</strong> planned orders, purchase requisitions, schedule lines, exception messages.</div></details>
+    <details class="q"><summary><span class="q-badge">Q6</span>What are the vendor evaluation criteria and weights?</summary>
+      <div class="answer">Price 30%, Quality 25%, Delivery reliability 25%, Service 20%. Preferred-vendor threshold ≈ 80+.</div></details>
+    <details class="q"><summary><span class="q-badge">Q7</span>IM vs WM — what's the difference?</summary>
+      <div class="answer">IM tracks total stock at plant/storage-location level (no bins). WM manages physical stock at <strong>bin</strong> level using transfer orders. EWM adds advanced features (waves, slotting, yard).</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
