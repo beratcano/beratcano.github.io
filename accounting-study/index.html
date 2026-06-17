@@ -14,13 +14,13 @@
   <div class="page-head">
     <span class="eyebrow">Management &amp; Cost Accounting · full course revision</span>
     <h1>Cost &amp; managerial accounting,<br>worked through until it clicks.</h1>
-    <p class="lede">Six study chapters, every assigned problem solved step-by-step, printable formula sheets and an
-      interactive exam simulator — built <strong>only</strong> from your two chapters (Intro to Managerial Accounting &amp;
-      Relevant Costs) and the five problem sets. Your progress saves in this browser.</p>
+    <p class="lede">Nine study chapters, every assigned problem solved step-by-step, printable formula sheets and an
+      interactive exam simulator — built <strong>only</strong> from your lecture notes (managerial basics, contribution format,
+      job-order costing, service allocation &amp; relevant costs) and the problem sets. Your progress saves in this browser.</p>
     <div class="btn-row">
       <a class="btn" href="pages/01-intro-managerial.html">Start with Chapter 1 →</a>
-      <a class="btn ghost" href="pages/06-practice-problems.html">Worked problems</a>
-      <a class="btn ghost" href="pages/08-exam-practice.html">Exam practice</a>
+      <a class="btn ghost" href="pages/09-practice-problems.html">Worked problems</a>
+      <a class="btn ghost" href="pages/11-exam-practice.html">Exam practice</a>
     </div>
   </div>
 
@@ -47,13 +47,13 @@
   <h2>How to use this site</h2>
   <div class="grid cols-3">
     <div class="card"><h3>📖 Read the chapter</h3><p class="small">Sticky table of contents, colour-coded <span class="tag">key term</span>, <span class="tag" style="background:var(--ok-soft);color:var(--ok)">exam tip</span> and <span class="tag" style="background:var(--mn-soft);color:var(--mn-line)">memory hook</span> callouts.</p></div>
-    <div class="card"><h3>🧮 Work the problems</h3><p class="small">Every assigned problem is solved line-by-line in <a href="pages/06-practice-problems.html">Practice Problems</a> — try it, then reveal the full solution.</p></div>
-    <div class="card"><h3>🎯 Simulate the exam</h3><p class="small"><a href="pages/08-exam-practice.html">Exam Practice</a> has a scored, shuffleable question bank you can filter by topic.</p></div>
+    <div class="card"><h3>🧮 Work the problems</h3><p class="small">Every assigned problem is solved line-by-line in <a href="pages/09-practice-problems.html">Practice Problems</a> — try it, then reveal the full solution.</p></div>
+    <div class="card"><h3>🎯 Simulate the exam</h3><p class="small"><a href="pages/11-exam-practice.html">Exam Practice</a> has a scored, shuffleable question bank you can filter by topic.</p></div>
   </div>
 
   <div class="callout tip" style="margin-top:24px;">
     <span class="label">Exam-night plan</span>
-    <p>Lock down <strong>cost classification</strong> (Ch 2) — it's the most common quick-marks question. Then drill the <strong>COGM → income statement</strong> format (Ch 3) until you can do Medi/Howell/Mandelo from memory. Finally rehearse the <strong>relevant-cost decision rules</strong> (Ch 4–5): special order, make-or-buy, constraints, equipment replacement. Finish on <a href="pages/08-exam-practice.html">Exam Practice</a>.</p>
+    <p>Lock down <strong>cost classification</strong> (Ch 2) — the most common quick-marks question. Drill the <strong>COGM → income statement</strong> format (Ch 3) and the <strong>job-order journal entries + overhead variance</strong> (Ch 5) until automatic. Be ready to flip a statement into <strong>contribution format</strong> (Ch 4) and to run the <strong>direct vs step-down</strong> allocation (Ch 6). Finally rehearse the <strong>relevant-cost decision rules</strong> (Ch 7–8): special order, make-or-buy, constraints, equipment replacement. Finish on <a href="pages/11-exam-practice.html">Exam Practice</a>.</p>
   </div>
 </div>
 
@@ -65,9 +65,12 @@
       intro:          "Managerial vs financial accounting, the business environment, service/merchandising/manufacturing firms, the 3 inventories.",
       classification: "Product vs period, DM/DL/MOH, prime & conversion, direct vs indirect — with classification drills.",
       cogm:           "Schedule of cost of goods manufactured, COGS, unit cost + Medi, Howell & Mandelo fully solved.",
+      contribution:   "Variable vs fixed: the contribution-format income statement, contribution margin & CM ratio.",
+      joborder:       "Cost flow through 5 accounts, the 9 journal entries, the FOH Control account & overhead variance.",
+      service:        "Allocating service-dept cost to production: the direct & step-down methods, fully worked.",
       relevant:       "The 5-step decision process, relevant vs sunk costs, differential & opportunity cost.",
       decisions:      "Special order, make-or-buy, product mix under constraints, TOC, customer profitability, equipment replacement.",
-      practice:       "All five problem sets with complete, step-by-step worked solutions for self-testing."
+      practice:       "Every problem set — COGM, contribution, job-order & service allocation — solved step by step."
     };
     var grid = document.getElementById("topic-grid");
     var done = window.ACC.getProgress();

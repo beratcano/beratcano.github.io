@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6 · Service Department Allocation — Accounting Study Hub</title>
+<meta name="description" content="Allocating service department costs to production departments: the allocation base, the direct method and the step-down method, fully worked with the Collins Company data, plus computing production-department overhead rates afterward.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="service">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 6 · Overhead distribution</span>
+      <h1>Service Department Cost Allocation</h1>
+      <p class="lede">Service departments support the factory but never touch the product. Their cost can't vanish —
+      it must be pushed onto the production departments. Two methods do it: <strong>Direct</strong> and <strong>Step-Down</strong>.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <h2>The setup</h2>
+    <div class="vs">
+      <div class="card a"><h4>Production (producing) departments</h4><p class="small">Actually make the product (e.g. Assembly, Treating). <strong>Product cost is computed only here.</strong></p></div>
+      <div class="card b"><h4>Service departments</h4><p class="small">Support the factory but never touch the product (e.g. Materials Handling, Repairs &amp; Maintenance, Building &amp; Grounds).</p></div>
+    </div>
+    <div class="callout key"><span class="label">Goal</span><p>Push (<strong>allocate</strong>) <strong>all</strong> service-department cost onto the production departments, so every overhead dollar ends up where product cost is calculated.</p></div>
+
+    <h2>The allocation base (the "pizza split")</h2>
+    <p>Split cost by <strong>who used the service most</strong> — that measuring stick is the <strong>allocation base</strong>. Two steps:</p>
+    <div class="grid cols-2">
+      <div class="card"><h4>Step 1 — Rate</h4><p class="small">= service department's cost ÷ total base (cost per "slice")</p></div>
+      <div class="card"><h4>Step 2 — Share</h4><p class="small">= each dept's base amount × rate (slices × price)</p></div>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Service department</th><th>Allocation base</th></tr></thead>
+      <tbody>
+        <tr><th>Materials Handling</th><td>cost of materials requested</td></tr>
+        <tr><th>Repairs &amp; Maintenance</th><td>repair labor hours used</td></tr>
+        <tr><th>Building &amp; Grounds</th><td>square footage</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Always sanity-check: the pieces handed out must add back to the cost you started with.</p>
+
+    <h3>Collins Company data (used for both methods)</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Overhead to allocate</th><th>Mat. Handling</th><th>Repairs &amp; Maint.</th><th>Building &amp; Grounds</th><th>Assembly</th><th>Treating</th></tr></thead>
+      <tbody><tr><th>Before distribution</th><td>43,500</td><td>36,250</td><td>35,350</td><td>112,254</td><td>104,746</td></tr></tbody>
+    </table></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Used by ↓ / base →</th><th>Materials requested</th><th>Repair hours</th><th>Square footage</th></tr></thead>
+      <tbody>
+        <tr><th>Repairs &amp; Maintenance</th><td>30,000</td><td>—</td><td>9,460</td></tr>
+        <tr><th>Building &amp; Grounds</th><td>25,500</td><td>5,000</td><td>—</td></tr>
+        <tr><th>Assembly</th><td>33,000</td><td>1,100</td><td>40,000</td></tr>
+        <tr><th>Treating</th><td>42,000</td><td>2,300</td><td>30,000</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>Direct method</h2>
+    <p><strong>Rule:</strong> allocate each service department <strong>straight to the production departments only</strong>. Ignore service-to-service usage — so the base counts only Assembly + Treating.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Service dept</th><th>Cost ÷ production base</th><th>Rate</th></tr></thead>
+      <tbody>
+        <tr><th>Materials Handling</th><td>43,500 ÷ (33,000 + 42,000 = 75,000)</td><td>0.58</td></tr>
+        <tr><th>Repairs &amp; Maintenance</th><td>36,250 ÷ (1,100 + 2,300 = 3,400)</td><td>10.66</td></tr>
+        <tr><th>Building &amp; Grounds</th><td>35,350 ÷ (40,000 + 30,000 = 70,000)</td><td>0.505</td></tr>
+      </tbody>
+    </table></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th></th><th>Assembly</th><th>Treating</th></tr></thead>
+      <tbody>
+        <tr><td>Before distribution</td><td>112,254</td><td>104,746</td></tr>
+        <tr><td>+ Materials Handling (×0.58)</td><td>+19,140</td><td>+24,360</td></tr>
+        <tr><td>+ Repairs &amp; Maint. (×10.66)</td><td>+11,728</td><td>+24,522</td></tr>
+        <tr><td>+ Building &amp; Grounds (×0.505)</td><td>+20,200</td><td>+15,150</td></tr>
+        <tr><th>FINAL</th><td><strong>163,322</strong></td><td><strong>168,778</strong></td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Check: 163,322 + 168,778 = 332,100 = original total ✓. <strong>Direct method in one line:</strong> base = production only; nothing flows between service departments.</p>
+
+    <h2>Step-down method</h2>
+    <p><strong>Rule:</strong> put the service departments in an <strong>order</strong>; allocate one at a time, each spreading to <strong>everyone below it</strong> (remaining service depts + production). Two extra rules: (1) once allocated, a department is <strong>closed</strong> — never allocate back; (2) a department <strong>grows</strong> by what it receives before it spreads.</p>
+    <p class="small">Order: Materials Handling → Repairs &amp; Maintenance → Building &amp; Grounds.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Step</th><th>Mat. Handling</th><th>Repairs</th><th>Bldg &amp; Grounds</th><th>Assembly</th><th>Treating</th></tr></thead>
+      <tbody>
+        <tr><th>Before</th><td>43,500</td><td>36,250</td><td>35,350</td><td>112,254</td><td>104,746</td></tr>
+        <tr><th>1. Allocate Mat. Handling<br><span class="muted small">43,500 ÷ 130,500 ≈ 0.33</span></th><td>(43,500)</td><td>+9,900</td><td>+8,415</td><td>+10,890</td><td>+13,860</td></tr>
+        <tr><td>Running balance</td><td>0</td><td>46,150</td><td>43,765</td><td>123,144</td><td>118,606</td></tr>
+        <tr><th>2. Allocate Repairs<br><span class="muted small">46,150 ÷ 8,400 = 5.49</span></th><td>—</td><td>(46,150)</td><td>+27,450</td><td>+6,039</td><td>+12,627</td></tr>
+        <tr><td>Running balance</td><td>0</td><td>0</td><td>71,215</td><td>129,183</td><td>131,233</td></tr>
+        <tr><th>3. Allocate Bldg &amp; Grounds<br><span class="muted small">71,215 ÷ 70,000 ≈ 1.017</span></th><td>—</td><td>—</td><td>(71,215)</td><td>+40,694</td><td>+30,521</td></tr>
+        <tr><th>FINAL</th><td>0</td><td>0</td><td>0</td><td><strong>169,877</strong></td><td><strong>161,754</strong></td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout tip"><span class="label">Notes</span><p>Repairs grew 36,250 → 46,150 (received 9,900) <em>before</em> it spread. Step 2's base excludes Materials Handling (closed) → 5,000 + 1,100 + 2,300 = 8,400. The small rounding gap (≈469) is only from rounding the first rate to 0.33 (exact is ⅓); the method itself is exact.</p></div>
+
+    <h2>Direct vs Step-Down</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th></th><th>Direct</th><th>Step-Down</th></tr></thead>
+      <tbody>
+        <tr><th>Service-to-service usage</th><td>Ignored</td><td>Partly recognized (one direction)</td></tr>
+        <tr><th>Base for each service dept</th><td>Production depts only</td><td>All depts below it in the order</td></tr>
+        <tr><th>Service depts receive cost?</th><td>No</td><td>Yes (so they grow)</td></tr>
+        <tr><th>Order matters?</th><td>No</td><td>Yes</td></tr>
+        <tr><th>Allocate back to a closed dept?</th><td>n/a</td><td>Never</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout mnemonic"><span class="label">Mental model</span><p><strong>Direct</strong> = service depts pour straight down into production (no sideways flow). <strong>Step-Down</strong> = a staircase — each service dept cascades onto the ones below; the last drop lands in production.</p></div>
+
+    <h2>After allocation: production-department overhead rates</h2>
+    <div class="callout key"><span class="label">Final step</span>
+      <p>Once all service cost sits in the production departments, compute each one's rate (same idea as the predetermined rate):
+      <strong>Production Dept OH Rate = Total Overhead in that Dept ÷ Dept's Activity</strong> (e.g. machine-hours).</p></div>
+    <p class="small muted">Example (Lisa Lewis): divide each producing department's total overhead by its estimated machine-hours (Parts Fabrication 800 MH, Assembly 600 MH) to get a per-MH rate, then apply it to products. The full Lisa Lewis problem is in <a href="09-practice-problems.html">Practice</a>.</p>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>In the direct method, what is the allocation base for each service department?</summary>
+      <div class="answer">Only the <strong>production departments'</strong> usage — service-to-service usage is ignored.</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>State the two extra rules of the step-down method.</summary>
+      <div class="answer">(1) Once a department is allocated it's <strong>closed</strong> — never allocate back to it. (2) A department <strong>grows</strong> by cost received from earlier departments before it spreads its (bigger) total.</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>What's the two-step allocation calculation?</summary>
+      <div class="answer">Rate = service cost ÷ total base; each department's share = its base amount × rate. Shares must add back to the original cost.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>After allocation, how do you get a production department's overhead rate?</summary>
+      <div class="answer">Total overhead in that department ÷ the department's activity (e.g. machine-hours).</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>Does order matter in each method?</summary>
+      <div class="answer">Direct: no. Step-down: <strong>yes</strong> — you must allocate in a chosen sequence.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

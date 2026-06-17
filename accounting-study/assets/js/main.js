@@ -8,17 +8,20 @@
   "use strict";
 
   const PAGES = [
-    { id: "home",        path: "index.html",                    nav: "Home",            short: "Home" },
-    { id: "intro",       path: "pages/01-intro-managerial.html",nav: "1 · Intro",       short: "Intro to Managerial" },
+    { id: "home",        path: "index.html",                       nav: "Home",          short: "Home" },
+    { id: "intro",       path: "pages/01-intro-managerial.html",   nav: "1 · Intro",     short: "Intro to Managerial" },
     { id: "classification",path:"pages/02-cost-classification.html",nav:"2 · Cost Terms",short:"Cost Classification" },
-    { id: "cogm",        path: "pages/03-cost-of-goods.html",   nav: "3 · COGM",        short: "Cost of Goods Mfd" },
-    { id: "relevant",    path: "pages/04-relevant-costs.html",  nav: "4 · Relevant",    short: "Relevant Costs" },
-    { id: "decisions",   path: "pages/05-decision-making.html", nav: "5 · Decisions",   short: "Decision Making" },
-    { id: "practice",    path: "pages/06-practice-problems.html",nav:"Practice",        short: "Practice Problems" },
-    { id: "cheatsheets", path: "pages/07-cheatsheets.html",     nav: "Cheat Sheets",    short: "Cheat Sheets" },
-    { id: "exam",        path: "pages/08-exam-practice.html",   nav: "Exam Practice",   short: "Exam Practice" }
+    { id: "cogm",        path: "pages/03-cost-of-goods.html",      nav: "3 · COGM",      short: "Cost of Goods Mfd" },
+    { id: "contribution",path: "pages/04-contribution-format.html",nav: "4 · Contribution",short:"Contribution Format" },
+    { id: "joborder",    path: "pages/05-job-order-costing.html",  nav: "5 · Job Costing",short:"Job-Order Costing" },
+    { id: "service",     path: "pages/06-service-allocation.html", nav: "6 · Service Alloc",short:"Service Dept Allocation" },
+    { id: "relevant",    path: "pages/07-relevant-costs.html",     nav: "7 · Relevant",  short: "Relevant Costs" },
+    { id: "decisions",   path: "pages/08-decision-making.html",    nav: "8 · Decisions", short: "Decision Making" },
+    { id: "practice",    path: "pages/09-practice-problems.html",  nav: "Practice",      short: "Practice Problems" },
+    { id: "cheatsheets", path: "pages/10-cheatsheets.html",        nav: "Cheat Sheets",  short: "Cheat Sheets" },
+    { id: "exam",        path: "pages/11-exam-practice.html",      nav: "Exam Practice", short: "Exam Practice" }
   ];
-  const STUDY_IDS = ["intro","classification","cogm","relevant","decisions","practice"];
+  const STUDY_IDS = ["intro","classification","cogm","contribution","joborder","service","relevant","decisions","practice"];
 
   const root = document.body.getAttribute("data-root") || "";
   const pageId = document.body.getAttribute("data-page") || "home";

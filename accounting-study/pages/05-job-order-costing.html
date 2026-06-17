@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5 · Job-Order Costing — Accounting Study Hub</title>
+<meta name="description" content="Job-order costing: the flow of costs through five accounts, debit/credit logic, the Factory Overhead Control account, the nine journal entries, predetermined overhead rate, applied overhead and under/overapplied variance, plus departmental rates.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-page="joborder">
+<div id="site-header"></div>
+
+<div class="page">
+  <aside class="toc" id="toc"></aside>
+  <main>
+    <div class="page-head">
+      <span class="eyebrow">Chapter 5 · Cost accumulation</span>
+      <h1>Job-Order Costing: Flow of Costs &amp; Journal Entries</h1>
+      <p class="lede">When a company makes distinct, identifiable jobs, cost is tracked <strong>per job</strong> via journal
+      entries. Master the five accounts, the nine entries, and the overhead account that trips everyone up.</p>
+      <div class="btn-row" id="study-toggle"></div>
+    </div>
+
+    <h2>What problem are we solving?</h2>
+    <p>Earlier (COGM) we treated the whole factory as one bucket of totals. <strong>Job-order costing</strong> is used when products are distinct jobs (a print shop printing 5,000 books for Client A, then 200 invitations for Client B). Each job is unique, so we record the <strong>journey of cost</strong> — buy → use → finish → sell — with debits and credits.</p>
+
+    <h2>The 5 accounts costs travel through</h2>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><span class="s-title">Raw Materials Inv.</span><span class="s-sub">the storeroom</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">2</span><span class="s-title">Work-in-Process</span><span class="s-sub">the floor: DM + DL + FOH flow in</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">3</span><span class="s-title">Finished Goods</span><span class="s-sub">the warehouse</span></div><div class="arrow">→</div>
+      <div class="step"><span class="n">4</span><span class="s-title">Cost of Goods Sold</span><span class="s-sub">expense when sold</span></div>
+    </div>
+    <p class="small"><strong>5. Factory Overhead Control</strong> (= "Manufacturing Overhead") — a temporary <strong>collector</strong> for all indirect factory costs; it then feeds WIP through the side-door. Costs move left → right.</p>
+
+    <h2>The debit/credit logic</h2>
+    <p>One rule: <strong>assets &amp; expenses go UP with a DEBIT, DOWN with a CREDIT.</strong> All five accounts behave this way. Every entry is one of two flavors:</p>
+    <div class="vs">
+      <div class="card a"><h4>(A) Moving cost along the map</h4><p class="small">Cost leaves Room A (credit it, ↓) and enters Room B (debit it, ↑).</p>
+        <p class="small"><em>Materials to the floor:</em> <strong>Dr WIP / Cr Raw Materials Inventory.</strong></p></div>
+      <div class="card b"><h4>(B) Bringing cost in from outside</h4><p class="small">Debit the room it lands in; credit the source (Cash / A/P / Accum. Depr. / Wages Payable…).</p>
+        <p class="small"><em>Buy materials on account:</em> <strong>Dr Raw Materials Inv / Cr Accounts Payable.</strong></p></div>
+    </div>
+
+    <h2>The Factory Overhead Control account (the tricky one)</h2>
+    <p>DM and DL are traceable → straight into WIP. Overhead is <strong>indirect</strong>, arrives from many sources, and its true total isn't known until year-end. So we <strong>collect</strong> all indirect costs in one bucket, then push a clean <strong>estimated</strong> amount to WIP.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>DEBIT side = ACTUAL (in)</th><th>CREDIT side = APPLIED (out)</th></tr></thead>
+      <tbody>
+        <tr><td>indirect materials, indirect labor, rent, utilities, depreciation, insurance, taxes</td><td>applied to WIP (= predetermined rate × actual activity)</td></tr>
+        <tr><th>Total Actual</th><th>Total Applied</th></tr>
+      </tbody>
+    </table></div>
+    <div class="callout mnemonic"><span class="label">Memory hook</span><p>FOH Control is <strong>debited many times</strong> (each actual cost) and <strong>credited once</strong> (the single applying entry: <strong>Dr WIP / Cr FOH Control</strong>).</p></div>
+
+    <h3>The leftover: under/overapplied variance</h3>
+    <p>Actual and Applied almost never match — the leftover balance is the variance. The collector is temporary, so it must <strong>end at zero</strong>: close it to COGS.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Case</th><th>Closing entry</th><th>Effect on COGS</th></tr></thead>
+      <tbody>
+        <tr><th>Actual &gt; Applied → Underapplied</th><td>Dr COGS / Cr FOH Control</td><td>COGS goes <strong>up</strong> (add)</td></tr>
+        <tr><th>Actual &lt; Applied → Overapplied</th><td>Dr FOH Control / Cr COGS</td><td>COGS goes <strong>down</strong> (subtract)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout key"><span class="label">Remember</span><p><strong>Under</strong>applied → <strong>add</strong> to COGS (jobs were charged too little). <strong>Over</strong>applied → <strong>subtract</strong> from COGS.</p></div>
+
+    <h2>The full job — all 9 entries</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>#</th><th>Event</th><th>Debit</th><th>Credit</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Buy raw materials</td><td>Raw Materials Inv.</td><td>Accounts Payable</td></tr>
+        <tr><td>2</td><td>Issue materials</td><td>WIP (direct) + FOH Control (indirect)</td><td>Raw Materials Inv.</td></tr>
+        <tr><td>3</td><td>Payroll</td><td>WIP (direct labor) + FOH Control (indirect) + Selling/Admin Salaries</td><td>Cash / Wages Payable</td></tr>
+        <tr><td>4</td><td>Actual other overhead (rent, util., depr., insurance, tax)</td><td>FOH Control</td><td>Cash / Accum. Depr. / Prepaid / Payables</td></tr>
+        <tr><td>5</td><td>Apply overhead</td><td>WIP</td><td>FOH Control</td></tr>
+        <tr><td>6</td><td>Complete job</td><td>Finished Goods</td><td>WIP</td></tr>
+        <tr><td>7</td><td>Sell — revenue</td><td>Accounts Receivable</td><td>Sales Revenue</td></tr>
+        <tr><td>8</td><td>Sell — cost</td><td>Cost of Goods Sold</td><td>Finished Goods</td></tr>
+        <tr><td>9</td><td>Close variance</td><td>under: COGS / FOH — over: FOH / COGS</td><td></td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn"><span class="label">The 4 traps</span>
+      <ol class="small" style="margin:0;">
+        <li>Entries 2 &amp; 3 <strong>split</strong>: direct → WIP, indirect → FOH Control. Office/selling salaries are a <strong>third path</strong> → period expense (neither WIP nor FOH).</li>
+        <li>Entry 5 is <strong>applied</strong> (rate × actual driver), never actual.</li>
+        <li>A sale = <strong>two entries</strong> (7 revenue + 8 cost). Don't drop the cost side.</li>
+        <li>Splits inside one entry — e.g. insurance 90% factory / 10% office → factory part to FOH Control, office part to expense.</li>
+      </ol></div>
+
+    <h2>Applying overhead (predetermined rate)</h2>
+    <div class="callout key"><span class="label">The two formulas</span>
+      <p><strong>Predetermined OH Rate = Estimated Overhead ÷ Estimated Cost Driver</strong><br>
+      <strong>Applied Overhead = Predetermined OH Rate × Actual Cost Driver</strong></p></div>
+    <p>The cost driver can be machine hours, direct labor hours, or direct labor cost (a %):</p>
+    <ul class="small">
+      <li><strong>Smart Touch:</strong> rate = 40% of DL cost → 169,000 × 40% = 67,600 applied.</li>
+      <li><strong>Almeda:</strong> rate = 175% of DL cost → 200,000 × 175% = 350,000 applied.</li>
+      <li><strong>Departmental rates</strong> (e.g. Cavitt): compute a <strong>separate rate per department</strong> and apply each department's rate to its own activity — never blend departments.</li>
+    </ul>
+
+    <h2>After the entries: the statements</h2>
+    <div class="vs">
+      <div class="card a"><h4>COGM (same as Ch 3)</h4><p class="small">DM Used + Direct Labor + <strong>Applied</strong> FOH = manufacturing cost; + Beg WIP − End WIP = <strong>COGM</strong>.</p></div>
+      <div class="card b"><h4>COGS (with variance)</h4><p class="small">Beg FG + COGM − End FG = COGS (before variance); <strong>± overhead variance</strong> (under = +, over = −) = adjusted COGS.</p></div>
+    </div>
+    <p class="small muted">"Using applied overhead" → build with applied OH, then adjust COGS for the variance. "Using actual overhead" → fold actual overhead straight in (no separate variance step). Work the full <a href="09-practice-problems.html">Farid, Pineapple, Almeda, Cavitt, Don &amp; Constance problems</a> in the Practice chapter.</p>
+
+    <h2>Self-test</h2>
+    <details class="q"><summary><span class="q-badge">Q1</span>Name the five accounts costs flow through.</summary>
+      <div class="answer">Raw Materials Inventory → Work-in-Process → Finished Goods → Cost of Goods Sold, with Factory Overhead Control feeding WIP.</div></details>
+    <details class="q"><summary><span class="q-badge">Q2</span>Which side of FOH Control is actual, which is applied?</summary>
+      <div class="answer"><strong>Debit = actual</strong> (collected, many times). <strong>Credit = applied</strong> to WIP (once, = rate × actual driver).</div></details>
+    <details class="q"><summary><span class="q-badge">Q3</span>Underapplied vs overapplied — how do you close each to COGS?</summary>
+      <div class="answer"><strong>Underapplied</strong> (actual &gt; applied): Dr COGS / Cr FOH → adds to COGS. <strong>Overapplied</strong> (actual &lt; applied): Dr FOH / Cr COGS → subtracts from COGS.</div></details>
+    <details class="q"><summary><span class="q-badge">Q4</span>Write the predetermined rate and applied overhead formulas.</summary>
+      <div class="answer">Rate = Estimated Overhead ÷ Estimated Cost Driver. Applied = Rate × <strong>Actual</strong> Cost Driver.</div></details>
+    <details class="q"><summary><span class="q-badge">Q5</span>When materials are issued, where do the direct and indirect portions go?</summary>
+      <div class="answer">Direct materials → <strong>WIP</strong>; indirect materials → <strong>FOH Control</strong>; both credit Raw Materials Inventory.</div></details>
+
+    <div id="pager"></div>
+  </main>
+</div>
+
+<div id="site-footer"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
